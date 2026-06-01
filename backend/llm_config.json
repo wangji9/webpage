@@ -1,0 +1,5 @@
+{
+  "url_base": "https://api.aigogo.pro/v1/chat/completions",
+  "url_key": "sk-ucAL93JBvcoaoF1JrRzjtpaaHJYR0feWuPDJTaKHtxHKJ8Bb",
+  "default_model": "gpt-5.2"
+}

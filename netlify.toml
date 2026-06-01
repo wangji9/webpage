@@ -1,0 +1,7 @@
+[build]
+  command = "cd webpage/frontend && npm ci && npm run build"
+  publish = "webpage/frontend/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+

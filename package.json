@@ -1,0 +1,19 @@
+{
+  "name": "china-narrative-knowledge-platform",
+  "version": "0.3.0",
+  "private": true,
+  "description": "React + FastAPI 中国文学海外译介与中国叙事知识平台",
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend",
+    "pages:build": "npm install --prefix frontend && npm run build --prefix frontend",
+    "dev:backend": "python -m uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8002",
+    "dev:frontend": "cd frontend && npm.cmd run dev -- --host 127.0.0.1 --port 3000",
+    "check:backend": "python -m py_compile backend/app/main.py backend/app/api/routes.py backend/app/core/data.py backend/app/core/security.py",
+    "check:frontend": "npm run build --prefix frontend",
+    "check": "npm.cmd run check:backend"
+  },
+  "engines": {
+    "node": ">=18",
+    "python": ">=3.10"
+  }
+}
