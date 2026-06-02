@@ -1,8 +1,9 @@
 import { mockGraph, mockKnowledgeItems, mockResults, mockSections, mockSession, mockUsers } from "../data/mockData.js";
 
-// Use the updated FastAPI backend by default. VITE_API_BASE_URL can still override this
-// when deploying or when the backend is intentionally started on another port.
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8002";
+// Use same-origin API calls in production because FastAPI serves frontend/dist.
+// VITE_API_BASE_URL can still override this when the backend is intentionally
+// hosted on another domain.
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
 
 function urlFor(path) {
   if (!API_BASE) return path;
