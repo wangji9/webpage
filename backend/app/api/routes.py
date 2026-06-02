@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 from fastapi import APIRouter, Cookie, HTTPException, Response
+from fastapi.responses import StreamingResponse
 
 from backend.app.core.data import (
     GRAPH_DATA,
@@ -297,11 +298,12 @@ def chat_stream(payload: ChatRequest, sid: Optional[str] = Cookie(default=None))
         meta = {"retrieval_needed": retrieval_needed}
         yield f"data: {json.dumps({'meta': meta})}\n\n"
         try:
-            for chunk in stream_chat_completion(messages, model=payload.model or MODEL_PROVIDERS.get(payload.provider, {}).get('default_model') or 'gpt-4.1', timeout=120):
+            model = payload.model or "gpt-4.1"
+            for chunk in stream_chat_completion(messages, model=model, timeout=120):
                 # 逐个文本片段按 SSE 发送
                 yield f"data: {json.dumps({'text': chunk})}\n\n"
             yield "data: [DONE]\n\n"
         except RuntimeError as error:
             yield f"data: {json.dumps({'error': str(error)})}\n\n"
 
-    return Response(event_stream(), media_type="text/event-stream")
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
