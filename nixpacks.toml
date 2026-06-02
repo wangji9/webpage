@@ -1,16 +1,17 @@
-providers = ["python@3.12", "node@20"]
+providers = ["python", "node"]
+
+[env]
+PYTHON_VERSION = "3.12"
+NODE_VERSION = "20"
 
 [phases.install]
 cmds = [
-  "ls -la frontend/",  # 调试：列出frontend目录内容
-  "npm ci --prefix frontend || (echo 'npm ci failed, falling back to npm install' && npm install --prefix frontend)",
+  "npm install --prefix frontend",
   "pip install -r requirements.txt"
 ]
 
 [phases.build]
-cmds = [
-  "npm run build --prefix frontend"
-]
+cmds = ["npm run build --prefix frontend"]
 
 [start]
 cmd = "python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
