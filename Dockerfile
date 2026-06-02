@@ -19,4 +19,4 @@ COPY backend ./backend
 COPY --from=frontend-build /src/frontend/dist ./frontend/dist
 
 # 关键：必须用 $PORT，且绑定 0.0.0.0
-CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8000}"]
+CMD python -m uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-8000}
