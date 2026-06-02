@@ -80,6 +80,113 @@ function agentAnswer(question) {
   return "已基于当前故事集数据生成对应的图表结果。";
 }
 
+function normalizeMarkdown(text = "") {
+  return String(text)
+    .replace(/\r\n/g, "\n")
+    .replace(/\s+(#{2,4}\s+)/g, "\n\n$1")
+    .replace(/\s+(\d+\.\s+\*\*)/g, "\n$1")
+    .replace(/\s+(-\s+\*\*)/g, "\n$1")
+    .replace(/\s+(-\s+《)/g, "\n$1")
+    .trim();
+}
+
+function renderInlineMarkdown(text) {
+  const parts = String(text).split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index}>{part.slice(2, -2).trim()}</strong>;
+    }
+    return <span key={index}>{part}</span>;
+  });
+}
+
+function renderMarkdown(text) {
+  const lines = normalizeMarkdown(text).split("\n").map((line) => line.trim()).filter(Boolean);
+  const blocks = [];
+  let list = [];
+
+  function flushList() {
+    if (!list.length) return;
+    const ordered = list.every((item) => item.type === "ol");
+    const Tag = ordered ? "ol" : "ul";
+    blocks.push(
+      <Tag className="markdown-list" key={`list-${blocks.length}`}>
+        {list.map((item, index) => <li key={index}>{renderInlineMarkdown(item.text)}</li>)}
+      </Tag>
+    );
+    list = [];
+  }
+
+  lines.forEach((line) => {
+    const heading = line.match(/^(#{1,4})\s+(.+)$/);
+    if (heading) {
+      flushList();
+      const level = Math.min(heading[1].length + 2, 4);
+      const HeadingTag = `h${level}`;
+      blocks.push(<HeadingTag className="markdown-heading" key={`heading-${blocks.length}`}>{renderInlineMarkdown(heading[2])}</HeadingTag>);
+      return;
+    }
+
+    const ordered = line.match(/^\d+\.\s+(.+)$/);
+    if (ordered) {
+      list.push({ type: "ol", text: ordered[1] });
+      return;
+    }
+
+    const unordered = line.match(/^[-*]\s+(.+)$/);
+    if (unordered) {
+      list.push({ type: "ul", text: unordered[1] });
+      return;
+    }
+
+    flushList();
+    blocks.push(<p key={`p-${blocks.length}`}>{renderInlineMarkdown(line)}</p>);
+  });
+
+  flushList();
+  return blocks.length ? blocks : <p>{text}</p>;
+}
+
+function ChatAvatar({ role }) {
+  if (role === "user") {
+    return (
+      <div className="chat-avatar user-avatar" aria-hidden="true">
+        <svg viewBox="0 0 40 40" role="img">
+          <circle cx="20" cy="14" r="7" />
+          <path d="M8 34c1.8-8 6.3-12 12-12s10.2 4 12 12" />
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <div className="chat-avatar assistant-avatar" aria-hidden="true">
+      <svg viewBox="0 0 44 44" role="img">
+        <rect x="9" y="12" width="26" height="24" rx="8" />
+        <path d="M17 12V8m10 4V8M9 24H5m34 0h-4" />
+        <circle cx="18" cy="24" r="2.4" />
+        <circle cx="26" cy="24" r="2.4" />
+        <path d="M17 31c3 2 7 2 10 0" />
+      </svg>
+    </div>
+  );
+}
+
+function ChatMeta({ meta }) {
+  if (!meta) return null;
+  const elapsed = typeof meta.elapsed_ms === "number" ? `${(meta.elapsed_ms / 1000).toFixed(2)}s` : "计算中";
+  const tokenText = meta.tokens ? `${meta.token_estimated ? "约 " : ""}${meta.tokens}` : "未返回";
+  const evidence = Array.isArray(meta.evidence) && meta.evidence.length ? meta.evidence.slice(0, 4).join("；") : "无";
+  return (
+    <div className="chat-answer-meta">
+      <span>Token：{tokenText}</span>
+      <span>耗时：{elapsed}</span>
+      <span>数据库：{meta.database || "无"}</span>
+      <span>依据：{evidence}</span>
+    </div>
+  );
+}
+
 export default function SmartChat({ sections = [] }) {
   const [items, setItems] = useState([]);
   const [graph, setGraph] = useState(null);
@@ -177,25 +284,51 @@ export default function SmartChat({ sections = [] }) {
     const assistantIndex = nextMessages.length;
     setMessages([...nextMessages, { role: "assistant", text: "", question: userMessage.text, answer: { visuals: null }, streaming: true }]);
     let accumulated = "";
+    let scheduledFrame = 0;
+    let pendingText = "";
+    let responseMeta = {};
+
+    function updateStreamingMessage(text, streaming = true) {
+      pendingText = text;
+      if (scheduledFrame) return;
+      scheduledFrame = window.requestAnimationFrame(() => {
+        scheduledFrame = 0;
+        setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, text: pendingText, streaming } : item));
+      });
+    }
+
+    function flushStreamingMessage(text, streaming = false) {
+      if (scheduledFrame) {
+        window.cancelAnimationFrame(scheduledFrame);
+        scheduledFrame = 0;
+      }
+      setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, text, streaming } : item));
+    }
+
     try {
       await api.streamChat({ question: userMessage.text, sectionId, provider, model, retrievalMode, attachments }, (chunk) => {
+        if (chunk.meta) {
+          responseMeta = { ...responseMeta, ...chunk.meta };
+        }
         if (chunk.text) {
           accumulated += chunk.text;
-          setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, text: accumulated } : item));
+          updateStreamingMessage(accumulated);
         }
         if (chunk.error) {
-          setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, text: chunk.error, streaming: false } : item));
+          flushStreamingMessage(chunk.error, false);
+          setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, meta: responseMeta, retrievalMode } : item));
           setLoading(false);
         }
         if (chunk.done) {
-          const finalMessages = [...nextMessages, { role: "assistant", text: accumulated, question: userMessage.text, answer: { visuals: { type: inferVisual(userMessage.text, {}) } }, streaming: false }];
+          const finalText = accumulated || "大模型没有返回内容。";
+          const finalMessages = [...nextMessages, { role: "assistant", text: finalText, question: userMessage.text, answer: { visuals: { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, meta: responseMeta, retrievalMode, streaming: false }];
           setMessages(finalMessages);
           saveConversation(finalMessages);
           setLoading(false);
         }
       });
     } catch (error) {
-      const finalMessages = [...nextMessages, { role: "assistant", text: error.message || "大模型调用失败，请检查管理员接口配置。" }];
+      const finalMessages = [...nextMessages, { role: "assistant", text: error.message || "大模型调用失败，请检查管理员接口配置。", meta: responseMeta, retrievalMode }];
       setMessages(finalMessages);
       saveConversation(finalMessages);
       setLoading(false);
@@ -203,6 +336,7 @@ export default function SmartChat({ sections = [] }) {
   }
 
   function renderVisual(message) {
+    if (message.retrievalMode === "none") return null;
     const type = message.intent || inferVisual(message.question || message.text || "", message.answer || {});
     const answerItems = scopedItems.slice(0, 8);
     const flows = mockMapFlows.filter((flow) => flow.sectionId === sectionId);
@@ -249,8 +383,9 @@ export default function SmartChat({ sections = [] }) {
         </label>
         <label>检索技术
           <select value={retrievalMode} onChange={(event) => setRetrievalMode(event.target.value)}>
-            <option value="graph-rag">GraphRAG：实体消歧 + 子图扩展</option>
-            <option value="rag">RAG：语义召回 + 证据重排</option>
+            <option value="none">无：直接使用大模型</option>
+            <option value="graph-rag">GraphRAG：知识图谱</option>
+            <option value="rag">RAG：语义召回</option>
           </select>
         </label>
         <div className="agent-card">
@@ -271,15 +406,19 @@ export default function SmartChat({ sections = [] }) {
       <div className="chat-main work-panel">
         <div className="chat-thread">
           {messages.map((message, index) => (
-            <article className={`chat-bubble ${message.role}`} key={`${message.role}-${index}`}>
-              <p>{message.text}</p>
-              {message.attachments?.length > 0 && (
-                <div className="attachment-strip">{message.attachments.map((file) => <span key={file.id}>{file.name}</span>)}</div>
-              )}
-              {renderVisual(message)}
+            !message.text && message.streaming ? null :
+            <article className={`chat-message-row ${message.role}`} key={`${message.role}-${index}`}>
+              <ChatAvatar role={message.role} />
+              <div className={`chat-bubble ${message.role}`}>
+                <div className="markdown-body">{renderMarkdown(message.text)}</div>
+                {message.attachments?.length > 0 && (
+                  <div className="attachment-strip">{message.attachments.map((file) => <span key={file.id}>{file.name}</span>)}</div>
+                )}
+                {renderVisual(message)}
+                {message.role === "assistant" && <ChatMeta meta={message.meta} />}
+              </div>
             </article>
           ))}
-          {loading && <article className="chat-bubble assistant"><p>正在调用真实大模型，并结合知识库证据生成回答...</p></article>}
         </div>
         <form className="chat-composer advanced-composer" onSubmit={submit}>
           <div className="composer-attachments">
@@ -304,3 +443,4 @@ export default function SmartChat({ sections = [] }) {
     </section>
   );
 }
+

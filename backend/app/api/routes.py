@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Optional
+import time
 
 from fastapi import APIRouter, Cookie, HTTPException, Response
 from fastapi.responses import StreamingResponse
@@ -258,16 +259,21 @@ def chat(payload: ChatRequest, sid: Optional[str] = Cookie(default=None)):
 
 @router.post("/chat/stream")
 def chat_stream(payload: ChatRequest, sid: Optional[str] = Cookie(default=None)):
-    """流式回答：返回 Server-Sent Events，每个事件携带文本片段；首个事件返回 metadata（是否需要检索等）。"""
+    """Stream chat responses as Server-Sent Events."""
     if not configured():
         raise HTTPException(status_code=400, detail="尚未配置真实大模型 API。请先使用管理员账号进入管理控制台配置 url_base 和 url_key。")
 
+    started_at = time.perf_counter()
     section = next((item for item in KNOWLEDGE_SECTIONS if item["id"] == payload.sectionId), KNOWLEDGE_SECTIONS[0])
-    # 简单规则判断是否需要检索：疑似地名/作者/年份/‘图谱’/‘地图’ 等关键词时启用检索
+    direct_mode = payload.retrievalMode == "none"
     question_lower = (payload.question or "").lower()
-    retrieval_needed = any(k in question_lower for k in ["地图", "传播", "路线", "国家", "图谱", "关系", "作者", "译者", "年份", "year", "city", "country"]) or payload.retrievalMode == "graph-rag"
+    retrieval_needed = not direct_mode and (
+        payload.retrievalMode in {"graph-rag", "rag"}
+        or any(k in question_lower for k in ["地图", "传播", "路线", "国家", "图谱", "关系", "作者", "译者", "年份", "year", "city", "country"])
+    )
 
-    # 如果需要检索则构建上下文，否则直接发起简短请求
+    target_items = []
+    context_lines = []
     if retrieval_needed:
         target_items = select_target_items(payload, section)
         context_lines = [
@@ -278,32 +284,59 @@ def chat_stream(payload: ChatRequest, sid: Optional[str] = Cookie(default=None))
             f"用户问题：{payload.question}\n"
             f"知识库分区：{section['title']}\n"
             f"检索模式：{payload.retrievalMode}\n"
-            f"召回证据：\n" + "\n".join(context_lines)
+            "召回证据：\n" + "\n".join(context_lines)
         )
     else:
         user_prompt = payload.question or ""
 
-    system_prompt = (
-        "你是中国文学海外译介与中国叙事知识平台的研究型智能问答助手。"
-        "请使用 Markdown 格式组织回答。简单问题直接给出答案；需要基于知识库/图谱回答时，在回答开头标注 [RETRIEVAL] 并列出使用到的证据条目。"
-    )
+    if direct_mode:
+        system_prompt = (
+            f"你是当前被调用的大模型，模型标识为 {payload.model or 'default'}。"
+            "请直接回答用户问题，不要检索知识库，不要添加平台说明。"
+            "如果用户询问你是什么模型，请按当前模型标识回答。回答使用 Markdown。"
+        )
+    else:
+        system_prompt = (
+            "你是中国文学海外译介与中国叙事知识平台的研究型智能问答助手。"
+            "请使用 Markdown 格式组织回答。需要基于知识库/图谱回答时，在回答开头标注 [RETRIEVAL]，"
+            "并列出使用到的证据条目。"
+        )
 
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt}
+        {"role": "user", "content": user_prompt},
     ]
 
     def event_stream():
-        # 首个事件发送 metadata
-        meta = {"retrieval_needed": retrieval_needed}
-        yield f"data: {json.dumps({'meta': meta})}\n\n"
+        meta = {
+            "retrieval_needed": retrieval_needed,
+            "retrieval_mode": payload.retrievalMode,
+            "database": "无（直接调用大模型）" if direct_mode else section["title"],
+            "evidence": [] if direct_mode else [f"{item['canonicalTitle']} / {item['translatedTitle']}" for item in target_items],
+            "model": payload.model or "default",
+        }
+        yield f"data: {json.dumps({'meta': meta}, ensure_ascii=False)}\n\n"
+        answer_text = ""
         try:
             model = payload.model or "gpt-4.1"
             for chunk in stream_chat_completion(messages, model=model, timeout=120):
-                # 逐个文本片段按 SSE 发送
-                yield f"data: {json.dumps({'text': chunk})}\n\n"
+                answer_text += chunk
+                yield f"data: {json.dumps({'text': chunk}, ensure_ascii=False)}\n\n"
+            elapsed_ms = int((time.perf_counter() - started_at) * 1000)
+            approx_tokens = max(1, round((len(system_prompt) + len(user_prompt) + len(answer_text)) / 1.8))
+            yield f"data: {json.dumps({'meta': {**meta, 'elapsed_ms': elapsed_ms, 'tokens': approx_tokens, 'token_estimated': True}}, ensure_ascii=False)}\n\n"
             yield "data: [DONE]\n\n"
         except RuntimeError as error:
-            yield f"data: {json.dumps({'error': str(error)})}\n\n"
+            elapsed_ms = int((time.perf_counter() - started_at) * 1000)
+            yield f"data: {json.dumps({'meta': {**meta, 'elapsed_ms': elapsed_ms, 'tokens': max(1, round((len(system_prompt) + len(user_prompt)) / 1.8)), 'token_estimated': True}}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'error': str(error)}, ensure_ascii=False)}\n\n"
+        except Exception as error:
+            elapsed_ms = int((time.perf_counter() - started_at) * 1000)
+            yield f"data: {json.dumps({'meta': {**meta, 'elapsed_ms': elapsed_ms, 'tokens': max(1, round((len(system_prompt) + len(user_prompt)) / 1.8)), 'token_estimated': True}}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'error': f'智能问答服务异常：{type(error).__name__}: {error}'}, ensure_ascii=False)}\n\n"
 
-    return StreamingResponse(event_stream(), media_type="text/event-stream")
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={"X-Accel-Buffering": "no"},
+    )

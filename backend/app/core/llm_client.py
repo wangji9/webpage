@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import urllib.error
 import urllib.request
@@ -30,6 +31,15 @@ def _load_config() -> dict[str, str]:
             }
         except Exception:
             pass
+    env_url_base = os.environ.get("LLM_URL_BASE", "").strip()
+    env_url_key = os.environ.get("LLM_URL_KEY", "").strip()
+    env_default_model = os.environ.get("LLM_DEFAULT_MODEL", "").strip()
+    if env_url_base:
+        _config["url_base"] = env_url_base
+    if env_url_key:
+        _config["url_key"] = env_url_key
+    if env_default_model:
+        _config["default_model"] = env_default_model
     return _config
 
 
