@@ -24,6 +24,21 @@ function downloadJson() {
   URL.revokeObjectURL(url);
 }
 
+function builtInPrefaces() {
+  return Object.fromEntries((storyData.prefaces || [])
+    .filter((item) => item.collectionId && item.text)
+    .map((item) => [item.collectionId, {
+      text: item.text,
+      filename: "中国故事集_序跋.xlsx",
+      author: item.author,
+      updatedAt: item.yearText || "未记录年份",
+      sourceTitle: item.collectionTitle,
+      year: item.year,
+      type: item.type,
+      intro: item.intro
+    }]));
+}
+
 function short(text, limit = 18) {
   const value = String(text || "未记录");
   return value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
@@ -156,14 +171,14 @@ function PrefaceVisuals({ collections, prefaces, onUpload, onPreview }) {
       <div className="work-panel preface-visual-panel">
         <div className="panel-title-row">
           <div>
-            <strong>序跋中文版本图谱</strong>
+            <strong>德译中国故事集序跋辑录</strong>
             <span>已上传 {uploaded.length} 份；总表中可识别序跋作者 {knownPrefaceRows.length} 条。</span>
           </div>
           <label className="upload-button compact-upload">上传序跋表
             <input type="file" accept=".txt,.md,.csv,.tsv,.json,.xlsx,.xls" onChange={onUpload} />
           </label>
         </div>
-        <svg viewBox="0 0 1040 420" className="preface-svg" role="img" aria-label="序跋中文版本图谱">
+        <svg viewBox="0 0 1040 420" className="preface-svg" role="img" aria-label="德译中国故事集序跋辑录">
           <rect width="1040" height="420" fill="#fff" />
           <g transform="translate(48 58)">
             <text className="chart-title" x="0" y="-20">序跋作者分布</text>
@@ -269,7 +284,7 @@ export default function StoryCollectionResearch() {
   const [selectedId, setSelectedId] = useState(storyData.collections[0]?.id || "");
   const [childLimit, setChildLimit] = useState(24);
   const [activeMode, setActiveMode] = useState("collections");
-  const [prefaces, setPrefaces] = useState(() => loadPrefaces());
+  const [prefaces, setPrefaces] = useState(() => ({ ...builtInPrefaces(), ...loadPrefaces() }));
   const [prefacePreview, setPrefacePreview] = useState(null);
   const [notice, setNotice] = useState("");
   const childById = useMemo(() => new Map(storyData.childStories.map((item) => [item.id, item])), []);
@@ -343,7 +358,7 @@ export default function StoryCollectionResearch() {
 
   const functionCards = [
     { id: "collections", target: "visual-atlas-identity-process", title: "百部德译故事集图谱", meta: "译者身份流变 / 出版地图 / 取材来源" },
-    { id: "prefaces", target: "visual-atlas-preface-cluster", title: "序跋中文版本图谱", meta: "主题聚类 / 词云 / 本地序跋" },
+    { id: "prefaces", target: "visual-atlas-preface-cluster", title: "德译中国故事集序跋辑录", meta: "主题聚类 / 词云 / 序跋文本" },
     { id: "children", target: "visual-atlas-child-co", title: "子故事知识图谱", meta: `${storyData.stats.childCount} 条子故事 / 主题共现` }
   ];
 
@@ -379,7 +394,7 @@ export default function StoryCollectionResearch() {
           </button>
         ))}
         <button className="wilhelm-entry-card" type="button" onClick={() => { window.location.hash = "wilhelm"; }}>
-          <strong>卫礼贤中国民间故事</strong>
+          <strong>卫礼贤《中国民间童话》</strong>
           <span>进入独立专题库</span>
         </button>
       </div>
@@ -455,8 +470,6 @@ export default function StoryCollectionResearch() {
         </aside>
       </div>
 
-      <StoryVisualAtlas mode={activeMode} prefaces={prefaces} />
-
       <div className="work-panel child-story-panel">
         <div className="panel-title-row">
           <div>
@@ -501,6 +514,8 @@ export default function StoryCollectionResearch() {
           </table>
         </div>
       </div>
+
+      <StoryVisualAtlas mode={activeMode} prefaces={prefaces} />
 
       <StatisticsPanel items={statsItems} title="多语种中国故事集全库统计可视化" />
 

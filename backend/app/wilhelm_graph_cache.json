@@ -1,0 +1,7574 @@
+{
+  "wilhelm-story-002": {
+    "nodes": [
+      {
+        "id": "N1",
+        "label": "妇言离间骨肉亲",
+        "type": "故事",
+        "count": 1,
+        "summary": "兄弟同住却因嫂嫂挑拨与欺骗而疏远，弟弟因独穗与洛克鸟得富，哥哥贪婪效仿终被烈日烤死。"
+      },
+      {
+        "id": "N2",
+        "label": "弟弟",
+        "type": "人物",
+        "count": 1,
+        "summary": "勤劳诚实、知足克制，借得熟种后仍悉心照料独秆，后随洛克鸟至金银岛取少量财物致富。"
+      },
+      {
+        "id": "N3",
+        "label": "哥哥",
+        "type": "人物",
+        "count": 1,
+        "summary": "受妻子影响而疏远弟弟，见弟致富后心生嫉妒，效仿登岛却因贪婪误时，最终被烈日炙死。"
+      },
+      {
+        "id": "N4",
+        "label": "哥哥之妻",
+        "type": "人物",
+        "count": 1,
+        "summary": "故事中的离间者与祸因，先将种子煮熟交给弟弟，后又教唆哥哥照做，推动兄弟失和与悲剧。"
+      },
+      {
+        "id": "N5",
+        "label": "洛克鸟",
+        "type": "动物",
+        "count": 2,
+        "summary": "会说人话的巨鸟，两次衔走独穗并驮人飞越大海前往金银岛，既奖善也警戒贪婪。"
+      },
+      {
+        "id": "N6",
+        "label": "金银岛",
+        "type": "空间",
+        "count": 2,
+        "summary": "位于大海东边、遍布金银器物与财宝的神异岛屿，是弟弟获福与哥哥罹祸的关键场所。"
+      },
+      {
+        "id": "N7",
+        "label": "兄弟同屋",
+        "type": "空间",
+        "count": 1,
+        "summary": "兄弟原本共同居住的家庭空间，象征骨肉亲近，也见证了关系破裂。"
+      },
+      {
+        "id": "N8",
+        "label": "弟弟的田地",
+        "type": "空间",
+        "count": 1,
+        "summary": "弟弟播撒熟种、培育独秆并收获独穗的劳动场所。"
+      },
+      {
+        "id": "N9",
+        "label": "海滩",
+        "type": "空间",
+        "count": 2,
+        "summary": "弟弟与哥哥追逐洛克鸟抵达的海边边界空间，也是凡世通往异岛的门槛。"
+      },
+      {
+        "id": "N10",
+        "label": "大海",
+        "type": "空间",
+        "count": 2,
+        "summary": "洛克鸟驮人飞越的广阔水域，连接家园、海滩与金银岛，也承接最后鸟入海避热的情节。"
+      },
+      {
+        "id": "N11",
+        "label": "熟粟种",
+        "type": "物象",
+        "count": 2,
+        "summary": "被嫂嫂故意煮熟后交出的粟米种子，象征暗害与家庭内部的不义。"
+      },
+      {
+        "id": "N12",
+        "label": "未熟透的一粒种子",
+        "type": "物象",
+        "count": 2,
+        "summary": "在大量熟种中幸存的一粒，成为独秆生长的起点，象征余福与转机。"
+      },
+      {
+        "id": "N13",
+        "label": "独秆",
+        "type": "物象",
+        "count": 2,
+        "summary": "唯一长出的茎秆，在弟弟与哥哥田中都异常高大，成为通向奇遇的媒介。"
+      },
+      {
+        "id": "N14",
+        "label": "独穗",
+        "type": "物象",
+        "count": 2,
+        "summary": "如华盖般巨大成熟的穗子，被洛克鸟衔走，引出追逐与登岛。"
+      },
+      {
+        "id": "N15",
+        "label": "金银财宝",
+        "type": "物象",
+        "count": 2,
+        "summary": "岛上遍地可取的财富，既成全知足者，也诱陷贪婪者。"
+      },
+      {
+        "id": "N16",
+        "label": "烈日",
+        "type": "物象",
+        "count": 1,
+        "summary": "金银岛上的致命酷热来源，太阳升起后炙烤哥哥而死，象征天罚。"
+      },
+      {
+        "id": "N17",
+        "label": "借种播种",
+        "type": "事件",
+        "count": 1,
+        "summary": "弟弟因无种向哥哥借种并播下熟种，开启后续奇异经历。"
+      },
+      {
+        "id": "N18",
+        "label": "煮种害弟",
+        "type": "事件",
+        "count": 1,
+        "summary": "嫂嫂违背哥哥吩咐，将种子煮熟后交给弟弟，造成其田中难以出苗。"
+      },
+      {
+        "id": "N19",
+        "label": "培育独秆",
+        "type": "事件",
+        "count": 1,
+        "summary": "弟弟勤劳浇灌、松土，使唯一生出的茎秆长成如树般壮实。"
+      },
+      {
+        "id": "N20",
+        "label": "洛克鸟衔穗",
+        "type": "事件",
+        "count": 2,
+        "summary": "穗子落地后洛克鸟突然飞来将其衔走，迫使兄弟追逐至海滩。"
+      },
+      {
+        "id": "N21",
+        "label": "飞渡赴岛",
+        "type": "事件",
+        "count": 2,
+        "summary": "洛克鸟让人闭眼，驮其飞越狂风与海浪，抵达大海东边的金银岛。"
+      },
+      {
+        "id": "N22",
+        "label": "知足取财",
+        "type": "事件",
+        "count": 1,
+        "summary": "弟弟在岛上只取数十件小巧财物，听从洛克鸟劝告及时返回。"
+      },
+      {
+        "id": "N23",
+        "label": "致富归家",
+        "type": "事件",
+        "count": 1,
+        "summary": "弟弟返家后购置良田，生活渐渐富裕。"
+      },
+      {
+        "id": "N24",
+        "label": "效仿登岛",
+        "type": "事件",
+        "count": 1,
+        "summary": "哥哥听闻经过后在妻子教唆下复制弟弟经历，追随洛克鸟抵达金银岛。"
+      },
+      {
+        "id": "N25",
+        "label": "贪财误时",
+        "type": "事件",
+        "count": 1,
+        "summary": "哥哥在岛上不断多取金银，无视洛克鸟催促，拖延至日出。"
+      },
+      {
+        "id": "N26",
+        "label": "烈日烤死哥哥",
+        "type": "事件",
+        "count": 1,
+        "summary": "太阳升起后洛克鸟入海避热，哥哥因贪恋财宝停留过久而被炙死。"
+      },
+      {
+        "id": "N27",
+        "label": "离间骨肉",
+        "type": "母题",
+        "count": 1,
+        "summary": "妇人言语与行为破坏兄弟亲情，是故事标题与伦理批评的核心。"
+      },
+      {
+        "id": "N28",
+        "label": "报偿与惩戒",
+        "type": "母题",
+        "count": 1,
+        "summary": "勤劳知足者得福，嫉妒贪婪者受罚，体现鲜明道德裁断。"
+      },
+      {
+        "id": "N29",
+        "label": "知足",
+        "type": "观念",
+        "count": 1,
+        "summary": "弟弟身上体现的价值观，也是洛克鸟明确强调的避祸之道。"
+      },
+      {
+        "id": "N30",
+        "label": "贪婪",
+        "type": "观念",
+        "count": 1,
+        "summary": "哥哥被财富迷惑的心理状态，直接导致拖延与死亡。"
+      }
+    ],
+    "edges": [
+      {
+        "source": "N1",
+        "target": "N2",
+        "relation": "主角",
+        "weight": 5
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "relation": "主角",
+        "weight": 5
+      },
+      {
+        "source": "N1",
+        "target": "N4",
+        "relation": "关键人物",
+        "weight": 5
+      },
+      {
+        "source": "N1",
+        "target": "N5",
+        "relation": "包含角色",
+        "weight": 4
+      },
+      {
+        "source": "N1",
+        "target": "N27",
+        "relation": "包含母题",
+        "weight": 5
+      },
+      {
+        "source": "N1",
+        "target": "N28",
+        "relation": "包含母题",
+        "weight": 5
+      },
+      {
+        "source": "N1",
+        "target": "N17",
+        "relation": "包含事件",
+        "weight": 4
+      },
+      {
+        "source": "N1",
+        "target": "N26",
+        "relation": "结局事件",
+        "weight": 5
+      },
+      {
+        "source": "N3",
+        "target": "N2",
+        "relation": "兄弟",
+        "weight": 5
+      },
+      {
+        "source": "N3",
+        "target": "N4",
+        "relation": "夫妻",
+        "weight": 5
+      },
+      {
+        "source": "N3",
+        "target": "N7",
+        "relation": "居住于",
+        "weight": 3
+      },
+      {
+        "source": "N2",
+        "target": "N7",
+        "relation": "居住于",
+        "weight": 3
+      },
+      {
+        "source": "N4",
+        "target": "N27",
+        "relation": "触发",
+        "weight": 5
+      },
+      {
+        "source": "N18",
+        "target": "N4",
+        "relation": "发起者",
+        "weight": 5
+      },
+      {
+        "source": "N18",
+        "target": "N11",
+        "relation": "处理对象",
+        "weight": 5
+      },
+      {
+        "source": "N18",
+        "target": "N2",
+        "relation": "加害于",
+        "weight": 5
+      },
+      {
+        "source": "N17",
+        "target": "N2",
+        "relation": "执行者",
+        "weight": 4
+      },
+      {
+        "source": "N17",
+        "target": "N3",
+        "relation": "求借于",
+        "weight": 4
+      },
+      {
+        "source": "N17",
+        "target": "N11",
+        "relation": "播种对象",
+        "weight": 4
+      },
+      {
+        "source": "N17",
+        "target": "N8",
+        "relation": "发生于",
+        "weight": 4
+      },
+      {
+        "source": "N11",
+        "target": "N12",
+        "relation": "残存",
+        "weight": 3
+      },
+      {
+        "source": "N12",
+        "target": "N13",
+        "relation": "长成",
+        "weight": 5
+      },
+      {
+        "source": "N19",
+        "target": "N2",
+        "relation": "执行者",
+        "weight": 5
+      },
+      {
+        "source": "N19",
+        "target": "N13",
+        "relation": "培育对象",
+        "weight": 5
+      },
+      {
+        "source": "N19",
+        "target": "N8",
+        "relation": "发生于",
+        "weight": 4
+      },
+      {
+        "source": "N13",
+        "target": "N14",
+        "relation": "抽出",
+        "weight": 5
+      },
+      {
+        "source": "N20",
+        "target": "N5",
+        "relation": "执行者",
+        "weight": 5
+      },
+      {
+        "source": "N20",
+        "target": "N14",
+        "relation": "衔走对象",
+        "weight": 5
+      },
+      {
+        "source": "N20",
+        "target": "N9",
+        "relation": "引至",
+        "weight": 4
+      },
+      {
+        "source": "N2",
+        "target": "N20",
+        "relation": "追逐",
+        "weight": 4
+      },
+      {
+        "source": "N21",
+        "target": "N5",
+        "relation": "执行者",
+        "weight": 5
+      },
+      {
+        "source": "N21",
+        "target": "N6",
+        "relation": "抵达",
+        "weight": 5
+      },
+      {
+        "source": "N21",
+        "target": "N10",
+        "relation": "飞越",
+        "weight": 4
+      },
+      {
+        "source": "N22",
+        "target": "N2",
+        "relation": "执行者",
+        "weight": 5
+      },
+      {
+        "source": "N22",
+        "target": "N15",
+        "relation": "获取",
+        "weight": 5
+      },
+      {
+        "source": "N22",
+        "target": "N29",
+        "relation": "体现",
+        "weight": 5
+      },
+      {
+        "source": "N5",
+        "target": "N29",
+        "relation": "劝诫",
+        "weight": 5
+      },
+      {
+        "source": "N23",
+        "target": "N2",
+        "relation": "受益者",
+        "weight": 5
+      },
+      {
+        "source": "N23",
+        "target": "N15",
+        "relation": "来源于",
+        "weight": 4
+      },
+      {
+        "source": "N23",
+        "target": "N28",
+        "relation": "体现",
+        "weight": 4
+      },
+      {
+        "source": "N3",
+        "target": "N23",
+        "relation": "嫉妒",
+        "weight": 4
+      },
+      {
+        "source": "N24",
+        "target": "N3",
+        "relation": "执行者",
+        "weight": 5
+      },
+      {
+        "source": "N24",
+        "target": "N4",
+        "relation": "受教唆于",
+        "weight": 5
+      },
+      {
+        "source": "N24",
+        "target": "N6",
+        "relation": "前往",
+        "weight": 4
+      },
+      {
+        "source": "N24",
+        "target": "N5",
+        "relation": "借助",
+        "weight": 4
+      },
+      {
+        "source": "N25",
+        "target": "N3",
+        "relation": "执行者",
+        "weight": 5
+      },
+      {
+        "source": "N25",
+        "target": "N15",
+        "relation": "贪取对象",
+        "weight": 5
+      },
+      {
+        "source": "N25",
+        "target": "N30",
+        "relation": "体现",
+        "weight": 5
+      },
+      {
+        "source": "N5",
+        "target": "N25",
+        "relation": "催促停止",
+        "weight": 4
+      },
+      {
+        "source": "N26",
+        "target": "N3",
+        "relation": "致死",
+        "weight": 5
+      },
+      {
+        "source": "N26",
+        "target": "N16",
+        "relation": "致死因素",
+        "weight": 5
+      },
+      {
+        "source": "N26",
+        "target": "N28",
+        "relation": "体现",
+        "weight": 5
+      },
+      {
+        "source": "N16",
+        "target": "N30",
+        "relation": "惩罚",
+        "weight": 4
+      },
+      {
+        "source": "N5",
+        "target": "N28",
+        "relation": "执行奖惩",
+        "weight": 4
+      },
+      {
+        "source": "N27",
+        "target": "N18",
+        "relation": "通过事件表现",
+        "weight": 4
+      },
+      {
+        "source": "N28",
+        "target": "N22",
+        "relation": "奖赏知足",
+        "weight": 4
+      },
+      {
+        "source": "N28",
+        "target": "N26",
+        "relation": "惩戒贪婪",
+        "weight": 5
+      },
+      {
+        "source": "N6",
+        "target": "N15",
+        "relation": "充满",
+        "weight": 5
+      },
+      {
+        "source": "N5",
+        "target": "N6",
+        "relation": "往返于",
+        "weight": 4
+      }
+    ],
+    "triples": [
+      {
+        "subject": "N1",
+        "predicate": "主角",
+        "object": "N2",
+        "weight": 5
+      },
+      {
+        "subject": "N1",
+        "predicate": "主角",
+        "object": "N3",
+        "weight": 5
+      },
+      {
+        "subject": "N1",
+        "predicate": "关键人物",
+        "object": "N4",
+        "weight": 5
+      },
+      {
+        "subject": "N1",
+        "predicate": "包含角色",
+        "object": "N5",
+        "weight": 4
+      },
+      {
+        "subject": "N1",
+        "predicate": "包含母题",
+        "object": "N27",
+        "weight": 5
+      },
+      {
+        "subject": "N1",
+        "predicate": "包含母题",
+        "object": "N28",
+        "weight": 5
+      },
+      {
+        "subject": "N1",
+        "predicate": "包含事件",
+        "object": "N17",
+        "weight": 4
+      },
+      {
+        "subject": "N1",
+        "predicate": "结局事件",
+        "object": "N26",
+        "weight": 5
+      },
+      {
+        "subject": "N3",
+        "predicate": "兄弟",
+        "object": "N2",
+        "weight": 5
+      },
+      {
+        "subject": "N3",
+        "predicate": "夫妻",
+        "object": "N4",
+        "weight": 5
+      },
+      {
+        "subject": "N3",
+        "predicate": "居住于",
+        "object": "N7",
+        "weight": 3
+      },
+      {
+        "subject": "N2",
+        "predicate": "居住于",
+        "object": "N7",
+        "weight": 3
+      },
+      {
+        "subject": "N4",
+        "predicate": "触发",
+        "object": "N27",
+        "weight": 5
+      },
+      {
+        "subject": "N18",
+        "predicate": "发起者",
+        "object": "N4",
+        "weight": 5
+      },
+      {
+        "subject": "N18",
+        "predicate": "处理对象",
+        "object": "N11",
+        "weight": 5
+      },
+      {
+        "subject": "N18",
+        "predicate": "加害于",
+        "object": "N2",
+        "weight": 5
+      },
+      {
+        "subject": "N17",
+        "predicate": "执行者",
+        "object": "N2",
+        "weight": 4
+      },
+      {
+        "subject": "N17",
+        "predicate": "求借于",
+        "object": "N3",
+        "weight": 4
+      },
+      {
+        "subject": "N17",
+        "predicate": "播种对象",
+        "object": "N11",
+        "weight": 4
+      },
+      {
+        "subject": "N17",
+        "predicate": "发生于",
+        "object": "N8",
+        "weight": 4
+      },
+      {
+        "subject": "N11",
+        "predicate": "残存",
+        "object": "N12",
+        "weight": 3
+      },
+      {
+        "subject": "N12",
+        "predicate": "长成",
+        "object": "N13",
+        "weight": 5
+      },
+      {
+        "subject": "N19",
+        "predicate": "执行者",
+        "object": "N2",
+        "weight": 5
+      },
+      {
+        "subject": "N19",
+        "predicate": "培育对象",
+        "object": "N13",
+        "weight": 5
+      },
+      {
+        "subject": "N19",
+        "predicate": "发生于",
+        "object": "N8",
+        "weight": 4
+      },
+      {
+        "subject": "N13",
+        "predicate": "抽出",
+        "object": "N14",
+        "weight": 5
+      },
+      {
+        "subject": "N20",
+        "predicate": "执行者",
+        "object": "N5",
+        "weight": 5
+      },
+      {
+        "subject": "N20",
+        "predicate": "衔走对象",
+        "object": "N14",
+        "weight": 5
+      },
+      {
+        "subject": "N20",
+        "predicate": "引至",
+        "object": "N9",
+        "weight": 4
+      },
+      {
+        "subject": "N2",
+        "predicate": "追逐",
+        "object": "N20",
+        "weight": 4
+      },
+      {
+        "subject": "N21",
+        "predicate": "执行者",
+        "object": "N5",
+        "weight": 5
+      },
+      {
+        "subject": "N21",
+        "predicate": "抵达",
+        "object": "N6",
+        "weight": 5
+      },
+      {
+        "subject": "N21",
+        "predicate": "飞越",
+        "object": "N10",
+        "weight": 4
+      },
+      {
+        "subject": "N22",
+        "predicate": "执行者",
+        "object": "N2",
+        "weight": 5
+      },
+      {
+        "subject": "N22",
+        "predicate": "获取",
+        "object": "N15",
+        "weight": 5
+      },
+      {
+        "subject": "N22",
+        "predicate": "体现",
+        "object": "N29",
+        "weight": 5
+      },
+      {
+        "subject": "N5",
+        "predicate": "劝诫",
+        "object": "N29",
+        "weight": 5
+      },
+      {
+        "subject": "N23",
+        "predicate": "受益者",
+        "object": "N2",
+        "weight": 5
+      },
+      {
+        "subject": "N23",
+        "predicate": "来源于",
+        "object": "N15",
+        "weight": 4
+      },
+      {
+        "subject": "N23",
+        "predicate": "体现",
+        "object": "N28",
+        "weight": 4
+      },
+      {
+        "subject": "N3",
+        "predicate": "嫉妒",
+        "object": "N23",
+        "weight": 4
+      },
+      {
+        "subject": "N24",
+        "predicate": "执行者",
+        "object": "N3",
+        "weight": 5
+      },
+      {
+        "subject": "N24",
+        "predicate": "受教唆于",
+        "object": "N4",
+        "weight": 5
+      },
+      {
+        "subject": "N24",
+        "predicate": "前往",
+        "object": "N6",
+        "weight": 4
+      },
+      {
+        "subject": "N24",
+        "predicate": "借助",
+        "object": "N5",
+        "weight": 4
+      },
+      {
+        "subject": "N25",
+        "predicate": "执行者",
+        "object": "N3",
+        "weight": 5
+      },
+      {
+        "subject": "N25",
+        "predicate": "贪取对象",
+        "object": "N15",
+        "weight": 5
+      },
+      {
+        "subject": "N25",
+        "predicate": "体现",
+        "object": "N30",
+        "weight": 5
+      },
+      {
+        "subject": "N5",
+        "predicate": "催促停止",
+        "object": "N25",
+        "weight": 4
+      },
+      {
+        "subject": "N26",
+        "predicate": "致死",
+        "object": "N3",
+        "weight": 5
+      },
+      {
+        "subject": "N26",
+        "predicate": "致死因素",
+        "object": "N16",
+        "weight": 5
+      },
+      {
+        "subject": "N26",
+        "predicate": "体现",
+        "object": "N28",
+        "weight": 5
+      },
+      {
+        "subject": "N16",
+        "predicate": "惩罚",
+        "object": "N30",
+        "weight": 4
+      },
+      {
+        "subject": "N5",
+        "predicate": "执行奖惩",
+        "object": "N28",
+        "weight": 4
+      },
+      {
+        "subject": "N27",
+        "predicate": "通过事件表现",
+        "object": "N18",
+        "weight": 4
+      },
+      {
+        "subject": "N28",
+        "predicate": "奖赏知足",
+        "object": "N22",
+        "weight": 4
+      },
+      {
+        "subject": "N28",
+        "predicate": "惩戒贪婪",
+        "object": "N26",
+        "weight": 5
+      },
+      {
+        "subject": "N6",
+        "predicate": "充满",
+        "object": "N15",
+        "weight": 5
+      },
+      {
+        "subject": "N5",
+        "predicate": "往返于",
+        "object": "N6",
+        "weight": 4
+      }
+    ],
+    "title": "妇言离间骨肉亲 知识图谱",
+    "source": "llm"
+  },
+  "codex-algorithm-smoke": {
+    "id": "codex-algorithm-smoke",
+    "nodes": [
+      {
+        "id": "center",
+        "label": "??????",
+        "type": "故事",
+        "count": 1
+      },
+      {
+        "id": "story-codex-algorithm-smoke",
+        "label": "??????",
+        "type": "故事",
+        "count": 42,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "id": "cat-核心意象",
+        "label": "核心意象",
+        "type": "分类",
+        "count": 96
+      },
+      {
+        "id": "cat-人物身份",
+        "label": "人物身份",
+        "type": "分类",
+        "count": 62
+      },
+      {
+        "id": "cat-动物形象",
+        "label": "动物形象",
+        "type": "分类",
+        "count": 8
+      },
+      {
+        "id": "term-弟弟",
+        "label": "弟弟",
+        "type": "人物身份",
+        "count": 18,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 18
+          }
+        ]
+      },
+      {
+        "id": "term-女婿",
+        "label": "女婿",
+        "type": "人物身份",
+        "count": 13,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 13
+          }
+        ]
+      },
+      {
+        "id": "term-种子",
+        "label": "种子",
+        "type": "核心意象",
+        "count": 11,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 11
+          }
+        ]
+      },
+      {
+        "id": "term-穗子",
+        "label": "穗子",
+        "type": "核心意象",
+        "count": 8,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "id": "term-妻子",
+        "label": "妻子",
+        "type": "人物身份",
+        "count": 6,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 6
+          }
+        ]
+      },
+      {
+        "id": "term-哥哥",
+        "label": "哥哥",
+        "type": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-茎秆",
+        "label": "茎秆",
+        "type": "核心意象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-女儿",
+        "label": "女儿",
+        "type": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-父母",
+        "label": "父母",
+        "type": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-鸟",
+        "label": "鸟",
+        "type": "动物形象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "动物形象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-区分",
+        "label": "区分",
+        "type": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "id": "term-素材",
+        "label": "素材",
+        "type": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "id": "term-煮熟",
+        "label": "煮熟",
+        "type": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "id": "term-呼啸",
+        "label": "呼啸",
+        "type": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "id": "term-黄灿灿",
+        "label": "黄灿灿",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-岳父母",
+        "label": "岳父母",
+        "type": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-领域",
+        "label": "领域",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-无法",
+        "label": "无法",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-收录",
+        "label": "收录",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-影响",
+        "label": "影响",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-善辩",
+        "label": "善辩",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-没读",
+        "label": "没读",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-众人",
+        "label": "众人",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-丫鬟",
+        "label": "丫鬟",
+        "type": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-翩跹",
+        "label": "翩跹",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-铅球",
+        "label": "铅球",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-马倌",
+        "label": "马倌",
+        "type": "动物形象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "动物形象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-动人心魄",
+        "label": "动人心魄",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-紧追不舍",
+        "label": "紧追不舍",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-光彩熠熠",
+        "label": "光彩熠熠",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-银光闪闪",
+        "label": "银光闪闪",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-合辙押韵",
+        "label": "合辙押韵",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-面面俱",
+        "label": "面面俱",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-二女儿",
+        "label": "二女儿",
+        "type": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-小女儿",
+        "label": "小女儿",
+        "type": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-游戏吧",
+        "label": "游戏吧",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-词作诗",
+        "label": "词作诗",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-作不出",
+        "label": "作不出",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-飨读",
+        "label": "飨读",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-世界",
+        "label": "世界",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-母题",
+        "label": "母题",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-串联",
+        "label": "串联",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "source": "center",
+        "target": "story-codex-algorithm-smoke",
+        "weight": 42,
+        "relation": "包含"
+      },
+      {
+        "source": "center",
+        "target": "cat-核心意象",
+        "weight": 96,
+        "relation": "主题分类"
+      },
+      {
+        "source": "center",
+        "target": "cat-人物身份",
+        "weight": 62,
+        "relation": "主题分类"
+      },
+      {
+        "source": "center",
+        "target": "cat-动物形象",
+        "weight": 8,
+        "relation": "主题分类"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-弟弟",
+        "weight": 18,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-弟弟",
+        "weight": 18,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-女婿",
+        "weight": 13,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-女婿",
+        "weight": 13,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-种子",
+        "weight": 11,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-种子",
+        "weight": 11,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-穗子",
+        "weight": 8,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-穗子",
+        "weight": 8,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-妻子",
+        "weight": 6,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-妻子",
+        "weight": 6,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-哥哥",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-哥哥",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-茎秆",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-茎秆",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-女儿",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-女儿",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-父母",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-父母",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-动物形象",
+        "target": "term-鸟",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-鸟",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-区分",
+        "weight": 4,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-区分",
+        "weight": 4,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-素材",
+        "weight": 4,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-素材",
+        "weight": 4,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-煮熟",
+        "weight": 4,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-煮熟",
+        "weight": 4,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-呼啸",
+        "weight": 4,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-呼啸",
+        "weight": 4,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-黄灿灿",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-黄灿灿",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-岳父母",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-岳父母",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-领域",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-领域",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-无法",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-无法",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-收录",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-收录",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-影响",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-影响",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-善辩",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-善辩",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-没读",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-没读",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-众人",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-众人",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-丫鬟",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-丫鬟",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-翩跹",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-翩跹",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-铅球",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-铅球",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-动物形象",
+        "target": "term-马倌",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-马倌",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-动人心魄",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-动人心魄",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-紧追不舍",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-紧追不舍",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-光彩熠熠",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-光彩熠熠",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-银光闪闪",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-银光闪闪",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-合辙押韵",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-合辙押韵",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-面面俱",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-面面俱",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-二女儿",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-二女儿",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-小女儿",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-小女儿",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-游戏吧",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-游戏吧",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-词作诗",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-词作诗",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-作不出",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-作不出",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-飨读",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-飨读",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-世界",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-世界",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-母题",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-母题",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-串联",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke",
+        "target": "term-串联",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-众人",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-区分",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-呼啸",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-素材",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-领域",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-区分",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-呼啸",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-素材",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-领域",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-呼啸",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-素材",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-领域",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-素材",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-领域",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-素材",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-领域",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-素材",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      }
+    ],
+    "triples": [
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "弟弟",
+        "weight": 18,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "女婿",
+        "weight": 13,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "种子",
+        "weight": 11,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "穗子",
+        "weight": 8,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "妻子",
+        "weight": 6,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "哥哥",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "茎秆",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "女儿",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "父母",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "出现于",
+        "object": "鸟",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "区分",
+        "weight": 4,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "素材",
+        "weight": 4,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "煮熟",
+        "weight": 4,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "呼啸",
+        "weight": 4,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "黄灿灿",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "岳父母",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "领域",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "无法",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "收录",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "影响",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "善辩",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "没读",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "众人",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "丫鬟",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "翩跹",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "铅球",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "出现于",
+        "object": "马倌",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "动人心魄",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "紧追不舍",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "光彩熠熠",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "银光闪闪",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "合辙押韵",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "面面俱",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "二女儿",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "涉及身份",
+        "object": "小女儿",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "游戏吧",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "词作诗",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "作不出",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "飨读",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "世界",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "母题",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      },
+      {
+        "subject": "??????",
+        "predicate": "象征意象",
+        "object": "串联",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke"
+      }
+    ],
+    "cooccurrence": [
+      {
+        "source": "丫鬟",
+        "target": "众人",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "区分",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "呼啸",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "素材",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "领域",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "区分",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "呼啸",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "素材",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "领域",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "呼啸",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "素材",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "领域",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "素材",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "领域",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "素材",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "领域",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "素材",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "茎秆",
+        "weight": 1
+      }
+    ],
+    "terms": [
+      {
+        "term": "弟弟",
+        "category": "人物身份",
+        "count": 18,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 18
+          }
+        ]
+      },
+      {
+        "term": "女婿",
+        "category": "人物身份",
+        "count": 13,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 13
+          }
+        ]
+      },
+      {
+        "term": "种子",
+        "category": "核心意象",
+        "count": 11,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 11
+          }
+        ]
+      },
+      {
+        "term": "穗子",
+        "category": "核心意象",
+        "count": 8,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "term": "妻子",
+        "category": "人物身份",
+        "count": 6,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 6
+          }
+        ]
+      },
+      {
+        "term": "哥哥",
+        "category": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "茎秆",
+        "category": "核心意象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "女儿",
+        "category": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "父母",
+        "category": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "鸟",
+        "category": "动物形象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "动物形象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "区分",
+        "category": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "term": "素材",
+        "category": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "term": "煮熟",
+        "category": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "term": "呼啸",
+        "category": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "term": "黄灿灿",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "岳父母",
+        "category": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "领域",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "无法",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "收录",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "影响",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "善辩",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "没读",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "众人",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "丫鬟",
+        "category": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "翩跹",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "铅球",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "马倌",
+        "category": "动物形象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "动物形象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "动人心魄",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "紧追不舍",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "光彩熠熠",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "银光闪闪",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "合辙押韵",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "面面俱",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "二女儿",
+        "category": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "小女儿",
+        "category": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "游戏吧",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "词作诗",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "作不出",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "飨读",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "世界",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "母题",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "串联",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke",
+            "storyTitle": "??????",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "source": "algorithm",
+    "notice": "已使用后端自然语言算法抽取知识图谱；可选择大模型抽取覆盖。"
+  },
+  "codex-algorithm-smoke-final": {
+    "id": "codex-algorithm-smoke-final",
+    "nodes": [
+      {
+        "id": "center",
+        "label": "algorithm-smoke",
+        "type": "故事",
+        "count": 1
+      },
+      {
+        "id": "story-codex-algorithm-smoke-final",
+        "label": "algorithm-smoke",
+        "type": "故事",
+        "count": 42,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "id": "cat-核心意象",
+        "label": "核心意象",
+        "type": "分类",
+        "count": 93
+      },
+      {
+        "id": "cat-人物身份",
+        "label": "人物身份",
+        "type": "分类",
+        "count": 62
+      },
+      {
+        "id": "cat-动物形象",
+        "label": "动物形象",
+        "type": "分类",
+        "count": 8
+      },
+      {
+        "id": "term-弟弟",
+        "label": "弟弟",
+        "type": "人物身份",
+        "count": 18,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 18
+          }
+        ]
+      },
+      {
+        "id": "term-女婿",
+        "label": "女婿",
+        "type": "人物身份",
+        "count": 13,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 13
+          }
+        ]
+      },
+      {
+        "id": "term-种子",
+        "label": "种子",
+        "type": "核心意象",
+        "count": 11,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 11
+          }
+        ]
+      },
+      {
+        "id": "term-穗子",
+        "label": "穗子",
+        "type": "核心意象",
+        "count": 8,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "id": "term-妻子",
+        "label": "妻子",
+        "type": "人物身份",
+        "count": 6,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 6
+          }
+        ]
+      },
+      {
+        "id": "term-哥哥",
+        "label": "哥哥",
+        "type": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-茎秆",
+        "label": "茎秆",
+        "type": "核心意象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-女儿",
+        "label": "女儿",
+        "type": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-父母",
+        "label": "父母",
+        "type": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-鸟",
+        "label": "鸟",
+        "type": "动物形象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "动物形象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "id": "term-区分",
+        "label": "区分",
+        "type": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "id": "term-煮熟",
+        "label": "煮熟",
+        "type": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "id": "term-呼啸",
+        "label": "呼啸",
+        "type": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "id": "term-黄灿灿",
+        "label": "黄灿灿",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-岳父母",
+        "label": "岳父母",
+        "type": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-无法",
+        "label": "无法",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-收录",
+        "label": "收录",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-影响",
+        "label": "影响",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-善辩",
+        "label": "善辩",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-没读",
+        "label": "没读",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-众人",
+        "label": "众人",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-丫鬟",
+        "label": "丫鬟",
+        "type": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-翩跹",
+        "label": "翩跹",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-铅球",
+        "label": "铅球",
+        "type": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-马倌",
+        "label": "马倌",
+        "type": "动物形象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "动物形象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "id": "term-动人心魄",
+        "label": "动人心魄",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-紧追不舍",
+        "label": "紧追不舍",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-光彩熠熠",
+        "label": "光彩熠熠",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-银光闪闪",
+        "label": "银光闪闪",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-合辙押韵",
+        "label": "合辙押韵",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-面面俱",
+        "label": "面面俱",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-二女儿",
+        "label": "二女儿",
+        "type": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-小女儿",
+        "label": "小女儿",
+        "type": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-游戏吧",
+        "label": "游戏吧",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-词作诗",
+        "label": "词作诗",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-作不出",
+        "label": "作不出",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-飨读",
+        "label": "飨读",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-世界",
+        "label": "世界",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-母题",
+        "label": "母题",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-串联",
+        "label": "串联",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-选编",
+        "label": "选编",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "id": "term-基本",
+        "label": "基本",
+        "type": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "source": "center",
+        "target": "story-codex-algorithm-smoke-final",
+        "weight": 42,
+        "relation": "包含"
+      },
+      {
+        "source": "center",
+        "target": "cat-核心意象",
+        "weight": 93,
+        "relation": "主题分类"
+      },
+      {
+        "source": "center",
+        "target": "cat-人物身份",
+        "weight": 62,
+        "relation": "主题分类"
+      },
+      {
+        "source": "center",
+        "target": "cat-动物形象",
+        "weight": 8,
+        "relation": "主题分类"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-弟弟",
+        "weight": 18,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-弟弟",
+        "weight": 18,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-女婿",
+        "weight": 13,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-女婿",
+        "weight": 13,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-种子",
+        "weight": 11,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-种子",
+        "weight": 11,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-穗子",
+        "weight": 8,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-穗子",
+        "weight": 8,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-妻子",
+        "weight": 6,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-妻子",
+        "weight": 6,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-哥哥",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-哥哥",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-茎秆",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-茎秆",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-女儿",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-女儿",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-父母",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-父母",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-动物形象",
+        "target": "term-鸟",
+        "weight": 5,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-鸟",
+        "weight": 5,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-区分",
+        "weight": 4,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-区分",
+        "weight": 4,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-煮熟",
+        "weight": 4,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-煮熟",
+        "weight": 4,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-呼啸",
+        "weight": 4,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-呼啸",
+        "weight": 4,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-黄灿灿",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-黄灿灿",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-岳父母",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-岳父母",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-无法",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-无法",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-收录",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-收录",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-影响",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-影响",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-善辩",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-善辩",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-没读",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-没读",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-众人",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-众人",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-丫鬟",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-丫鬟",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-翩跹",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-翩跹",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-铅球",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-铅球",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-动物形象",
+        "target": "term-马倌",
+        "weight": 3,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-马倌",
+        "weight": 3,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-动人心魄",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-动人心魄",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-紧追不舍",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-紧追不舍",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-光彩熠熠",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-光彩熠熠",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-银光闪闪",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-银光闪闪",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-合辙押韵",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-合辙押韵",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-面面俱",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-面面俱",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-二女儿",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-二女儿",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-人物身份",
+        "target": "term-小女儿",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-小女儿",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-游戏吧",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-游戏吧",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-词作诗",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-词作诗",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-作不出",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-作不出",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-飨读",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-飨读",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-世界",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-世界",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-母题",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-母题",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-串联",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-串联",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-选编",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-选编",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "cat-核心意象",
+        "target": "term-基本",
+        "weight": 2,
+        "relation": "抽取关键词"
+      },
+      {
+        "source": "story-codex-algorithm-smoke-final",
+        "target": "term-基本",
+        "weight": 2,
+        "relation": "出现于"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-众人",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-区分",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-呼啸",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-翩跹",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-铅球",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-丫鬟",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-区分",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-呼啸",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-翩跹",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-铅球",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-众人",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-呼啸",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-翩跹",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-铅球",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-区分",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-哥哥",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-翩跹",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-铅球",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-呼啸",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-善辩",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-翩跹",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-铅球",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-鸟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-哥哥",
+        "target": "term-黄灿灿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-女儿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-女婿",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-妻子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-岳父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-弟弟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-影响",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-收录",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-无法",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-没读",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-煮熟",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-父母",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-种子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-穗子",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-翩跹",
+        "weight": 1,
+        "relation": "共现"
+      },
+      {
+        "source": "term-善辩",
+        "target": "term-茎秆",
+        "weight": 1,
+        "relation": "共现"
+      }
+    ],
+    "triples": [
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "弟弟",
+        "weight": 18,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "女婿",
+        "weight": 13,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "种子",
+        "weight": 11,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "穗子",
+        "weight": 8,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "妻子",
+        "weight": 6,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "哥哥",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "茎秆",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "女儿",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "父母",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "出现于",
+        "object": "鸟",
+        "weight": 5,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "区分",
+        "weight": 4,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "煮熟",
+        "weight": 4,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "呼啸",
+        "weight": 4,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "黄灿灿",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "岳父母",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "无法",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "收录",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "影响",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "善辩",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "没读",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "众人",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "丫鬟",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "翩跹",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "铅球",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "出现于",
+        "object": "马倌",
+        "weight": 3,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "动人心魄",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "紧追不舍",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "光彩熠熠",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "银光闪闪",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "合辙押韵",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "面面俱",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "二女儿",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "涉及身份",
+        "object": "小女儿",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "游戏吧",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "词作诗",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "作不出",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "飨读",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "世界",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "母题",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "串联",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "选编",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      },
+      {
+        "subject": "algorithm-smoke",
+        "predicate": "象征意象",
+        "object": "基本",
+        "weight": 2,
+        "storyId": "codex-algorithm-smoke-final"
+      }
+    ],
+    "cooccurrence": [
+      {
+        "source": "丫鬟",
+        "target": "众人",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "区分",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "呼啸",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "翩跹",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "铅球",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "丫鬟",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "区分",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "呼啸",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "翩跹",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "铅球",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "众人",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "呼啸",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "翩跹",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "铅球",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "区分",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "哥哥",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "翩跹",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "铅球",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "呼啸",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "善辩",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "翩跹",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "茎秆",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "铅球",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "鸟",
+        "weight": 1
+      },
+      {
+        "source": "哥哥",
+        "target": "黄灿灿",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "女儿",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "女婿",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "妻子",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "岳父母",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "弟弟",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "影响",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "收录",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "无法",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "没读",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "煮熟",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "父母",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "种子",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "穗子",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "翩跹",
+        "weight": 1
+      },
+      {
+        "source": "善辩",
+        "target": "茎秆",
+        "weight": 1
+      }
+    ],
+    "terms": [
+      {
+        "term": "弟弟",
+        "category": "人物身份",
+        "count": 18,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 18
+          }
+        ]
+      },
+      {
+        "term": "女婿",
+        "category": "人物身份",
+        "count": 13,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 13
+          }
+        ]
+      },
+      {
+        "term": "种子",
+        "category": "核心意象",
+        "count": 11,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 11
+          }
+        ]
+      },
+      {
+        "term": "穗子",
+        "category": "核心意象",
+        "count": 8,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "term": "妻子",
+        "category": "人物身份",
+        "count": 6,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 6
+          }
+        ]
+      },
+      {
+        "term": "哥哥",
+        "category": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "茎秆",
+        "category": "核心意象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "女儿",
+        "category": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "父母",
+        "category": "人物身份",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "鸟",
+        "category": "动物形象",
+        "count": 5,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "动物形象",
+            "count": 5
+          }
+        ]
+      },
+      {
+        "term": "区分",
+        "category": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "term": "煮熟",
+        "category": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "term": "呼啸",
+        "category": "核心意象",
+        "count": 4,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "term": "黄灿灿",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "岳父母",
+        "category": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "无法",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "收录",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "影响",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "善辩",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "没读",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "众人",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "丫鬟",
+        "category": "人物身份",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "翩跹",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "铅球",
+        "category": "核心意象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "马倌",
+        "category": "动物形象",
+        "count": 3,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "动物形象",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "term": "动人心魄",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "紧追不舍",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "光彩熠熠",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "银光闪闪",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "合辙押韵",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "面面俱",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "二女儿",
+        "category": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "小女儿",
+        "category": "人物身份",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "人物身份",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "游戏吧",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "词作诗",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "作不出",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "飨读",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "世界",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "母题",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "串联",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "选编",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "term": "基本",
+        "category": "核心意象",
+        "count": 2,
+        "stories": [
+          {
+            "storyId": "codex-algorithm-smoke-final",
+            "storyTitle": "algorithm-smoke",
+            "category": "核心意象",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "source": "algorithm",
+    "notice": "已使用后端自然语言算法抽取知识图谱；可选择大模型抽取覆盖。"
+  }
+}

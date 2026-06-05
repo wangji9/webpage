@@ -243,14 +243,69 @@ def _messages_to_responses_payload(messages: list[dict[str, Any]], model: str, t
 def _content_from_responses(result: dict[str, Any]) -> str:
     if isinstance(result.get("output_text"), str) and result["output_text"].strip():
         return result["output_text"].strip()
-    parts = []
-    for output in result.get("output") or []:
-        for content in output.get("content") or []:
-            text = content.get("text")
-            if isinstance(text, str):
-                parts.append(text)
+
+    output_keys = {
+        "text",
+        "content",
+        "output_text",
+        "value",
+        "message",
+        "response",
+        "answer",
+        "summary",
+        "refusal",
+        "reasoning",
+    }
+    skip_keys = {
+        "id",
+        "object",
+        "model",
+        "status",
+        "role",
+        "type",
+        "usage",
+        "created_at",
+        "created",
+        "metadata",
+        "annotations",
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+    }
+
+    def collect_text(value: Any, depth: int = 0, key_hint: str = "") -> list[str]:
+        if depth > 6:
+            return []
+        if isinstance(value, str):
+            clean = value.strip()
+            if not clean:
+                return []
+            if key_hint and key_hint not in output_keys:
+                return []
+            if clean in {"completed", "in_progress", "message", "output_text", "assistant"}:
+                return []
+            return [clean]
+        if isinstance(value, list):
+            parts: list[str] = []
+            for item in value:
+                parts.extend(collect_text(item, depth + 1, key_hint))
+            return parts
+        if isinstance(value, dict):
+            parts: list[str] = []
+            for key, item in value.items():
+                if key in skip_keys:
+                    continue
+                if key in output_keys:
+                    parts.extend(collect_text(item, depth + 1, key))
+                elif isinstance(item, (dict, list)):
+                    parts.extend(collect_text(item, depth + 1, ""))
+            return parts
+        return []
+
+    parts = collect_text(result.get("output") or result)
     if parts:
-        return "\n".join(parts).strip()
+        ranked = sorted(dict.fromkeys(part.strip() for part in parts if part.strip()), key=len, reverse=True)
+        return "\n".join(ranked[:3]).strip()
     error = result.get("error")
     if error:
         raise RuntimeError(f"Responses API 返回错误：{error}")

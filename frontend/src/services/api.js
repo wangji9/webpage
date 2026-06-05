@@ -22,6 +22,11 @@ async function request(path, options = {}) {
       ...options
     });
   } catch (error) {
+    if (error?.name === "AbortError") {
+      const aborted = new Error("请求已终止");
+      aborted.name = "AbortError";
+      throw aborted;
+    }
     throw new Error(`无法连接本地后端服务：${error.message}`);
   }
   const contentType = response.headers.get("content-type") || "";
@@ -51,9 +56,13 @@ export const api = {
   knowledgeItems: () => request("/api/kb/items").catch(() => ({ items: mockKnowledgeItems })),
   results: () => request("/api/results").catch(() => ({ results: mockResults })),
   graph: () => request("/api/graph").catch(() => mockGraph),
-  storyVisualAtlas: () => request("/api/story/visual-atlas"),
+  storyVisualAtlas: (mode = "all") => request(`/api/story/visual-atlas?mode=${encodeURIComponent(mode)}`),
   storyCollectionGraph: (collectionId) => request(`/api/story/collection-graph/${encodeURIComponent(collectionId)}`),
   wilhelmVisuals: (records) => request("/api/story/wilhelm-visuals", { method: "POST", body: JSON.stringify({ records }) }),
+  wilhelmStoryAnalysis: (stories) => request("/api/story/wilhelm-story-analysis", { method: "POST", body: JSON.stringify({ stories }) }),
+  wilhelmKeywordNetwork: (data, options = {}) => request("/api/story/wilhelm-keyword-network", { method: "POST", body: JSON.stringify(Array.isArray(data) ? { stories: data } : data), ...options }),
+  wilhelmKnowledgeGraph: (data, options = {}) => request("/api/story/wilhelm-knowledge-graph", { method: "POST", body: JSON.stringify(data), ...options }),
+  wilhelmKeywordCategories: (terms) => request("/api/story/wilhelm-keyword-categories", { method: "POST", body: JSON.stringify({ terms }) }),
   statsVisual: (items) => request("/api/story/stats-visual", { method: "POST", body: JSON.stringify({ items }) }),
   prefaceVisuals: (prefaces) => request("/api/story/preface-visuals", { method: "POST", body: JSON.stringify({ prefaces }) }),
   renderMap: (data) => request("/api/map/render", { method: "POST", body: JSON.stringify(data) }),
@@ -61,7 +70,7 @@ export const api = {
   llmConfig: () => request("/api/admin/llm-config"),
   saveLlmConfig: (data) => request("/api/admin/llm-config", { method: "POST", body: JSON.stringify(data) }),
   testLlmConfig: (data) => request("/api/admin/llm-test", { method: "POST", body: JSON.stringify(data) }),
-  chat: (data) => request("/api/chat", { method: "POST", body: JSON.stringify(data) }),
+  chat: (data, options = {}) => request("/api/chat", { method: "POST", body: JSON.stringify(data), ...options }),
   streamChat
 };
 

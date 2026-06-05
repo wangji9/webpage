@@ -1,0 +1,665 @@
+{
+  "e1cef98f0735f0a702ec01c84c157255f6a99420d86a9f729d3fc9df67861005": {
+    "keywords": [
+      {
+        "term": "天",
+        "category": "自然气象"
+      },
+      {
+        "term": "神",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "母亲",
+        "category": "人物身份"
+      },
+      {
+        "term": "妻子",
+        "category": "人物身份"
+      },
+      {
+        "term": "山",
+        "category": "空间场景"
+      },
+      {
+        "term": "父亲",
+        "category": "人物身份"
+      },
+      {
+        "term": "龙",
+        "category": "动物形象"
+      },
+      {
+        "term": "姑娘",
+        "category": "人物身份"
+      },
+      {
+        "term": "水",
+        "category": "核心意象"
+      },
+      {
+        "term": "皇帝",
+        "category": "人物身份"
+      },
+      {
+        "term": "狐狸",
+        "category": "动物形象"
+      },
+      {
+        "term": "道士",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "食人魔",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "仙",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "书生",
+        "category": "人物身份"
+      },
+      {
+        "term": "河",
+        "category": "空间场景"
+      },
+      {
+        "term": "鬼",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "马",
+        "category": "动物形象"
+      },
+      {
+        "term": "龙王",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "火",
+        "category": "核心意象"
+      },
+      {
+        "term": "树",
+        "category": "核心意象"
+      },
+      {
+        "term": "猴",
+        "category": "动物形象"
+      },
+      {
+        "term": "王子",
+        "category": "人物身份"
+      },
+      {
+        "term": "少年",
+        "category": "人物身份"
+      },
+      {
+        "term": "庙",
+        "category": "空间场景"
+      },
+      {
+        "term": "狐",
+        "category": "动物形象"
+      },
+      {
+        "term": "风",
+        "category": "自然气象"
+      },
+      {
+        "term": "公主",
+        "category": "人物身份"
+      },
+      {
+        "term": "海",
+        "category": "空间场景"
+      },
+      {
+        "term": "宫",
+        "category": "空间场景"
+      },
+      {
+        "term": "魔",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "月",
+        "category": "自然气象"
+      },
+      {
+        "term": "云",
+        "category": "自然气象"
+      },
+      {
+        "term": "珍珠",
+        "category": "核心意象"
+      },
+      {
+        "term": "村",
+        "category": "空间场景"
+      },
+      {
+        "term": "和尚",
+        "category": "人物身份"
+      },
+      {
+        "term": "农夫",
+        "category": "人物身份"
+      },
+      {
+        "term": "蛙神之女",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "怪",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "雪",
+        "category": "自然气象"
+      },
+      {
+        "term": "牛",
+        "category": "动物形象"
+      },
+      {
+        "term": "星",
+        "category": "自然气象"
+      },
+      {
+        "term": "太阳",
+        "category": "自然气象"
+      },
+      {
+        "term": "官员",
+        "category": "人物身份"
+      },
+      {
+        "term": "兄弟",
+        "category": "人物身份"
+      },
+      {
+        "term": "蛇",
+        "category": "动物形象"
+      },
+      {
+        "term": "虎",
+        "category": "动物形象"
+      },
+      {
+        "term": "雨",
+        "category": "自然气象"
+      },
+      {
+        "term": "术士",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "花果山",
+        "category": "空间场景"
+      },
+      {
+        "term": "鸟",
+        "category": "动物形象"
+      },
+      {
+        "term": "雷",
+        "category": "自然气象"
+      },
+      {
+        "term": "鱼",
+        "category": "动物形象"
+      },
+      {
+        "term": "智慧",
+        "category": "伦理母题"
+      },
+      {
+        "term": "法术",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "狗",
+        "category": "动物形象"
+      },
+      {
+        "term": "妖",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "吊死鬼",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "老人",
+        "category": "人物身份"
+      },
+      {
+        "term": "龙宫",
+        "category": "空间场景"
+      },
+      {
+        "term": "九头鸟",
+        "category": "动物形象"
+      },
+      {
+        "term": "仙女",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "成仙",
+        "category": "行为事件"
+      },
+      {
+        "term": "犬",
+        "category": "动物形象"
+      },
+      {
+        "term": "惩罚",
+        "category": "行为事件"
+      },
+      {
+        "term": "莲花",
+        "category": "核心意象"
+      },
+      {
+        "term": "地府",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "田",
+        "category": "空间场景"
+      },
+      {
+        "term": "电",
+        "category": "自然气象"
+      },
+      {
+        "term": "大洪水",
+        "category": "核心意象"
+      },
+      {
+        "term": "小猎犬",
+        "category": "动物形象"
+      },
+      {
+        "term": "虫",
+        "category": "动物形象"
+      },
+      {
+        "term": "洛克鸟",
+        "category": "动物形象"
+      }
+    ],
+    "fallback": false
+  },
+  "110df691f090cba19b1b343423fe32d6f05d40ad7bca7e834cda3824f8f19449": {
+    "keywords": [
+      {
+        "term": "母亲",
+        "category": "人物身份"
+      },
+      {
+        "term": "妻子",
+        "category": "人物身份"
+      },
+      {
+        "term": "父亲",
+        "category": "人物身份"
+      },
+      {
+        "term": "狐狸",
+        "category": "动物形象"
+      },
+      {
+        "term": "姑娘",
+        "category": "人物身份"
+      },
+      {
+        "term": "皇帝",
+        "category": "人物身份"
+      },
+      {
+        "term": "孙悟空",
+        "category": "核心意象"
+      },
+      {
+        "term": "男子",
+        "category": "核心意象"
+      },
+      {
+        "term": "书生",
+        "category": "人物身份"
+      },
+      {
+        "term": "女儿",
+        "category": "人物身份"
+      },
+      {
+        "term": "道士",
+        "category": "人物身份"
+      },
+      {
+        "term": "儿子",
+        "category": "人物身份"
+      },
+      {
+        "term": "只见",
+        "category": "核心意象"
+      },
+      {
+        "term": "看见",
+        "category": "核心意象"
+      },
+      {
+        "term": "李靖",
+        "category": "核心意象"
+      },
+      {
+        "term": "女子",
+        "category": "核心意象"
+      },
+      {
+        "term": "术士",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "尸体",
+        "category": "核心意象"
+      },
+      {
+        "term": "年轻人",
+        "category": "核心意象"
+      },
+      {
+        "term": "公主",
+        "category": "人物身份"
+      },
+      {
+        "term": "丈夫",
+        "category": "核心意象"
+      },
+      {
+        "term": "孩子",
+        "category": "核心意象"
+      },
+      {
+        "term": "食人魔",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "哪吒",
+        "category": "核心意象"
+      },
+      {
+        "term": "圣人",
+        "category": "核心意象"
+      },
+      {
+        "term": "商人",
+        "category": "核心意象"
+      },
+      {
+        "term": "众人",
+        "category": "核心意象"
+      },
+      {
+        "term": "农夫",
+        "category": "人物身份"
+      },
+      {
+        "term": "老子",
+        "category": "核心意象"
+      },
+      {
+        "term": "龙王",
+        "category": "动物形象"
+      },
+      {
+        "term": "洞穴",
+        "category": "核心意象"
+      },
+      {
+        "term": "婢女",
+        "category": "核心意象"
+      },
+      {
+        "term": "答道",
+        "category": "核心意象"
+      },
+      {
+        "term": "阿端",
+        "category": "核心意象"
+      },
+      {
+        "term": "弟弟",
+        "category": "人物身份"
+      },
+      {
+        "term": "口传",
+        "category": "核心意象"
+      },
+      {
+        "term": "天帝",
+        "category": "自然气象"
+      },
+      {
+        "term": "神仙",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "传说",
+        "category": "核心意象"
+      },
+      {
+        "term": "不能",
+        "category": "核心意象"
+      },
+      {
+        "term": "孔生",
+        "category": "核心意象"
+      },
+      {
+        "term": "霍桓",
+        "category": "核心意象"
+      },
+      {
+        "term": "王子服",
+        "category": "人物身份"
+      },
+      {
+        "term": "妇人",
+        "category": "核心意象"
+      },
+      {
+        "term": "河神",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "无法",
+        "category": "核心意象"
+      },
+      {
+        "term": "孔子",
+        "category": "核心意象"
+      },
+      {
+        "term": "师父",
+        "category": "核心意象"
+      },
+      {
+        "term": "老虎",
+        "category": "动物形象"
+      },
+      {
+        "term": "少女",
+        "category": "核心意象"
+      },
+      {
+        "term": "仆人",
+        "category": "核心意象"
+      },
+      {
+        "term": "珍珠",
+        "category": "核心意象"
+      },
+      {
+        "term": "柳毅",
+        "category": "核心意象"
+      },
+      {
+        "term": "乐仲",
+        "category": "核心意象"
+      },
+      {
+        "term": "杜子春",
+        "category": "自然气象"
+      },
+      {
+        "term": "公子",
+        "category": "核心意象"
+      },
+      {
+        "term": "离开",
+        "category": "核心意象"
+      },
+      {
+        "term": "化作",
+        "category": "核心意象"
+      },
+      {
+        "term": "薛昆生",
+        "category": "核心意象"
+      },
+      {
+        "term": "胡迪",
+        "category": "核心意象"
+      },
+      {
+        "term": "床上",
+        "category": "核心意象"
+      },
+      {
+        "term": "晚霞",
+        "category": "核心意象"
+      },
+      {
+        "term": "雪绒花",
+        "category": "自然气象"
+      },
+      {
+        "term": "消失",
+        "category": "核心意象"
+      },
+      {
+        "term": "二郎",
+        "category": "核心意象"
+      },
+      {
+        "term": "仙人",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "大人",
+        "category": "核心意象"
+      },
+      {
+        "term": "婴宁",
+        "category": "核心意象"
+      },
+      {
+        "term": "雪花",
+        "category": "自然气象"
+      },
+      {
+        "term": "起身",
+        "category": "核心意象"
+      },
+      {
+        "term": "庄子",
+        "category": "核心意象"
+      },
+      {
+        "term": "张老",
+        "category": "核心意象"
+      },
+      {
+        "term": "法师",
+        "category": "核心意象"
+      },
+      {
+        "term": "莫稽",
+        "category": "核心意象"
+      },
+      {
+        "term": "父母",
+        "category": "人物身份"
+      },
+      {
+        "term": "问道",
+        "category": "核心意象"
+      },
+      {
+        "term": "王生",
+        "category": "核心意象"
+      },
+      {
+        "term": "怪物",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "节度",
+        "category": "核心意象"
+      },
+      {
+        "term": "弟子",
+        "category": "核心意象"
+      },
+      {
+        "term": "鬼魂",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "神",
+        "category": "神怪信仰"
+      },
+      {
+        "term": "孙思邈",
+        "category": "核心意象"
+      },
+      {
+        "term": "寺庙",
+        "category": "空间场景"
+      },
+      {
+        "term": "官员",
+        "category": "人物身份"
+      },
+      {
+        "term": "处士",
+        "category": "核心意象"
+      },
+      {
+        "term": "太阳",
+        "category": "自然气象"
+      },
+      {
+        "term": "年轻",
+        "category": "核心意象"
+      },
+      {
+        "term": "一般",
+        "category": "核心意象"
+      },
+      {
+        "term": "回答",
+        "category": "核心意象"
+      }
+    ],
+    "fallback": false,
+    "source": "algorithm"
+  }
+}

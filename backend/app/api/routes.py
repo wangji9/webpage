@@ -21,7 +21,7 @@ import json
 from backend.app.core.map_renderer import render_map_svg
 from backend.app.core.nlp_analyzer import analyze_items
 from backend.app.core.security import create_session, delete_session, get_session
-from backend.app.core.story_visuals import collection_graph, preface_visuals, stats_visual, visual_atlas, wilhelm_visuals
+from backend.app.core.story_visuals import collection_graph, preface_visuals, stats_visual, visual_atlas, wilhelm_keyword_categories, wilhelm_keyword_network, wilhelm_llm_knowledge_graph, wilhelm_story_analysis, wilhelm_visuals
 from backend.app.models.schemas import ChatRequest, LlmConfigRequest, LlmTestRequest, LoginRequest, MapRenderRequest, NlpAnalyzeRequest
 
 router = APIRouter(prefix="/api")
@@ -118,8 +118,8 @@ def graph():
 
 
 @router.get("/story/visual-atlas")
-def story_visual_atlas():
-    return visual_atlas()
+def story_visual_atlas(mode: str = "all"):
+    return visual_atlas(mode)
 
 
 @router.get("/story/collection-graph/{collection_id}")
@@ -130,6 +130,52 @@ def story_collection_graph(collection_id: str):
 @router.post("/story/wilhelm-visuals")
 def story_wilhelm_visuals(payload: dict):
     return wilhelm_visuals(payload.get("records", []))
+
+
+@router.post("/story/wilhelm-story-analysis")
+def story_wilhelm_story_analysis(payload: dict):
+    return wilhelm_story_analysis(payload.get("stories", []))
+
+
+@router.post("/story/wilhelm-keyword-network")
+def story_wilhelm_keyword_network(payload: dict):
+    try:
+        return wilhelm_keyword_network(
+            stories=payload.get("stories", []),
+            force=bool(payload.get("force")),
+            model=str(payload.get("model") or ""),
+            method=str(payload.get("method") or "algorithm"),
+        )
+    except RuntimeError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+
+
+@router.api_route("/story/wilhelm-knowledge-graph", methods=["GET", "POST"])
+def story_wilhelm_knowledge_graph(payload: Optional[dict] = None):
+    payload = payload or {}
+    try:
+        return wilhelm_llm_knowledge_graph(
+            scope_id=str(payload.get("scopeId") or ""),
+            title=str(payload.get("title") or "卫礼贤《中国民间童话》知识图谱"),
+            text=str(payload.get("text") or ""),
+            force=bool(payload.get("force")),
+            model=str(payload.get("model") or ""),
+            method=str(payload.get("method") or "algorithm"),
+        )
+    except RuntimeError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+
+
+@router.post("/story/wilhelm-keyword-categories")
+def story_wilhelm_keyword_categories(payload: dict):
+    try:
+        return wilhelm_keyword_categories(
+            terms=payload.get("terms", []),
+            force=bool(payload.get("force")),
+            model=str(payload.get("model") or ""),
+        )
+    except RuntimeError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
 
 
 @router.post("/story/stats-visual")
