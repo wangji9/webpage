@@ -2,21 +2,39 @@ from __future__ import annotations
 
 import json
 import os
-import re
-import urllib.error
-import urllib.request
 from pathlib import Path
 from typing import Any
 import typing
-import json
+
+import requests
 
 CONFIG_PATH = Path(__file__).resolve().parents[2] / "llm_config.json"
+DEFAULT_API_URL = "https://api.aigogo.pro/v1/chat/completions"
+DEFAULT_MODEL = "gpt-5.4"
+DEFAULT_MAX_TOKENS = 4096
+DEFAULT_TIMEOUT = 180
+DEEPSEEK_API_URL = "https://platform.deepseek.com"
+DEEPSEEK_API_KEY = "sk-46bb1b65de71400e8f06d0aca8fd6ecd"
+DEEPSEEK_MODEL = "deepseek-v4-pro"
+DEEPSEEK_PROVIDER = "deepseek"
 
 _config: dict[str, str] = {
-    "url_base": "",
+    "url_base": DEFAULT_API_URL,
     "url_key": "",
-    "default_model": "gpt-4.1",
+    "default_model": DEFAULT_MODEL,
 }
+
+
+class EmptyModelOutputError(RuntimeError):
+    """Raised when the provider responds successfully but generates no text."""
+
+
+def normalize_api_url(api_url: str) -> str:
+    url = api_url.strip()
+    url = url.replace("/en/", "/")
+    if url.endswith("/en"):
+        url = url[:-3]
+    return url
 
 
 def _load_config() -> dict[str, str]:
@@ -25,12 +43,13 @@ def _load_config() -> dict[str, str]:
         try:
             data = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
             _config = {
-                "url_base": str(data.get("url_base") or ""),
+                "url_base": str(data.get("url_base") or DEFAULT_API_URL),
                 "url_key": str(data.get("url_key") or ""),
-                "default_model": str(data.get("default_model") or "gpt-4.1"),
+                "default_model": str(data.get("default_model") or DEFAULT_MODEL),
             }
         except Exception:
             pass
+
     env_url_base = os.environ.get("LLM_URL_BASE", "").strip()
     env_url_key = os.environ.get("LLM_URL_KEY", "").strip()
     env_default_model = os.environ.get("LLM_DEFAULT_MODEL", "").strip()
@@ -43,34 +62,67 @@ def _load_config() -> dict[str, str]:
     return _config
 
 
-def public_config() -> dict[str, Any]:
+def public_config(provider: str = "gpt") -> dict[str, Any]:
+    if _is_deepseek(provider):
+        return {
+            "provider": DEEPSEEK_PROVIDER,
+            "url_base": DEEPSEEK_API_URL,
+            "default_model": DEEPSEEK_MODEL,
+            "has_key": bool(DEEPSEEK_API_KEY),
+        }
     config = _load_config()
     return {
+        "provider": provider or "gpt",
         "url_base": config["url_base"],
         "default_model": config["default_model"],
         "has_key": bool(config["url_key"]),
     }
 
 
-def save_config(url_base: str, url_key: str, default_model: str) -> dict[str, Any]:
+def save_config(url_base: str, url_key: str, default_model: str, provider: str = "gpt") -> dict[str, Any]:
     global _config
+    if _is_deepseek(provider, default_model):
+        return public_config(provider=DEEPSEEK_PROVIDER)
     current = _load_config()
     _config = {
-        "url_base": url_base.strip(),
+        "url_base": normalize_api_url(url_base) or DEFAULT_API_URL,
         "url_key": url_key.strip() or current.get("url_key", ""),
-        "default_model": default_model.strip() or "gpt-4.1",
+        "default_model": default_model.strip() or DEFAULT_MODEL,
     }
     CONFIG_PATH.write_text(json.dumps(_config, ensure_ascii=False, indent=2), encoding="utf-8")
-    return public_config()
+    return public_config(provider=provider)
 
 
-def configured() -> bool:
+def _is_deepseek(provider: str = "", model: str = "") -> bool:
+    provider_id = (provider or "").strip().lower()
+    model_id = (model or "").strip().lower().replace("_", "-")
+    return (
+        provider_id == DEEPSEEK_PROVIDER
+        or model_id in {DEEPSEEK_MODEL, "deepseek v4 pro"}
+        or model_id.startswith("deepseek-")
+    )
+
+
+def _config_for_provider(provider: str, model: str, override_config: dict[str, str] | None = None) -> dict[str, str]:
+    if _is_deepseek(provider, model):
+        return {
+            "url_base": DEEPSEEK_API_URL,
+            "url_key": DEEPSEEK_API_KEY,
+            "default_model": DEEPSEEK_MODEL,
+            "provider": DEEPSEEK_PROVIDER,
+        }
+    return override_config or _load_config()
+
+
+def configured(provider: str = "", model: str = "") -> bool:
+    if _is_deepseek(provider, model):
+        return bool(DEEPSEEK_API_URL and DEEPSEEK_API_KEY)
     config = _load_config()
     return bool(config.get("url_base") and config.get("url_key"))
 
 
 def endpoint_for(url_base: str) -> str:
-    base = url_base.strip().rstrip("/")
+    base = normalize_api_url(url_base).rstrip("/")
     if base.endswith("/chat/completions"):
         return base
     if base.endswith("/v1"):
@@ -78,133 +130,130 @@ def endpoint_for(url_base: str) -> str:
     return f"{base}/v1/chat/completions"
 
 
-def responses_endpoint_for(url_base: str) -> str:
-    base = url_base.strip().rstrip("/")
-    if base.endswith("/chat/completions"):
-        return base[: -len("/chat/completions")] + "/responses"
-    if base.endswith("/responses"):
-        return base
-    if base.endswith("/v1"):
-        return f"{base}/responses"
-    return f"{base}/v1/responses"
-
-
-def _parse_response_body(body: bytes, status: int, content_type: str) -> dict[str, Any]:
-    text = body.decode("utf-8", errors="replace").strip()
-    if not text:
-        raise RuntimeError(f"大模型接口返回空响应，HTTP {status}，Content-Type: {content_type or 'unknown'}。")
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError as error:
-        if text.startswith("data:"):
-            chunks = []
-            content_parts = []
-            for line in text.splitlines():
-                line = line.strip()
-                if not line.startswith("data:"):
-                    continue
-                data = line[5:].strip()
-                if data == "[DONE]":
-                    continue
-                try:
-                    chunk = json.loads(data)
-                except json.JSONDecodeError:
-                    continue
-                chunks.append(chunk)
-                for choice in chunk.get("choices") or []:
-                    delta = choice.get("delta") or {}
-                    message = choice.get("message") or {}
-                    content = delta.get("content") or message.get("content") or choice.get("text")
-                    if isinstance(content, str):
-                        content_parts.append(content)
-            if chunks:
-                if content_parts:
-                    return {"choices": [{"message": {"content": "".join(content_parts)}}], "stream": True}
-                return chunks[-1]
-        snippet = re.sub(r"\s+", " ", text[:500])
-        raise RuntimeError(
-            f"大模型接口未返回合法 JSON，HTTP {status}，Content-Type: {content_type or 'unknown'}，"
-            f"响应片段：{snippet}"
-        ) from error
-
-
 def _request_json(endpoint: str, api_key: str, payload: dict[str, Any], timeout: float) -> dict[str, Any]:
-    request = urllib.request.Request(
-        endpoint,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        method="POST",
-    )
+    session = requests.Session()
+    session.headers.update({
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}",
+    })
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            return _parse_response_body(
-                response.read(),
-                status=response.status,
-                content_type=response.headers.get("content-type", ""),
+        response = session.post(endpoint, json=payload, timeout=timeout)
+        response.raise_for_status()
+        text = response.text.strip()
+        if not text:
+            raise RuntimeError(
+                f"大模型接口返回空响应，HTTP {response.status_code}，"
+                f"Content-Type: {response.headers.get('content-type') or 'unknown'}。"
             )
-    except urllib.error.HTTPError as error:
-        detail = error.read().decode("utf-8", errors="ignore")
-        raise RuntimeError(f"大模型接口返回 {error.code}: {detail[:500]}") from error
-    except Exception as error:
-        raise RuntimeError(f"大模型接口连接失败: {type(error).__name__}: {error!r}") from error
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError as error:
+            if "text/event-stream" in (response.headers.get("content-type") or "") or text.startswith("data:"):
+                return _parse_sse_response(text, response.status_code, response.headers.get("content-type") or "unknown")
+            snippet = " ".join(text[:500].split())
+            raise RuntimeError(
+                f"大模型接口未返回合法 JSON，HTTP {response.status_code}，"
+                f"Content-Type: {response.headers.get('content-type') or 'unknown'}，"
+                f"响应片段：{snippet or '[empty]'}"
+            ) from error
+    except requests.HTTPError as error:
+        response = error.response
+        detail = response.text[:500] if response is not None else str(error)
+        status = response.status_code if response is not None else "unknown"
+        raise RuntimeError(f"大模型接口返回 {status}: {detail}") from error
+    except RuntimeError:
+        raise
+    except requests.RequestException as error:
+        raise RuntimeError(f"大模型接口连接失败: {type(error).__name__}: {error}") from error
+    finally:
+        session.close()
 
 
-def _stream_request(endpoint: str, api_key: str, payload: dict[str, Any], timeout: float):
-    """向支持 SSE/data: 的 OpenAI-compatible 接口发起请求，并按数据块 yield 文本片段。"""
-    request = urllib.request.Request(
-        endpoint,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-            "Accept": "text/event-stream, application/json",
-        },
-        method="POST",
+def _text_from_chunk_value(value: Any) -> str:
+    if isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        parts = []
+        for item in value:
+            if isinstance(item, dict):
+                parts.append(str(item.get("text") or item.get("content") or ""))
+            else:
+                parts.append(str(item))
+        return "".join(parts)
+    return ""
+
+
+def _parse_sse_response(text: str, status: int, content_type: str) -> dict[str, Any]:
+    chunks: list[dict[str, Any]] = []
+    content_parts: list[str] = []
+    usage: dict[str, Any] | None = None
+
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line.startswith("data:"):
+            continue
+        data = line[5:].strip()
+        if not data or data == "[DONE]":
+            continue
+        try:
+            chunk = json.loads(data)
+        except json.JSONDecodeError:
+            continue
+        chunks.append(chunk)
+        if isinstance(chunk.get("usage"), dict):
+            usage = chunk["usage"]
+        error = chunk.get("error")
+        if error:
+            raise RuntimeError(f"大模型接口返回错误：{error}")
+
+        # OpenAI-compatible chat completion stream.
+        for choice in chunk.get("choices") or []:
+            if not isinstance(choice, dict):
+                continue
+            delta = choice.get("delta") or {}
+            message = choice.get("message") or {}
+            content = None
+            if isinstance(delta, dict):
+                content = delta.get("content")
+            if content is None and isinstance(message, dict):
+                content = message.get("content")
+            if content is None:
+                content = choice.get("text")
+            piece = _text_from_chunk_value(content)
+            if piece:
+                content_parts.append(piece)
+
+        # A little extra tolerance for providers that stream response-style events.
+        event_type = str(chunk.get("type") or "")
+        if event_type.endswith(".delta") and isinstance(chunk.get("delta"), str):
+            content_parts.append(chunk["delta"])
+
+    if content_parts:
+        return {
+            "choices": [{"message": {"content": "".join(content_parts)}}],
+            "usage": usage or {},
+            "stream": True,
+        }
+
+    if chunks:
+        raise EmptyModelOutputError(
+            "大模型接口返回了 SSE 流，但没有生成文本；"
+            f"HTTP {status}，Content-Type: {content_type}，usage={usage or chunks[-1].get('usage')}"
+        )
+
+    snippet = " ".join(text[:500].split())
+    raise RuntimeError(
+        f"大模型接口未返回合法 JSON/SSE，HTTP {status}，Content-Type: {content_type}，"
+        f"响应片段：{snippet or '[empty]'}"
     )
+
+
+def _content_from_chat_completion(result: dict[str, Any]) -> str:
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            # 按行读取 SSE 风格的 data: 行
-            for raw in response:
-                try:
-                    line = raw.decode("utf-8", errors="replace").strip()
-                except Exception:
-                    continue
-                if not line:
-                    continue
-                if not line.startswith("data:"):
-                    continue
-                data = line[5:].strip()
-                if not data:
-                    continue
-                if data == "[DONE]":
-                    break
-                try:
-                    chunk = json.loads(data)
-                except Exception:
-                    # 非 JSON，可尝试直接返回文本
-                    yield data
-                    continue
-                # 从 chunk 中提取生成内容（兼容 choices[].delta 或 choices[].message）
-                for choice in chunk.get("choices") or []:
-                    delta = choice.get("delta") or {}
-                    message = choice.get("message") or {}
-                    content = delta.get("content") or message.get("content") or choice.get("text")
-                    if isinstance(content, str) and content:
-                        yield content
-    except urllib.error.HTTPError as error:
-        detail = error.read().decode("utf-8", errors="ignore")
-        raise RuntimeError(f"大模型接口返回 {error.code}: {detail[:500]}") from error
-    except Exception as error:
-        raise RuntimeError(f"大模型接口连接失败: {type(error).__name__}: {error!r}") from error
+        content = result["choices"][0]["message"]["content"]
+    except (KeyError, IndexError, TypeError) as error:
+        raise EmptyModelOutputError(f"Chat Completions API 未返回可用文本：{result}") from error
 
-
-def _text_from_message_content(content: Any) -> str:
-    if isinstance(content, str):
-        return content
     if isinstance(content, list):
         parts = []
         for item in content:
@@ -212,138 +261,44 @@ def _text_from_message_content(content: Any) -> str:
                 parts.append(str(item.get("text") or item.get("content") or ""))
             else:
                 parts.append(str(item))
-        return "\n".join(part for part in parts if part)
-    return str(content or "")
+        content = "\n".join(part for part in parts if part)
+
+    full_answer = str(content or "").strip()
+    if not full_answer:
+        raise EmptyModelOutputError("接口返回空内容")
+    return full_answer
 
 
-def _messages_to_responses_payload(messages: list[dict[str, Any]], model: str, temperature: float) -> dict[str, Any]:
-    instructions = "\n".join(
-        _text_from_message_content(message.get("content"))
-        for message in messages
-        if message.get("role") == "system"
-    ).strip()
-    input_text = "\n\n".join(
-        f"{message.get('role', 'user')}: {_text_from_message_content(message.get('content'))}"
-        for message in messages
-        if message.get("role") != "system"
-    ).strip()
-    payload: dict[str, Any] = {
-        "model": model,
-        "input": input_text or "Hello",
-        "max_output_tokens": 1600,
-        "store": False,
+def _normalize_model(model: str, default_model: str) -> str:
+    clean = (model or "").strip()
+    if not clean or clean == "general":
+        return default_model
+    return clean
+
+
+def _normalize_provider_model(provider: str, model: str, default_model: str) -> str:
+    clean = _normalize_model(model, default_model)
+    if not _is_deepseek(provider, clean):
+        return clean
+
+    model_id = clean.strip().lower().replace("_", "-")
+    if model_id in {"deepseek v4 pro", "general", ""}:
+        return DEEPSEEK_MODEL
+    return model_id if model_id.startswith("deepseek-") else DEEPSEEK_MODEL
+
+
+def _gpt_compatible_fallback_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    fallback = {
+        "model": payload["model"],
+        "messages": payload["messages"],
+        "stream": False,
+        "max_completion_tokens": payload.get("max_tokens") or DEFAULT_MAX_TOKENS,
     }
-    if instructions:
-        payload["instructions"] = instructions
-    if temperature is not None:
-        payload["temperature"] = temperature
-    return payload
-
-
-def _content_from_responses(result: dict[str, Any]) -> str:
-    if isinstance(result.get("output_text"), str) and result["output_text"].strip():
-        return result["output_text"].strip()
-
-    output_keys = {
-        "text",
-        "content",
-        "output_text",
-        "value",
-        "message",
-        "response",
-        "answer",
-        "summary",
-        "refusal",
-        "reasoning",
-    }
-    skip_keys = {
-        "id",
-        "object",
-        "model",
-        "status",
-        "role",
-        "type",
-        "usage",
-        "created_at",
-        "created",
-        "metadata",
-        "annotations",
-        "input_tokens",
-        "output_tokens",
-        "total_tokens",
-    }
-
-    def collect_text(value: Any, depth: int = 0, key_hint: str = "") -> list[str]:
-        if depth > 6:
-            return []
-        if isinstance(value, str):
-            clean = value.strip()
-            if not clean:
-                return []
-            if key_hint and key_hint not in output_keys:
-                return []
-            if clean in {"completed", "in_progress", "message", "output_text", "assistant"}:
-                return []
-            return [clean]
-        if isinstance(value, list):
-            parts: list[str] = []
-            for item in value:
-                parts.extend(collect_text(item, depth + 1, key_hint))
-            return parts
-        if isinstance(value, dict):
-            parts: list[str] = []
-            for key, item in value.items():
-                if key in skip_keys:
-                    continue
-                if key in output_keys:
-                    parts.extend(collect_text(item, depth + 1, key))
-                elif isinstance(item, (dict, list)):
-                    parts.extend(collect_text(item, depth + 1, ""))
-            return parts
-        return []
-
-    parts = collect_text(result.get("output") or result)
-    if parts:
-        ranked = sorted(dict.fromkeys(part.strip() for part in parts if part.strip()), key=len, reverse=True)
-        return "\n".join(ranked[:3]).strip()
-    error = result.get("error")
-    if error:
-        raise RuntimeError(f"Responses API 返回错误：{error}")
-    raise RuntimeError(f"Responses API 未返回可用文本，status={result.get('status')}，usage={result.get('usage')}")
-
-
-def _responses_completion(config: dict[str, str], messages: list[dict[str, Any]], model: str, temperature: float, timeout: float) -> str:
-    result = _request_json(
-        responses_endpoint_for(config["url_base"]),
-        config["url_key"],
-        _messages_to_responses_payload(messages, model, temperature),
-        timeout,
-    )
-    return _content_from_responses(result)
-
-
-def stream_chat_completion(
-    messages: list[dict[str, Any]],
-    model: str,
-    temperature: float = 0.35,
-    override_config: dict[str, str] | None = None,
-    timeout: float = 45,
-) -> typing.Generator[str, None, None]:
-    """以 generator 形式按块返回模型生成的文本（兼容 SSE/data: 流）。"""
-    config = override_config or _load_config()
-    if not config.get("url_base") or not config.get("url_key"):
-        raise RuntimeError("请先在管理员界面配置大模型 url_base 和 url_key。")
-
-    payload = {
-        "model": model or config.get("default_model") or "gpt-4.1",
-        "messages": messages,
-        "temperature": temperature,
-        "stream": True,
-        "max_tokens": 1600,
-    }
-    # 使用 _stream_request 来逐块读取 SSE
-    for piece in _stream_request(endpoint_for(config["url_base"]), config["url_key"], payload, timeout):
-        yield piece
+    if "reasoning_effort" in payload:
+        fallback["reasoning_effort"] = payload["reasoning_effort"]
+    if "thinking" in payload:
+        fallback["thinking"] = payload["thinking"]
+    return fallback
 
 
 def chat_completion(
@@ -351,53 +306,81 @@ def chat_completion(
     model: str,
     temperature: float = 0.35,
     override_config: dict[str, str] | None = None,
-    timeout: float = 45,
+    timeout: float = DEFAULT_TIMEOUT,
+    provider: str = "",
 ) -> str:
-    config = override_config or _load_config()
+    config = _config_for_provider(provider, model, override_config)
     if not config.get("url_base") or not config.get("url_key"):
         raise RuntimeError("请先在管理员界面配置大模型 url_base 和 url_key。")
 
+    provider_id = str(config.get("provider") or provider or "")
+    active_model = _normalize_provider_model(provider_id, model, config.get("default_model") or DEFAULT_MODEL)
     payload = {
-        "model": model or config.get("default_model") or "gpt-4.1",
+        "model": active_model,
         "messages": messages,
-        "temperature": temperature,
         "stream": False,
-        "max_tokens": 1600,
+        "temperature": 0,
+        "max_tokens": DEFAULT_MAX_TOKENS,
     }
-    active_model = payload["model"]
-    result = _request_json(endpoint_for(config["url_base"]), config["url_key"], payload, timeout)
+    if _is_deepseek(provider_id, active_model):
+        payload.pop("temperature", None)
+        payload.pop("max_tokens", None)
+        payload["reasoning_effort"] = "high"
+        payload["thinking"] = {"type": "enabled"}
 
-    choices = result.get("choices") or []
-    if not choices:
-        return _responses_completion(config, messages, active_model, temperature, timeout)
-    message = choices[0].get("message") or {}
-    if not message and isinstance(choices[0], dict):
-        message = choices[0].get("delta") or {}
-    content = message.get("content")
-    if isinstance(content, str):
-        return content
-    if isinstance(content, list):
-        return "\n".join(str(item.get("text") or item) for item in content)
-    return str(content or "")
+    endpoint = endpoint_for(config["url_base"])
+    try:
+        result = _request_json(endpoint, config["url_key"], payload, timeout)
+        return _content_from_chat_completion(result)
+    except EmptyModelOutputError as first_error:
+        fallback_payload = _gpt_compatible_fallback_payload(payload)
+        try:
+            result = _request_json(endpoint, config["url_key"], fallback_payload, timeout)
+            return _content_from_chat_completion(result)
+        except EmptyModelOutputError as second_error:
+            raise EmptyModelOutputError(
+                f"{second_error}；已使用 gpt-5.4 兼容参数重试一次"
+                "（max_completion_tokens，省略 temperature），仍未生成文本。"
+                f"首次响应：{first_error}"
+            ) from second_error
 
 
-def test_connection(url_base: str, url_key: str, model: str) -> dict[str, Any]:
+def stream_chat_completion(
+    messages: list[dict[str, Any]],
+    model: str,
+    temperature: float = 0.35,
+    override_config: dict[str, str] | None = None,
+    timeout: float = DEFAULT_TIMEOUT,
+    provider: str = "",
+) -> typing.Generator[str, None, None]:
+    yield chat_completion(
+        messages=messages,
+        model=model,
+        temperature=temperature,
+        override_config=override_config,
+        timeout=timeout,
+        provider=provider,
+    )
+
+
+def test_connection(url_base: str, url_key: str, model: str, provider: str = "gpt") -> dict[str, Any]:
     current = _load_config()
     test_config = {
-        "url_base": url_base.strip() or current.get("url_base", ""),
+        "url_base": normalize_api_url(url_base) or current.get("url_base", DEFAULT_API_URL),
         "url_key": url_key.strip() or current.get("url_key", ""),
-        "default_model": model.strip() or current.get("default_model", "gpt-4.1"),
+        "default_model": model.strip() or current.get("default_model", DEFAULT_MODEL),
     }
-    if not test_config["url_base"] or not test_config["url_key"]:
+    if not _is_deepseek(provider, model) and (not test_config["url_base"] or not test_config["url_key"]):
         raise RuntimeError("请填写 url_base 和 url_key，或先保存一组可用配置。")
 
     answer = chat_completion(
         [
-            {"role": "system", "content": "You are a connectivity test assistant. Reply with OK."},
-            {"role": "user", "content": "只回复 OK。"},
+            {"role": "system", "content": "你是一名OCR文本校对专家。"},
+            {"role": "user", "content": "Reply exactly with OK."},
         ],
         model=test_config["default_model"],
         override_config=test_config,
-        timeout=20,
+        timeout=DEFAULT_TIMEOUT,
+        provider=provider,
     )
     return {"ok": True, "message": answer[:200]}

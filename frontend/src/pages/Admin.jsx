@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 import PageHero from "../components/PageHero.jsx";
 import { api } from "../services/api.js";
 
+const DEFAULT_MODEL = "gpt-5.4";
+
 export default function Admin({ session }) {
-  const [config, setConfig] = useState({ url_base: "", url_key: "", default_model: "gpt-4.1" });
+  const [config, setConfig] = useState({ provider: "gpt", url_base: "", url_key: "", default_model: DEFAULT_MODEL });
   const [notice, setNotice] = useState("");
   const [testing, setTesting] = useState(false);
 
   useEffect(() => {
     if (session.user?.role === "admin") {
-      api.llmConfig()
-        .then((data) => setConfig((current) => ({ ...current, url_base: data.url_base || "", default_model: data.default_model || "gpt-4.1", url_key: "" })))
+      api.llmConfig(config.provider)
+        .then((data) => setConfig((current) => ({ ...current, provider: data.provider || current.provider, url_base: data.url_base || "", default_model: data.default_model || DEFAULT_MODEL, url_key: "" })))
         .catch((error) => setNotice(error.message));
     }
-  }, [session.user?.role]);
+  }, [config.provider, session.user?.role]);
 
   if (session.user?.role !== "admin") {
     return (
@@ -40,7 +42,7 @@ export default function Admin({ session }) {
     setTesting(true);
     setNotice("正在测试大模型连通性...");
     try {
-      const result = await api.testLlmConfig({ url_base: config.url_base, url_key: config.url_key, model: config.default_model });
+      const result = await api.testLlmConfig({ provider: config.provider, url_base: config.url_base, url_key: config.url_key, model: config.default_model });
       setNotice(`连通测试成功：${result.message || "OK"}`);
     } catch (error) {
       setNotice(error.message);
@@ -72,7 +74,7 @@ export default function Admin({ session }) {
               <input value={config.url_key} onChange={(event) => setConfig((current) => ({ ...current, url_key: event.target.value }))} placeholder="保存后不回显；留空表示不覆盖已有 key" type="password" />
             </label>
             <label>默认模型
-              <input value={config.default_model} onChange={(event) => setConfig((current) => ({ ...current, default_model: event.target.value }))} placeholder="gpt-4.1 / gpt-4o / qwen-plus ..." />
+              <input value={config.default_model} onChange={(event) => setConfig((current) => ({ ...current, default_model: event.target.value }))} placeholder={DEFAULT_MODEL} />
             </label>
           </div>
           <div className="llm-actions">

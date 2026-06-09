@@ -1,6 +1,8 @@
 const PREFIX = "china-narrative-platform";
 const PREFACE_KEY = `${PREFIX}:story-prefaces:v1`;
 const WILHELM_KEY = `${PREFIX}:wilhelm-folktales:v1`;
+const WILHELM_STORY_DRAFT_KEY = `${PREFIX}:wilhelm-story-drafts:v1`;
+const WILHELM_KG_CACHE_KEY = `${PREFIX}:wilhelm-llm-knowledge-graphs:v1`;
 
 function canUseStorage() {
   return typeof window !== "undefined" && Boolean(window.localStorage);
@@ -72,6 +74,22 @@ export function loadWilhelmRecords() {
 
 export function saveWilhelmRecords(records) {
   saveJson(WILHELM_KEY, records);
+}
+
+export function loadWilhelmStoryDrafts() {
+  return loadJson(WILHELM_STORY_DRAFT_KEY, {});
+}
+
+export function saveWilhelmStoryDrafts(drafts) {
+  saveJson(WILHELM_STORY_DRAFT_KEY, drafts);
+}
+
+export function loadWilhelmKnowledgeGraphs() {
+  return loadJson(WILHELM_KG_CACHE_KEY, {});
+}
+
+export function saveWilhelmKnowledgeGraphs(graphs) {
+  saveJson(WILHELM_KG_CACHE_KEY, graphs);
 }
 
 export async function parseTableFile(file) {

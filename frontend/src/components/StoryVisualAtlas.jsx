@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../services/api.js";
+import {
+  PublicationBubbleMap as StoryMapPublicationBubbleMap,
+  SourceChinaMap as StoryMapSourceChinaMap,
+} from "./StoryMapAtlas.jsx";
 
 const palette = ["#0b66b2", "#15a884", "#f59e0b", "#7c3aed", "#ef4444", "#0891b2", "#64748b", "#d97706"];
 const regionColors = ["#2563eb", "#15a884", "#f59e0b", "#7c3aed", "#ef4444", "#0891b2", "#64748b", "#84cc16", "#ec4899", "#14b8a6"];
@@ -729,7 +733,7 @@ function PublicationBubbleMap({ chart, items, title, id }) {
     title,
     subtitle: "出版地图",
     geo: {
-      world: "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson",
+      world: "basemap:boundary",
       countries: ["Germany", "China", "Switzerland", "Austria", "Czechia"]
     },
     points: fallbackPoints
@@ -745,8 +749,7 @@ function PublicationBubbleMap({ chart, items, title, id }) {
     let canceled = false;
     async function load() {
       try {
-        const response = await fetch(effectiveChart.geo?.world || "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson", { cache: "force-cache" });
-        const data = await response.json();
+        const data = await api.basemapBoundary();
         if (!canceled) setWorld(data);
       } catch {
         if (!canceled) setWorld({ features: [] });
@@ -839,8 +842,7 @@ function SourceChinaMap({ chart }) {
     let canceled = false;
     async function load() {
       try {
-        const response = await fetch(chart?.geo?.china || "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json", { cache: "force-cache" });
-        const data = await response.json();
+        const data = await api.basemapProvince();
         if (!canceled) setGeo(data);
       } catch {
         if (!canceled) setGeo({ features: [] });
@@ -1838,7 +1840,15 @@ function ChildThemeTypeNetwork({ chart }) {
   );
 }
 
-export { PublicationBubbleMap };
+export {
+  StoryMapPublicationBubbleMap as PublicationBubbleMap,
+  StoryMapSourceChinaMap as SourceChinaMap,
+  IdentityProcessChart,
+  IdentityRiverChart,
+  PrefaceThemeCluster,
+  PrefaceWordCloud,
+  ChildThemeCooccurrence,
+};
 
 export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }) {
   const [atlas, setAtlas] = useState(null);
@@ -1922,8 +1932,8 @@ export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }
         <IdentityRiverChart chart={charts.identityRiver} />
       </div>
       <div className="atlas-grid two-col equal-atlas-row">
-        <PublicationBubbleMap chart={charts.publicationMap} />
-        <SourceChinaMap chart={charts.sourceMap} />
+        <StoryMapPublicationBubbleMap chart={charts.publicationMap} />
+        <StoryMapSourceChinaMap chart={charts.sourceMap} />
       </div>
     </section>
   );

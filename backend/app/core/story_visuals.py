@@ -9,8 +9,15 @@ from functools import lru_cache
 from itertools import combinations
 from pathlib import Path
 from typing import Any, Optional
+from xml.etree import ElementTree as ET
+import zipfile
 
 from backend.app.core.llm_client import chat_completion
+
+try:
+    from openpyxl import load_workbook
+except Exception:  # pragma: no cover
+    load_workbook = None
 
 try:
     import jieba
@@ -26,6 +33,16 @@ STORY_DATA_PATH = ROOT / "frontend" / "src" / "data" / "storyCollections.json"
 WILHELM_GRAPH_CACHE_PATH = ROOT / "backend" / "app" / "wilhelm_graph_cache.json"
 WILHELM_KEYWORD_CACHE_PATH = ROOT / "backend" / "app" / "wilhelm_keyword_category_cache.json"
 WILHELM_KEYWORD_NETWORK_CACHE_PATH = ROOT / "backend" / "app" / "wilhelm_keyword_network_cache.json"
+EXTERNAL_KNOWLEDGE_WORKBOOKS = [
+    "地图_中国故事集总表_知识库.xlsx",
+    "地图_中国民间童话.xlsx",
+    "数据库信息.xlsx",
+    "中国故事集_序跋.xlsx",
+    "中国故事集_子故事（3533篇）.xlsx",
+    "中国故事集总表_知识库.xlsx",
+]
+PUBLICATION_MAP_WORKBOOK = "地图_中国故事集_出版地和故事来源地.xlsx"
+PUBLICATION_SOURCE_MAP_JSON_PATH = ROOT / "frontend" / "src" / "data" / "wilhelmPublicationSourceMap.json"
 
 STAGES = [
     {"id": "early", "title": "1910s-1930s", "note": "早期译介", "range": [1910, 1940]},
@@ -36,37 +53,37 @@ STAGES = [
 
 CITY_COORDS = {
     "Berlin": [13.405, 52.52],
-    "Jena": [11.59, 50.93],
-    "München": [11.58, 48.14],
-    "Leipzig": [12.37, 51.34],
-    "Frankfurt am Main": [8.68, 50.11],
-    "Stuttgart": [9.18, 48.78],
-    "Basel": [7.59, 47.56],
-    "Sankt Augustin": [7.19, 50.78],
-    "Esslingen": [9.31, 48.74],
-    "Norderstedt": [9.98, 53.71],
-    "Bickenbach": [8.62, 49.76],
-    "Hamburg": [9.99, 53.55],
-    "Köln": [6.96, 50.94],
-    "Düsseldorf": [6.77, 51.23],
-    "Freiburg": [7.85, 47.99],
-    "Eisennach": [10.32, 50.98],
-    "Eisenach": [10.32, 50.98],
-    "Kassel": [9.49, 51.31],
-    "Zürich": [8.54, 47.38],
-    "Prag": [14.42, 50.08],
-    "Wien": [16.37, 48.21],
+    "Jena": [11.5892, 50.9271],
+    "München": [11.582, 48.1351],
+    "Leipzig": [12.3731, 51.3397],
+    "Frankfurt am Main": [8.6821, 50.1109],
+    "Stuttgart": [9.1829, 48.7758],
+    "Basel": [7.5886, 47.5596],
+    "Sankt Augustin": [7.1902, 50.7754],
+    "Esslingen": [9.3103, 48.7428],
+    "Norderstedt": [9.9791, 53.7088],
+    "Bickenbach": [8.6106, 49.7595],
+    "Hamburg": [9.9937, 53.5511],
+    "Köln": [6.9603, 50.9375],
+    "Düsseldorf": [6.7735, 51.2277],
+    "Freiburg": [7.8421, 47.999],
+    "Eisennach": [10.3157, 50.9795],
+    "Eisenach": [10.3157, 50.9795],
+    "Kassel": [9.4797, 51.3127],
+    "Zürich": [8.5417, 47.3769],
+    "Prag": [14.4378, 50.0755],
+    "Wien": [16.3738, 48.2082],
     "Peking": [116.4, 39.9],
     "Beijing": [116.4, 39.9],
     "北京": [116.4, 39.9],
     "Shanghai": [121.47, 31.23],
     "上海": [121.47, 31.23],
-    "Bayreuth": [11.58, 49.95],
-    "Meerbusch": [6.69, 51.25],
-    "Augsburg": [10.9, 48.37],
-    "Bielefeld": [8.53, 52.02],
-    "Schiedlberg": [14.27, 48.1],
-    "Kreuzlingen": [9.18, 47.65],
+    "Bayreuth": [11.5783, 49.9456],
+    "Meerbusch": [6.6897, 51.2529],
+    "Augsburg": [10.8978, 48.3705],
+    "Bielefeld": [8.5325, 52.0302],
+    "Schiedlberg": [14.0546, 48.111],
+    "Kreuzlingen": [9.175, 47.65],
 }
 
 PROVINCE_COORDS = {
@@ -255,6 +272,185 @@ def story_data() -> dict[str, Any]:
     return _story_data_cached(*_story_data_cache_key())
 
 
+def _xlsx_col_index(cell_ref: str) -> int:
+    match = re.match(r"([A-Z]+)", str(cell_ref or ""))
+    if not match:
+        return 0
+    value = 0
+    for char in match.group(1):
+        value = value * 26 + (ord(char) - 64)
+    return max(0, value - 1)
+
+
+def _xlsx_shared_strings(archive: zipfile.ZipFile) -> list[str]:
+    try:
+        root = ET.fromstring(archive.read("xl/sharedStrings.xml"))
+    except KeyError:
+        return []
+    ns = {"a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    values: list[str] = []
+    for item in root.findall("a:si", ns):
+        values.append("".join(node.text or "" for node in item.findall(".//a:t", ns)))
+    return values
+
+
+def _xlsx_sheet_targets(archive: zipfile.ZipFile) -> list[tuple[str, str]]:
+    ns_main = {
+        "a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+        "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+    }
+    ns_rel = {"a": "http://schemas.openxmlformats.org/package/2006/relationships"}
+    workbook = ET.fromstring(archive.read("xl/workbook.xml"))
+    rels = ET.fromstring(archive.read("xl/_rels/workbook.xml.rels"))
+    target_by_id = {
+        rel.attrib.get("Id", ""): rel.attrib.get("Target", "")
+        for rel in rels.findall("a:Relationship", ns_rel)
+    }
+    sheets: list[tuple[str, str]] = []
+    for sheet in workbook.findall("a:sheets/a:sheet", ns_main):
+        name = sheet.attrib.get("name", "")
+        rel_id = sheet.attrib.get("{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id", "")
+        target = target_by_id.get(rel_id, "")
+        if name and target:
+            sheets.append((name, f"xl/{target.lstrip('/')}"))
+    return sheets
+
+
+def _xlsx_sheet_rows(path: Path, sheet_name: str) -> list[list[str]]:
+    with zipfile.ZipFile(path) as archive:
+        shared_strings = _xlsx_shared_strings(archive)
+        sheets = dict(_xlsx_sheet_targets(archive))
+        target = sheets.get(sheet_name)
+        if not target:
+            return []
+        root = ET.fromstring(archive.read(target))
+    ns = {"a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    rows: list[list[str]] = []
+    for row in root.findall(".//a:sheetData/a:row", ns):
+        values: list[str] = []
+        for cell in row.findall("a:c", ns):
+            index = _xlsx_col_index(cell.attrib.get("r", ""))
+            while len(values) <= index:
+                values.append("")
+            cell_type = cell.attrib.get("t", "")
+            if cell_type == "inlineStr":
+                text = "".join(node.text or "" for node in cell.findall(".//a:t", ns))
+            else:
+                raw = cell.findtext("a:v", default="", namespaces=ns)
+                if cell_type == "s" and raw.isdigit():
+                    shared_index = int(raw)
+                    text = shared_strings[shared_index] if 0 <= shared_index < len(shared_strings) else ""
+                else:
+                    text = raw or ""
+            values[index] = text.strip()
+        if any(value != "" for value in values):
+            rows.append(values)
+    return rows
+
+
+def _workbook_sheet_names(path: Path) -> list[str]:
+    if load_workbook is not None:
+        try:
+            workbook = load_workbook(path, read_only=True, data_only=True)
+            return list(workbook.sheetnames)
+        except Exception:
+            pass
+    try:
+        with zipfile.ZipFile(path) as archive:
+            return [name for name, _ in _xlsx_sheet_targets(archive)]
+    except Exception:
+        return []
+
+
+def _read_workbook_sheet(path: Path, sheet_name: str) -> list[dict[str, Any]]:
+    rows: list[list[Any]] = []
+    if load_workbook is not None:
+        try:
+            workbook = load_workbook(path, read_only=True, data_only=True)
+            if sheet_name not in workbook.sheetnames:
+                return []
+            rows = [
+                ["" if cell is None else str(cell).strip() for cell in row]
+                for row in workbook[sheet_name].iter_rows(values_only=True)
+            ]
+        except Exception:
+            rows = []
+    if not rows:
+        try:
+            rows = _xlsx_sheet_rows(path, sheet_name)
+        except Exception:
+            rows = []
+    if not rows:
+        return []
+    header = [str(cell or "").strip() for cell in rows[0]]
+    records: list[dict[str, Any]] = []
+    for row in rows[1:]:
+        cells = ["" if cell is None else str(cell).strip() for cell in row]
+        if not any(cells):
+            continue
+        payload = {header[index] or f"col_{index}": cells[index] for index in range(min(len(header), len(cells)))}
+        payload["_workbook"] = path.name
+        payload["_sheet"] = sheet_name
+        records.append(payload)
+    return records
+
+
+@lru_cache(maxsize=1)
+def workbook_knowledge() -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for filename in EXTERNAL_KNOWLEDGE_WORKBOOKS:
+        for path in list(ROOT.rglob(filename))[:1]:
+            for sheet_name in _workbook_sheet_names(path)[:8]:
+                records.extend(_read_workbook_sheet(path, sheet_name))
+    return records
+
+
+@lru_cache(maxsize=1)
+def publication_workbook_rows() -> list[dict[str, Any]]:
+    matches = list(ROOT.rglob(PUBLICATION_MAP_WORKBOOK))
+    if not matches:
+        return []
+    path = matches[0]
+    rows: list[dict[str, Any]] = []
+    for sheet_name in _workbook_sheet_names(path)[:4]:
+        rows.extend(_read_workbook_sheet(path, sheet_name))
+    return rows
+
+
+def _publication_source_cache_key() -> tuple[int, int]:
+    if not PUBLICATION_SOURCE_MAP_JSON_PATH.exists():
+        return 0, 0
+    stat = PUBLICATION_SOURCE_MAP_JSON_PATH.stat()
+    return stat.st_mtime_ns, stat.st_size
+
+
+@lru_cache(maxsize=4)
+def _publication_source_map_cached(mtime_ns: int, size: int) -> dict[str, Any]:
+    if not mtime_ns or not size:
+        return {}
+    try:
+        return json.loads(PUBLICATION_SOURCE_MAP_JSON_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def publication_source_map_data() -> dict[str, Any]:
+    return _publication_source_map_cached(*_publication_source_cache_key())
+
+
+def _record_year(item: dict[str, Any]) -> int:
+    match = re.search(r"\d{4}", str(item.get("year") or item.get("yearText") or ""))
+    return int(match.group(0)) if match else 0
+
+
+def _record_title(item: dict[str, Any]) -> str:
+    parts = [
+        str(item.get("title") or item.get("title(Chinese)") or item.get("chineseTitle") or "").strip(),
+        str(item.get("foreignTitle") or item.get("name") or "").strip(),
+    ]
+    return " / ".join(part for part in parts if part) or "未记录"
+
+
 def short(text: Any, limit: int = 16) -> str:
     value = str(text or "未记录")
     return value if len(value) <= limit else value[: limit - 1] + "…"
@@ -291,6 +487,15 @@ def clean_cities(value: str = "") -> list[str]:
     if matched:
         return matched
     return [item.strip() for item in re.split(r"/|,|，| und | u\.a\.|;|；", text) if item.strip()]
+
+
+def city_coords(value: Any, default: Optional[list[float]] = None) -> list[float]:
+    coords = [CITY_COORDS[city] for city in clean_cities(str(value or "")) if city in CITY_COORDS]
+    if coords:
+        lon = sum(float(item[0]) for item in coords) / len(coords)
+        lat = sum(float(item[1]) for item in coords) / len(coords)
+        return [round(lon, 4), round(lat, 4)]
+    return list(default or CITY_COORDS["Berlin"])
 
 
 def token_pos(token: str) -> str:
@@ -987,6 +1192,9 @@ def publication_map(collections: list[dict[str, Any]], title: str = "德译中�
         for city in clean_cities(item.get("city") or item.get("publisher", "")):
             if city not in CITY_COORDS:
                 continue
+            year = _record_year(item)
+            title_text = _record_title(item)
+            publisher_text = str(item.get("publisher") or "").strip()
             record = cities.setdefault(
                 city,
                 {
@@ -996,38 +1204,77 @@ def publication_map(collections: list[dict[str, Any]], title: str = "德译中�
                     "coords": CITY_COORDS[city],
                     "count": 0,
                     "years": [],
+                    "yearCounts": {},
+                    "works": [],
                     "publishers": set(),
                     "country": "中国" if city in china_cities else item.get("country") or "德国/德语区",
                 },
             )
             record["count"] += 1
-            if item.get("year"):
-                record["years"].append(item["year"])
-            if item.get("publisher"):
-                record["publishers"].add(item["publisher"])
+            if year:
+                record["years"].append(year)
+                record["yearCounts"][year] = int(record["yearCounts"].get(year, 0)) + 1
+            if publisher_text:
+                record["publishers"].add(publisher_text)
+            record["works"].append({"title": title_text, "year": year, "publisher": publisher_text})
     points = []
     for item in sorted(cities.values(), key=lambda row: row["count"], reverse=True):
-        points.append({**item, "publishers": sorted(item["publishers"])[:8]})
+        seen_works: set[tuple[str, int, str]] = set()
+        works = []
+        for work in sorted(item["works"], key=lambda row: ((row.get("year") or 9999), str(row.get("title") or ""))):
+            key = (str(work.get("title") or ""), int(work.get("year") or 0), str(work.get("publisher") or ""))
+            if key in seen_works:
+                continue
+            seen_works.add(key)
+            works.append({"title": key[0] or "未记录", "year": key[1], "publisher": key[2]})
+        years = sorted({int(year) for year in item["years"] if year})
+        points.append({
+            **item,
+            "years": years,
+            "yearCounts": {str(year): int(item["yearCounts"].get(year, 0)) for year in years},
+            "publishers": sorted(item["publishers"])[:8],
+            "works": works,
+        })
     return {
         "type": "publicationMap",
         "title": title,
         "subtitle": "圆点越大表示出版城市越活跃；真实地图显示德国、德语区与中国出版节点。",
         "geo": {
-            "world": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson",
-            "china": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json",
+            "world": "/api/basemap/boundary",
+            "china": "/api/basemap/province",
             "countries": ["Germany", "China", "Switzerland", "Austria", "Czechia"],
         },
         "points": points,
     }
 
 
-def source_map(flows: list[dict[str, Any]]) -> dict[str, Any]:
+def source_map(flows: list[dict[str, Any]], records: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     counts = Counter(flow.get("province") or "未记录" for flow in flows)
+    records_by_id: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for record in records or []:
+        if record.get("id"):
+            records_by_id[str(record.get("id"))].append(record)
     points = []
     for province, count in counts.most_common():
         if province == "未记录":
             continue
         first = next((flow for flow in flows if flow.get("province") == province), {})
+        province_flows = [flow for flow in flows if flow.get("province") == province]
+        works: list[dict[str, Any]] = []
+        for flow in province_flows:
+            matched_records = records_by_id.get(str(flow.get("id"))) or [flow]
+            for record in matched_records:
+                year = _record_year(record)
+                works.append(
+                    {
+                        "title": _record_title(record),
+                        "year": year,
+                        "city": str(record.get("city") or flow.get("toLabel") or "").split("·")[0].strip(),
+                        "country": record.get("country") or flow.get("country") or "",
+                        "publisher": record.get("publisher") or "",
+                    }
+                )
+        year_counts = Counter(int(work.get("year") or 0) for work in works if int(work.get("year") or 0))
         points.append(
             {
                 "id": province,
@@ -1036,13 +1283,16 @@ def source_map(flows: list[dict[str, Any]]) -> dict[str, Any]:
                 "count": count,
                 "coords": first.get("from") or [116.4, 39.9],
                 "examples": [flow.get("title") for flow in flows if flow.get("province") == province][:5],
+                "works": works[:60],
+                "years": sorted(year_counts),
+                "yearCounts": {str(year): total for year, total in sorted(year_counts.items())},
             }
         )
     return {
         "type": "sourceMap",
         "title": "德译中国故事集取材来源地图",
         "subtitle": "以中国地图呈现故事来源、民族来源和地域叙事分布。",
-        "geo": {"china": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"},
+        "geo": {"china": "/api/basemap/province"},
         "points": points,
     }
 
@@ -1398,6 +1648,7 @@ def wilhelm_visuals(records: list[dict[str, Any]] | None = None) -> dict[str, An
     flows = []
     for row in normalized:
         province = normalize_province(row.get("province"))
+        target_coords = city_coords(row.get("city") or row.get("publisher") or "Berlin")
         flows.append(
             {
                 "id": row["id"],
@@ -1407,7 +1658,7 @@ def wilhelm_visuals(records: list[dict[str, Any]] | None = None) -> dict[str, An
                 "language": row.get("language") or "德语",
                 "year": row.get("year") or 0,
                 "from": PROVINCE_COORDS[province],
-                "to": [10.45, 51.16],
+                "to": target_coords,
                 "fromLabel": province,
                 "toLabel": f"{row.get('city') or '德国'} · {row.get('country') or '德国'}",
                 "province": province,
@@ -2075,20 +2326,31 @@ def _normalize_atlas_mode(mode: str = "all") -> str:
 
 
 @lru_cache(maxsize=12)
-def _visual_atlas_cached(mode: str, mtime_ns: int, size: int) -> dict[str, Any]:
+def _visual_atlas_cached(mode: str, mtime_ns: int, size: int, map_mtime_ns: int, map_size: int) -> dict[str, Any]:
     data = _story_data_cached(mtime_ns, size)
     collections = data["collections"]
     charts: dict[str, Any] = {}
 
     if mode in {"all", "collections"}:
-        flows = data["flows"]
+        map_data = _publication_source_map_cached(map_mtime_ns, map_size)
+        map_records = map_data.get("records") or []
+        map_flows = map_data.get("flows") or []
+        flows = map_flows or data["flows"]
+        publication_rows = map_records or publication_workbook_rows() or collections
+        publication_chart = publication_map(publication_rows)
+        if map_records:
+            publication_chart["subtitle"] = "圆点越大表示出版城市越活跃；当前地图优先使用《地图_中国故事集_出版地和故事来源地.xlsx》生成的出版地数据。"
+            publication_chart["dataSource"] = map_data.get("sourceWorkbook") or PUBLICATION_MAP_WORKBOOK
+        elif publication_workbook_rows():
+            publication_chart["subtitle"] = "圆点越大表示出版城市越活跃；当前地图优先使用《地图_中国故事集_出版地和故事来源地.xlsx》。"
+            publication_chart["dataSource"] = PUBLICATION_MAP_WORKBOOK
         wilhelm = wilhelm_rows(collections)
         charts.update(
             {
                 "identityProcess": identity_process(collections),
                 "identityRiver": identity_river(collections),
-                "publicationMap": publication_map(collections),
-                "sourceMap": source_map(flows),
+                "publicationMap": publication_chart,
+                "sourceMap": source_map(flows, map_records),
                 "wilhelmPublicationMap": publication_map(wilhelm, "卫礼贤《中国民间童话》再版出版地图"),
             }
         )
@@ -2111,7 +2373,7 @@ def _visual_atlas_cached(mode: str, mtime_ns: int, size: int) -> dict[str, Any]:
 
 
 def visual_atlas(mode: str = "all") -> dict[str, Any]:
-    return _visual_atlas_cached(_normalize_atlas_mode(mode), *_story_data_cache_key())
+    return _visual_atlas_cached(_normalize_atlas_mode(mode), *_story_data_cache_key(), *_publication_source_cache_key())
 
 
 def collection_graph(collection_id: str) -> dict[str, Any]:

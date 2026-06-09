@@ -6,7 +6,7 @@
 
 - 前端：React 18、Vite
 - 后端：FastAPI、Uvicorn
-- 数据：当前使用后端内置示例数据，后续可替换为数据库
+- 数据：使用 `frontend/src/data/storyCollections.json` 中由真实表格生成的多语种中国故事集数据
 - 资源：水墨山水首页背景、上海外国语大学 logo、研究中心 logo
 
 ## 目录结构
@@ -29,7 +29,7 @@
 │   │   └── assets/             # 图片与 logo 静态资源
 │   ├── src/
 │   │   ├── components/         # Header、Footer、图谱等组件
-│   │   ├── data/               # 静态部署演示数据
+│   │   ├── data/               # 真实故事集数据与离线兜底适配
 │   │   ├── pages/              # 首页、知识库、图谱、上传、登录等页面
 │   │   ├── services/           # API 请求封装
 │   │   ├── App.jsx
@@ -47,11 +47,47 @@
 
 - 首页：水墨山水主视觉、平台介绍、平台动态、知识库分区、知识服务模块
 - 顶部/底部 logo：按“上海外国语大学 → 中国话语与世界文学研究中心”顺序展示
-- 知识库：四大分区切换、子库标签展示、模型切换、模拟问答
+- 知识库：多语种中国故事集真实数据、子故事、序跋、传播地图与智能问答
 - 知识图谱：Canvas 节点关系图、分区筛选、放大缩小、路径追踪、节点详情
 - 数据上传：PDF、Word、Excel 上传与解析流程占位
 - 用户登录：访客拦截、研究者/管理员演示登录
 - 管理控制台：管理员权限入口占位
+
+## 地图与智能问答迁移说明
+
+本项目已接入 `packaged_story_maps_slim` 精简交付版中的地图与智能问答代码。`packaged_story_maps_slim` 仅作为临时来源目录，运行时使用当前项目内的文件。
+
+已迁移的前端能力：
+
+- 德译中国故事集出版地图：`frontend/src/components/StoryMapAtlas.jsx`、`frontend/src/components/StoryVisualAtlas.jsx`
+- 德译中国故事集取材来源地图：`frontend/src/components/StoryMapAtlas.jsx`、`frontend/src/components/StoryVisualAtlas.jsx`
+- 德译中国故事集故事来源及出版地参照图：`frontend/src/components/WilhelmSplitMap.jsx`
+- 《卫礼贤中国民间故事》再版出版地图：`frontend/src/components/StoryVisualAtlas.jsx`
+- 智能问答地图调用：`frontend/src/pages/SmartChat.jsx`、`frontend/src/components/SplitFlowMap.jsx`、`frontend/src/components/GraphCanvas.jsx`、`frontend/src/components/StatisticsPanel.jsx`
+
+已迁移的数据与底图：
+
+- 后端底图数据：`basemap_data/`（当前地图统一由后端读取该目录下的 Shapefile）
+- 地图与问答 JSON：`frontend/src/data/wilhelmPublicationSourceMap.json`
+- 源 xlsx 备份：根目录及 `data/`
+
+已接入的后端 API：
+
+- `GET /api/story/visual-atlas`
+- `POST /api/story/wilhelm-visuals`
+- `POST /api/chat`
+- `POST /api/chat/stream`
+- `GET /api/basemap/boundary`
+- `GET /api/basemap/germany-adm02`
+- `GET /api/session`
+- `GET|POST /api/admin/llm-config`
+- `POST /api/admin/llm-test`
+
+如需从 `地图_中国故事集_出版地和故事来源地.xlsx` 重新生成出版地与来源地参照 JSON：
+
+```bash
+python scripts/generate_wilhelm_publication_source_map.py
+```
 
 ## 安装依赖
 
@@ -115,7 +151,7 @@ python -m venv .venv
 1. 配置后端（可选）
 
 - 检查 `backend/llm_config.json`（如果要调用真实大模型或管理员已配置的模型），确认 API key、端点和供应商配置是否正确。
-- 如果不调用外部模型，可以使用默认内置示例数据，后端将返回演示内容。
+- 如果不调用外部模型，检索和可视化仍只使用真实故事集数据；智能问答文本生成需要配置真实大模型接口。
 
 1. 启动后端服务
 
@@ -233,7 +269,7 @@ frontend/dist
 /* /index.html 200
 ```
 
-这可以解决刷新页面或打开详情页时出现 Netlify `Page not found` 的问题。当前 Netlify 只部署前端静态页面；如果没有单独部署 FastAPI，前端会自动使用内置演示数据。后续若将 FastAPI 部署到服务器，可在 Netlify 环境变量中设置：
+这可以解决刷新页面或打开详情页时出现 Netlify `Page not found` 的问题。当前 Netlify 只部署前端静态页面；如果没有单独部署 FastAPI，前端会自动使用同一份真实故事集数据作为离线兜底。后续若将 FastAPI 部署到服务器，可在 Netlify 环境变量中设置：
 
 ```text
 VITE_API_BASE_URL=https://your-api-domain.com

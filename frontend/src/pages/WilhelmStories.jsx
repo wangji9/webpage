@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../services/api.js";
 import storyData from "../data/storyCollections.json";
-import ChinaStoryMap from "../components/ChinaStoryMap.jsx";
+import WilhelmSplitMap from "../components/WilhelmSplitMap.jsx";
 import StatisticsPanel from "../components/StatisticsPanel.jsx";
 import { PublicationBubbleMap } from "../components/StoryVisualAtlas.jsx";
 import { downloadTextFile, loadWilhelmRecords, parseTableFile, pickField, saveWilhelmRecords } from "../utils/localKnowledgeStore.js";
@@ -1521,7 +1521,7 @@ export default function WilhelmStories() {
 
       <div className="wilhelm-map-wide">
         {visualNotice && <p className="local-save-notice">{visualNotice}</p>}
-        <ChinaStoryMap flows={flows.length ? flows : fallbackFlows.slice(0, 1)} onSelect={setSelectedId} title="卫礼贤《中国民间童话》再版及传播地图" timeline expandable className="wilhelm-china-map" />
+        <WilhelmSplitMap flows={flows.length ? flows : fallbackFlows.slice(0, 1)} selectedId={selected?.id || selectedId} onSelect={setSelectedId} title="德译中国故事集故事来源及出版地参照图" timeline />
       </div>
 
       <div className="wilhelm-layout wilhelm-detail-layout">

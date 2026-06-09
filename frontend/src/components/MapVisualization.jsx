@@ -1,11 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { api } from "../services/api.js";
 
 const MAP_WIDTH = 980;
 const MAP_HEIGHT = 520;
-const WORLD_GEOJSON_URLS = [
-  "https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json",
-  "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"
-];
 
 const COUNTRY_NAME_MAP = {
   "中国": "China",
@@ -118,18 +115,16 @@ export default function MapVisualization({ flows = [], title = "传播地图", s
     let canceled = false;
     async function loadWorldMap() {
       setMapError("");
-      for (const url of WORLD_GEOJSON_URLS) {
-        try {
-          const response = await fetch(url, { cache: "force-cache" });
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const data = await response.json();
-          if (!canceled) setWorld(data);
-          return;
-        } catch (error) {
-          if (url === WORLD_GEOJSON_URLS[WORLD_GEOJSON_URLS.length - 1] && !canceled) {
-            setMapError("在线世界地图加载失败，请检查网络后刷新。");
-          }
+      try {
+        const data = await api.basemapLand();
+        if (!canceled) setWorld(data);
+        return;
+      } catch {
+        if (!canceled) {
+          setWorld({ type: "FeatureCollection", features: [] });
+          setMapError("World basemap failed to load from webpage/basemap_data/land.shp.");
         }
+        return;
       }
     }
     loadWorldMap();
@@ -250,7 +245,7 @@ export default function MapVisualization({ flows = [], title = "传播地图", s
             })}
           </g>
         </svg>
-        {!world && <div className="map-loading">{mapError || "正在加载在线世界地图..."}</div>}
+        {!world && <div className="map-loading">{mapError || "正在加载本地世界底图..."}</div>}
       </div>
 
       <div className="map-timeline">

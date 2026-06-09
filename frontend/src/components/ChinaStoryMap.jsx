@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { api } from "../services/api.js";
 
 const WIDTH = 960;
 const HEIGHT = 640;
-const CHINA_GEOJSON_URLS = [
-  "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json",
-  "https://geo.datav.aliyun.com/areas_v3/bound/100000.json"
-];
+const CHINA_VIEW_BOUNDS = { minLon: 73, minLat: 18, maxLon: 135.5, maxLat: 54.5 };
 
 function downloadText(filename, text, type = "text/plain") {
   const blob = new Blob([text], { type });
@@ -18,7 +16,8 @@ function downloadText(filename, text, type = "text/plain") {
 }
 
 function provinceName(feature) {
-  return feature?.properties?.name || feature?.properties?.NAME || "";
+  const props = feature?.properties || {};
+  return props["省"] || props.name || props.NAME || props.NAME_CHN || props.NAME_1 || "";
 }
 
 function collectPoints(geometry, points = []) {
@@ -33,11 +32,13 @@ function boundsOf(features = []) {
   const projected = points.map((point) => rawMercator(point)).filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y));
   const lons = projected.map((point) => point[0]);
   const lats = projected.map((point) => point[1]);
+  const sw = rawMercator([CHINA_VIEW_BOUNDS.minLon, CHINA_VIEW_BOUNDS.minLat]);
+  const ne = rawMercator([CHINA_VIEW_BOUNDS.maxLon, CHINA_VIEW_BOUNDS.maxLat]);
   return {
-    minX: Math.min(...lons, rawMercator([73, 18])[0]),
-    maxX: Math.max(...lons, rawMercator([135, 54])[0]),
-    minY: Math.min(...lats, rawMercator([73, 54])[1]),
-    maxY: Math.max(...lats, rawMercator([135, 18])[1])
+    minX: Math.min(...lons, sw[0]),
+    maxX: Math.max(...lons, ne[0]),
+    minY: Math.min(...lats, sw[1]),
+    maxY: Math.max(...lats, ne[1])
   };
 }
 
@@ -108,18 +109,16 @@ export default function ChinaStoryMap({ flows = [], selectedId = "", onSelect, t
     let canceled = false;
     async function loadChina() {
       setError("");
-      for (const url of CHINA_GEOJSON_URLS) {
-        try {
-          const response = await fetch(url, { cache: "force-cache" });
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const data = await response.json();
-          if (!canceled) setGeo(data);
-          return;
-        } catch (loadError) {
-          if (url === CHINA_GEOJSON_URLS[CHINA_GEOJSON_URLS.length - 1] && !canceled) {
-            setError("在线中国地图加载失败，请检查网络后刷新。");
-          }
+      try {
+        const data = await api.basemapProvince();
+        if (!canceled) setGeo(data);
+        return;
+      } catch {
+        if (!canceled) {
+          setGeo({ type: "FeatureCollection", features: [] });
+          setError("中国省级底图加载失败，请检查 webpage/basemap_data/province.shp。");
         }
+        return;
       }
     }
     loadChina();

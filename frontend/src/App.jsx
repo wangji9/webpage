@@ -68,6 +68,7 @@ export default function App() {
   const [results, setResults] = useState([]);
   const [loginNotice, setLoginNotice] = useState("");
   const [bootError, setBootError] = useState("");
+  const [sessionReady, setSessionReady] = useState(false);
 
   useEffect(() => {
     const onHash = () => setRoute(currentRoute());
@@ -87,17 +88,19 @@ export default function App() {
         setSections(sectionData.sections);
         setResults(resultData.results);
       })
-      .catch((error) => setBootError(error.message));
+      .catch((error) => setBootError(error.message))
+      .finally(() => setSessionReady(true));
   }, []);
 
   useEffect(() => {
     document.body.dataset.route = route;
+    if (!sessionReady) return;
     if (!canAccessRoute(route, session)) {
       const required = routeAccess[accessKey(route)] || "guest";
       setLoginNotice(`当前身份为${roleLabel[userRole(session)]}，访问该页面需要${roleLabel[required]}及以上权限。`);
       window.location.hash = "login";
     }
-  }, [route, session]);
+  }, [route, session, sessionReady]);
 
   const context = useMemo(() => ({
     session,

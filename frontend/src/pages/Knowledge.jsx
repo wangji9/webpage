@@ -1,20 +1,35 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "../services/api.js";
 import { mockKnowledgeItems, mockMapFlows } from "../data/mockData.js";
-import MapVisualization from "../components/MapVisualization.jsx";
+import SplitFlowMap from "../components/SplitFlowMap.jsx";
 import StatisticsPanel from "../components/StatisticsPanel.jsx";
 import StoryCollectionResearch from "../components/StoryCollectionResearch.jsx";
 
 const sectionMeta = {
-  classics: { title: "中国典籍海外译介", keywords: "典籍 / 译本 / 转译", tone: "classic" },
-  shanghai: { title: "上海文学海外传播", keywords: "上海 / 城市书写 / 海派文学", tone: "shanghai" },
-  stories: { title: "多语种中国故事集", keywords: "故事集 / 民间故事 / 主题流变", tone: "stories" },
-  "world-lit": { title: "世界文学的中国叙事", keywords: "中国形象 / 世界文学 / 改写", tone: "world" }
+  stories: { title: "多语种中国故事集", keywords: "真实数据 / 故事集 / 子故事 / 序跋", tone: "stories" }
 };
 
 function normalizeSections(sections) {
-  const ids = ["classics", "shanghai", "stories", "world-lit"];
-  return ids.map((id) => ({ id, color: sections.find((item) => item.id === id)?.color || "#0b66b2", ...sectionMeta[id] }));
+  const actualSections = sections.length ? sections : [{
+    id: "stories",
+    title: "多语种中国故事集",
+    color: "#15a884",
+    keywords: ["真实数据", "故事集", "子故事", "序跋"]
+  }];
+  return actualSections.map((section) => {
+    const meta = sectionMeta[section.id] || {
+      title: section.title,
+      keywords: Array.isArray(section.keywords) ? section.keywords.join(" / ") : "真实数据",
+      tone: "stories"
+    };
+    return {
+      ...section,
+      ...meta,
+      color: section.color || "#15a884",
+      title: section.title || meta.title,
+      keywords: Array.isArray(section.keywords) ? section.keywords.join(" / ") : meta.keywords
+    };
+  });
 }
 
 function downloadCsv(filename, rows) {
@@ -122,12 +137,12 @@ export default function Knowledge({ sections = [] }) {
             <aside className="work-panel record-detail section-research-note">
               <strong>{selected.title}</strong>
               <h3>{selected.keywords}</h3>
-              <p>这个分库保持与其他分库不同的视觉气质：典籍偏版本谱系，上海文学偏城市传播，世界文学偏叙事形象网络。可视化侧重时间、地点、译者/编者、出版机构之间的关系。</p>
+              <p>当前分库只展示真实表格生成的数据，可视化侧重故事集、子故事、序跋、译者/编者、出版机构和传播路径之间的关系。</p>
             </aside>
           </div>
 
           <div className="kb-visual-grid">
-            <MapVisualization flows={flows} sections={normalizedSections} title={`${selected.title}传播地图`} />
+            <SplitFlowMap flows={flows} title={`${selected.title}传播路径图`} timeline />
             <StatisticsPanel items={sectionItems} title={`${selected.title}统计可视化`} />
           </div>
         </>

@@ -18,6 +18,9 @@ class ChatRequest(BaseModel):
     retrievalMode: str = "graph-rag"
     recordId: str = ""
     attachments: list[dict[str, Any]] = []
+    localRecords: list[dict[str, Any]] = []
+    localStoryDrafts: dict[str, Any] = {}
+    localGraphs: dict[str, Any] = {}
 
 
 class MapRenderRequest(BaseModel):
@@ -33,12 +36,14 @@ class NlpAnalyzeRequest(BaseModel):
 
 
 class LlmConfigRequest(BaseModel):
+    provider: str = "gpt"
     url_base: str = ""
     url_key: str = ""
-    default_model: str = "gpt-4.1"
+    default_model: str = "gpt-5.4"
 
 
 class LlmTestRequest(BaseModel):
+    provider: str = "gpt"
     url_base: str = ""
     url_key: str = ""
-    model: str = "gpt-4.1"
+    model: str = "gpt-5.4"

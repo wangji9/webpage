@@ -4,6 +4,7 @@ import { mockGraph, mockKnowledgeItems, mockResults, mockSections, mockSession, 
 // VITE_API_BASE_URL can still override this when the backend is intentionally
 // hosted on another domain.
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
+const getCache = new Map();
 
 function urlFor(path) {
   if (!API_BASE) return path;
@@ -40,6 +41,16 @@ async function request(path, options = {}) {
   return payload;
 }
 
+function cachedRequest(path) {
+  if (getCache.has(path)) return getCache.get(path);
+  const promise = request(path).catch((error) => {
+    getCache.delete(path);
+    throw error;
+  });
+  getCache.set(path, promise);
+  return promise;
+}
+
 function staticLogin(data) {
   const matched = mockUsers[data.username];
   if (!matched || matched.password !== data.password) {
@@ -56,7 +67,7 @@ export const api = {
   knowledgeItems: () => request("/api/kb/items").catch(() => ({ items: mockKnowledgeItems })),
   results: () => request("/api/results").catch(() => ({ results: mockResults })),
   graph: () => request("/api/graph").catch(() => mockGraph),
-  storyVisualAtlas: (mode = "all") => request(`/api/story/visual-atlas?mode=${encodeURIComponent(mode)}`),
+  storyVisualAtlas: (mode = "all") => cachedRequest(`/api/story/visual-atlas?mode=${encodeURIComponent(mode)}`),
   storyCollectionGraph: (collectionId) => request(`/api/story/collection-graph/${encodeURIComponent(collectionId)}`),
   wilhelmVisuals: (records) => request("/api/story/wilhelm-visuals", { method: "POST", body: JSON.stringify({ records }) }),
   wilhelmStoryAnalysis: (stories) => request("/api/story/wilhelm-story-analysis", { method: "POST", body: JSON.stringify({ stories }) }),
@@ -66,8 +77,15 @@ export const api = {
   statsVisual: (items) => request("/api/story/stats-visual", { method: "POST", body: JSON.stringify({ items }) }),
   prefaceVisuals: (prefaces) => request("/api/story/preface-visuals", { method: "POST", body: JSON.stringify({ prefaces }) }),
   renderMap: (data) => request("/api/map/render", { method: "POST", body: JSON.stringify(data) }),
+  basemapProvince: () => cachedRequest("/api/basemap/province"),
+  basemapBoundary: () => cachedRequest("/api/basemap/boundary"),
+  basemapWorldCities: () => cachedRequest("/api/basemap/world-cities"),
+  basemapLand: () => cachedRequest("/api/basemap/land"),
+  basemapGermanyAdm02: () => cachedRequest("/api/basemap/germany-adm02"),
+  basemapNanhaizhudao: () => cachedRequest("/api/basemap/nanhaizhudao"),
+  basemapJiuduanxian: () => cachedRequest("/api/basemap/jiuduanxian"),
   nlpAnalyze: (data) => request("/api/nlp/analyze", { method: "POST", body: JSON.stringify(data) }),
-  llmConfig: () => request("/api/admin/llm-config"),
+  llmConfig: (provider = "gpt") => request(`/api/admin/llm-config?provider=${encodeURIComponent(provider)}`),
   saveLlmConfig: (data) => request("/api/admin/llm-config", { method: "POST", body: JSON.stringify(data) }),
   testLlmConfig: (data) => request("/api/admin/llm-test", { method: "POST", body: JSON.stringify(data) }),
   chat: (data, options = {}) => request("/api/chat", { method: "POST", body: JSON.stringify(data), ...options }),

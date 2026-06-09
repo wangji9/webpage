@@ -1,0 +1,3144 @@
+{
+  "sourceWorkbook": "地图_中国故事集_出版地和故事来源地.xlsx",
+  "records": [
+    {
+      "id": "excel-map-2-Berlin-广西",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国传说与童话》",
+      "foreignTitle": "Sagen und Märchen aus dem Reiche der Mitte",
+      "year": 1912,
+      "yearText": "1912",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Buchhandlung der Berliner evangelischen Missionsgesellschaft",
+      "province": "广西",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "广西壮族自治区",
+      "from": [
+        113.0,
+        21.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-2-Berlin-台湾",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国传说与童话》",
+      "foreignTitle": "Sagen und Märchen aus dem Reiche der Mitte",
+      "year": 1912,
+      "yearText": "1912",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Buchhandlung der Berliner evangelischen Missionsgesellschaft",
+      "province": "台湾",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "台湾省",
+      "from": [
+        121.0,
+        23.7
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-2-Berlin-澳门",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国传说与童话》",
+      "foreignTitle": "Sagen und Märchen aus dem Reiche der Mitte",
+      "year": 1912,
+      "yearText": "1912",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Buchhandlung der Berliner evangelischen Missionsgesellschaft",
+      "province": "澳门",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "澳门特别行政区",
+      "from": [
+        113.0,
+        21.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-2-Berlin-香港",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国传说与童话》",
+      "foreignTitle": "Sagen und Märchen aus dem Reiche der Mitte",
+      "year": 1912,
+      "yearText": "1912",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Buchhandlung der Berliner evangelischen Missionsgesellschaft",
+      "province": "香港",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "香港特别行政区",
+      "from": [
+        113.0,
+        21.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-2-Berlin-广东",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国传说与童话》",
+      "foreignTitle": "Sagen und Märchen aus dem Reiche der Mitte",
+      "year": 1912,
+      "yearText": "1912",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Buchhandlung der Berliner evangelischen Missionsgesellschaft",
+      "province": "广东",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "广东省",
+      "from": [
+        113.27,
+        23.13
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-3-Jena-山东",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国民间童话》",
+      "foreignTitle": "Chinesische Volksmärchen",
+      "year": 1914,
+      "yearText": "1914",
+      "city": "Jena",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "山东",
+      "sourceRegion": "崂山地区",
+      "sourceProvince": "山东省青岛市",
+      "from": [
+        120.4,
+        36.1
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-6-Berlin-山东",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《龙王》",
+      "foreignTitle": "Liung Wong, der Drachenkönig",
+      "year": 1922,
+      "yearText": "1922",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Buchhandlung der Berliner evangelischen Missionsgesellschaft",
+      "province": "山东",
+      "sourceRegion": "山东地区",
+      "sourceProvince": "山东省",
+      "from": [
+        118.0,
+        36.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-8-Jena-新疆",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《突厥斯坦和藏区故事》",
+      "foreignTitle": "Märchen aus Turkestan und Tibet",
+      "year": 1923,
+      "yearText": "1923",
+      "city": "Jena",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "新疆",
+      "sourceRegion": "突厥斯坦和藏区",
+      "sourceProvince": "新疆维吾尔自治区",
+      "from": [
+        85.0,
+        35.5
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-8-Jena-青海",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《突厥斯坦和藏区故事》",
+      "foreignTitle": "Märchen aus Turkestan und Tibet",
+      "year": 1923,
+      "yearText": "1923",
+      "city": "Jena",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "青海",
+      "sourceRegion": "突厥斯坦和藏区",
+      "sourceProvince": "青海省",
+      "from": [
+        85.0,
+        35.5
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-8-Jena-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《突厥斯坦和藏区故事》",
+      "foreignTitle": "Märchen aus Turkestan und Tibet",
+      "year": 1923,
+      "yearText": "1923",
+      "city": "Jena",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "西藏",
+      "sourceRegion": "突厥斯坦和藏区",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        85.0,
+        35.5
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-9-Berlin-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《西藏童话》",
+      "foreignTitle": "Tibetanische Märchen",
+      "year": 1923,
+      "yearText": "1923",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Axel Juncker Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-11-Leipzig-安徽",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国民间童话》",
+      "foreignTitle": "Chinesische Volksmärchen",
+      "year": 1936,
+      "yearText": "1936",
+      "city": "Leipzig",
+      "country": "Germany",
+      "publisher": "Insel Verlag",
+      "province": "安徽",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "安徽省",
+      "from": [
+        113.0,
+        31.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-11-Leipzig-山西",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国民间童话》",
+      "foreignTitle": "Chinesische Volksmärchen",
+      "year": 1936,
+      "yearText": "1936",
+      "city": "Leipzig",
+      "country": "Germany",
+      "publisher": "Insel Verlag",
+      "province": "山西",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "山西省",
+      "from": [
+        112.55,
+        37.87
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-11-Leipzig-湖北",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国民间童话》",
+      "foreignTitle": "Chinesische Volksmärchen",
+      "year": 1936,
+      "yearText": "1936",
+      "city": "Leipzig",
+      "country": "Germany",
+      "publisher": "Insel Verlag",
+      "province": "湖北",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "湖北省",
+      "from": [
+        113.0,
+        31.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-11-Leipzig-湖南",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国民间童话》",
+      "foreignTitle": "Chinesische Volksmärchen",
+      "year": 1936,
+      "yearText": "1936",
+      "city": "Leipzig",
+      "country": "Germany",
+      "publisher": "Insel Verlag",
+      "province": "湖南",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "湖南省",
+      "from": [
+        113.0,
+        31.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-11-Leipzig-江西",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国民间童话》",
+      "foreignTitle": "Chinesische Volksmärchen",
+      "year": 1936,
+      "yearText": "1936",
+      "city": "Leipzig",
+      "country": "Germany",
+      "publisher": "Insel Verlag",
+      "province": "江西",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "江西省",
+      "from": [
+        115.86,
+        28.68
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-11-Leipzig-河南",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国民间童话》",
+      "foreignTitle": "Chinesische Volksmärchen",
+      "year": 1936,
+      "yearText": "1936",
+      "city": "Leipzig",
+      "country": "Germany",
+      "publisher": "Insel Verlag",
+      "province": "河南",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "河南省",
+      "from": [
+        113.62,
+        34.75
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-14-Eisenach-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《天牛与冰川狮》",
+      "foreignTitle": "Himmelsstier und Gletscherlöwe: Mythen, Sagen und Fabeln aus Tibet",
+      "year": 1955,
+      "yearText": "1955",
+      "city": "Eisenach",
+      "country": "Germany",
+      "publisher": "Erich Röth-Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        10.32,
+        50.98
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-14-Kassel-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《天牛与冰川狮》",
+      "foreignTitle": "Himmelsstier und Gletscherlöwe: Mythen, Sagen und Fabeln aus Tibet",
+      "year": 1955,
+      "yearText": "1955",
+      "city": "Kassel",
+      "country": "Germany",
+      "publisher": "Erich Röth-Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        9.49,
+        51.31
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-18-Zürich-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《西藏：土地之神》",
+      "foreignTitle": "Tibet: Erde der Götter",
+      "year": 1960,
+      "yearText": "1960",
+      "city": "Zürich",
+      "country": "Switzerland",
+      "publisher": "Rascher Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        8.54,
+        47.38
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-18-Stuttgart-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《西藏：土地之神》",
+      "foreignTitle": "Tibet: Erde der Götter",
+      "year": 1960,
+      "yearText": "1960",
+      "city": "Stuttgart",
+      "country": "Switzerland / Germany",
+      "publisher": "Rascher Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        9.18,
+        48.78
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-25-Düsseldorf-内蒙古",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蒙古民间故事》",
+      "foreignTitle": "Mongolische Volksmärchen",
+      "year": 1963,
+      "yearText": "1963",
+      "city": "Düsseldorf",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "内蒙古",
+      "sourceRegion": "蒙古",
+      "sourceProvince": "内蒙古自治区",
+      "from": [
+        111.5,
+        45.0
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-25-Köln-内蒙古",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蒙古民间故事》",
+      "foreignTitle": "Mongolische Volksmärchen",
+      "year": 1963,
+      "yearText": "1963",
+      "city": "Köln",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "内蒙古",
+      "sourceRegion": "蒙古",
+      "sourceProvince": "内蒙古自治区",
+      "from": [
+        111.5,
+        45.0
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-26-Berlin-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《文成公主和拉萨使者》",
+      "foreignTitle": "Die Prinzessin Wen cheng und der Gesandte aus Lhasa",
+      "year": 1964,
+      "yearText": "1964",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Alfred Holz Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-27-Düsseldorf-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《西藏童话》",
+      "foreignTitle": "Märchen aus Tibet",
+      "year": 1965,
+      "yearText": "1965",
+      "city": "Düsseldorf",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-28-Berlin-浙江",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国东南部的民间叙事文学》",
+      "foreignTitle": "Erzählungsgut aus Südost-China",
+      "year": 1966,
+      "yearText": "1966",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Walter de Gruyter & Co.",
+      "province": "浙江",
+      "sourceRegion": "浙江",
+      "sourceProvince": "浙江省",
+      "from": [
+        120.5,
+        29.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-29-Basel-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《古西藏文学中的珍宝》",
+      "foreignTitle": "Perlen alttibetischer Literatur",
+      "year": 1967,
+      "yearText": "1967",
+      "city": "Basel",
+      "country": "Switzerland",
+      "publisher": "Birkhäuser Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        7.59,
+        47.56
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-29-Stuttgart-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《古西藏文学中的珍宝》",
+      "foreignTitle": "Perlen alttibetischer Literatur",
+      "year": 1967,
+      "yearText": "1967",
+      "city": "Stuttgart",
+      "country": "Switzerland / Germany",
+      "publisher": "Birkhäuser Verlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        9.18,
+        48.78
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-34-Prag-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《西藏和远东其他国家的故事》",
+      "foreignTitle": "Märchen aus Tibet und anderen Ländern des Fernen Ostens",
+      "year": 1974,
+      "yearText": "1974",
+      "city": "Prag",
+      "country": "Czech Republic",
+      "publisher": "Artia",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        14.42,
+        50.08
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-云南",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Düsseldorf",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "云南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "云南省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-贵州",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Düsseldorf",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "贵州",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "贵州省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-湖南",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Düsseldorf",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "湖南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "湖南省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-台湾",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Düsseldorf",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "台湾",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "台湾省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Köln-云南",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Köln",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "云南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "云南省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Köln-贵州",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Köln",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "贵州",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "贵州省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Köln-湖南",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Köln",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "湖南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "湖南省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-35-Köln-台湾",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国南部童话》",
+      "foreignTitle": "Südchinesische Märchen",
+      "year": 1976,
+      "yearText": "1976",
+      "city": "Köln",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "台湾",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "台湾省",
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-36-Leipzig-山东",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《沂山故事八篇》",
+      "foreignTitle": "Die Gingkofee, acht chinesische Volksmärchen aus der Provinz Schandung",
+      "year": 1978,
+      "yearText": "1978",
+      "city": "Leipzig",
+      "country": "Germany",
+      "publisher": "Insel Verlag",
+      "province": "山东",
+      "sourceRegion": "山东",
+      "sourceProvince": "山东省",
+      "from": [
+        118.0,
+        36.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-41-Sankt Augustin-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "foreignTitle": "Märchen, Sagen und Schwänke vom Dach der Welt（I）",
+      "year": 1982,
+      "yearText": "1982",
+      "city": "Sankt Augustin",
+      "country": "Germany",
+      "publisher": "VGH-Wissenschaftsverlag",
+      "province": "西藏",
+      "sourceRegion": "西藏中部和东部",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        91.0,
+        31.0
+      ],
+      "to": [
+        7.19,
+        50.78
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-42-Sankt Augustin-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "foreignTitle": "Märchen, Sagen und Schwänke vom Dach der Welt（II）",
+      "year": 1982,
+      "yearText": "1982",
+      "city": "Sankt Augustin",
+      "country": "Germany",
+      "publisher": "VGH-Wissenschaftsverlag",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        7.19,
+        50.78
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-43-Sankt Augustin-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "foreignTitle": "Märchen, Sagen und Schwänke vom Dach der Welt（III）",
+      "year": 1982,
+      "yearText": "1982",
+      "city": "Sankt Augustin",
+      "country": "Germany",
+      "publisher": "VGH-Wissenschaftsverlag",
+      "province": "西藏",
+      "sourceRegion": "牧牛人的故事以及来自斯基德格朗和丁日的传说",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        7.19,
+        50.78
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-44-Berlin-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "foreignTitle": "Märchen, Sagen und Schwänke vom Dach der Welt（IV）",
+      "year": 1982,
+      "yearText": "1982",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "VGH-Wissenschaftsverlag",
+      "province": "西藏",
+      "sourceRegion": "安多和布拉格亚布的故事",
+      "sourceProvince": "西藏自治区北部",
+      "from": [
+        89.5,
+        34.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-53-Köln-新疆",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《新疆童话故事集》",
+      "foreignTitle": "Märchen aus Sinkiang: Überlieferungen der Turkvölker Chinas",
+      "year": 1986,
+      "yearText": "1986",
+      "city": "Köln",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "新疆",
+      "sourceRegion": "新疆",
+      "sourceProvince": "新疆维吾尔自治区",
+      "from": [
+        84.5,
+        42.0
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-56-München-黑龙江",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国东北少数民族神话故事选》",
+      "foreignTitle": "Märchen aus der Mandschurei",
+      "year": 1988,
+      "yearText": "1988",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "哈尔滨市",
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-56-München-吉林",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国东北少数民族神话故事选》",
+      "foreignTitle": "Märchen aus der Mandschurei",
+      "year": 1988,
+      "yearText": "1988",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "吉林",
+      "sourceRegion": "东北",
+      "sourceProvince": "吉林省",
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-56-München-黑龙江",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国东北少数民族神话故事选》",
+      "foreignTitle": "Märchen aus der Mandschurei",
+      "year": 1988,
+      "yearText": "1988",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "黑龙江省",
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-57-Berlin-山东",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《天鼓：中国民间童话》",
+      "foreignTitle": "Die Himmelstrommel: Chinesische Volksmärchen",
+      "year": 1988,
+      "yearText": "1988",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Verlag Neues Leben",
+      "province": "山东",
+      "sourceRegion": "主要源于山东省",
+      "sourceProvince": "山东省",
+      "from": [
+        118.0,
+        36.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-60-München-甘肃",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝路童话》",
+      "foreignTitle": "Märchen der Seidenstrasse",
+      "year": 1990,
+      "yearText": "1990",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "甘肃",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "甘肃省",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-60-München-青海",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝路童话》",
+      "foreignTitle": "Märchen der Seidenstrasse",
+      "year": 1990,
+      "yearText": "1990",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "青海",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "青海省",
+      "from": [
+        101.78,
+        36.62
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-60-München-宁夏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝路童话》",
+      "foreignTitle": "Märchen der Seidenstrasse",
+      "year": 1990,
+      "yearText": "1990",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "宁夏",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "宁夏回族自治区",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-60-München-陕西",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝路童话》",
+      "foreignTitle": "Märchen der Seidenstrasse",
+      "year": 1990,
+      "yearText": "1990",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "陕西",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "陕西省",
+      "from": [
+        108.94,
+        34.34
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-60-München-新疆",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝路童话》",
+      "foreignTitle": "Märchen der Seidenstrasse",
+      "year": 1990,
+      "yearText": "1990",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "新疆",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "新疆维吾尔自治区",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-63-München-黑龙江",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国东北民间童话集》",
+      "foreignTitle": "Märchen der Völker Nordost-Chinas",
+      "year": 1994,
+      "yearText": "1994",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "哈尔滨市",
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-63-München-吉林",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国东北民间童话集》",
+      "foreignTitle": "Märchen der Völker Nordost-Chinas",
+      "year": 1994,
+      "yearText": "1994",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "吉林",
+      "sourceRegion": "东北",
+      "sourceProvince": "吉林省",
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-63-München-黑龙江",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《中国东北民间童话集》",
+      "foreignTitle": "Märchen der Völker Nordost-Chinas",
+      "year": 1994,
+      "yearText": "1994",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "黑龙江省",
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-65-München-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《藏族人的神话和传说：士兵、僧侣、恶魔和世界的起源》",
+      "foreignTitle": "Mythen Und Legenden Der Tibeter: Von Kriegern, Mönchen, Dämonen Und Dem Ursprung Der Welt",
+      "year": 1996,
+      "yearText": "1996",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Eugen Diederichs Verlag",
+      "province": "西藏",
+      "sourceRegion": "藏区",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-66-Frankfurt am Main-西藏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《藏族童话》",
+      "foreignTitle": "Tibetische Märchen",
+      "year": 1997,
+      "yearText": "1997",
+      "city": "Frankfurt am Main",
+      "country": "Germany",
+      "publisher": "Fischer Taschenbuch Verlag",
+      "province": "西藏",
+      "sourceRegion": "藏区",
+      "sourceProvince": "西藏自治区",
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        8.68,
+        50.11
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-69-München-内蒙古",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蒙古人的民间童话》",
+      "foreignTitle": "Volksmärchen der Mongolen",
+      "year": 2004,
+      "yearText": "2004",
+      "city": "München",
+      "country": "Germany",
+      "publisher": "Biblion Verlag",
+      "province": "内蒙古",
+      "sourceRegion": "蒙古",
+      "sourceProvince": "内蒙古自治区",
+      "from": [
+        111.5,
+        45.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-76-Berlin-甘肃",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "foreignTitle": "Blaue Karawane-entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Verlag Hans Schiler",
+      "province": "甘肃",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "甘肃省",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-76-Berlin-青海",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "foreignTitle": "Blaue Karawane-entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Verlag Hans Schiler",
+      "province": "青海",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "青海省",
+      "from": [
+        101.78,
+        36.62
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-76-Berlin-宁夏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "foreignTitle": "Blaue Karawane-entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Verlag Hans Schiler",
+      "province": "宁夏",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "宁夏回族自治区",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-76-Berlin-陕西",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "foreignTitle": "Blaue Karawane-entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Verlag Hans Schiler",
+      "province": "陕西",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "陕西省",
+      "from": [
+        108.94,
+        34.34
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-76-Berlin-新疆",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "foreignTitle": "Blaue Karawane-entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Berlin",
+      "country": "Germany",
+      "publisher": "Verlag Hans Schiler",
+      "province": "新疆",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "新疆维吾尔自治区",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-78-Norderstedt-甘肃",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "foreignTitle": "Seide-Mythen-Märchen-Legenden / Gesponnene Geschichten entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Norderstedt",
+      "country": "Germany",
+      "publisher": "Books on Demand",
+      "province": "甘肃",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "甘肃省",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-78-Norderstedt-青海",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "foreignTitle": "Seide-Mythen-Märchen-Legenden / Gesponnene Geschichten entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Norderstedt",
+      "country": "Germany",
+      "publisher": "Books on Demand",
+      "province": "青海",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "青海省",
+      "from": [
+        101.78,
+        36.62
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-78-Norderstedt-宁夏",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "foreignTitle": "Seide-Mythen-Märchen-Legenden / Gesponnene Geschichten entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Norderstedt",
+      "country": "Germany",
+      "publisher": "Books on Demand",
+      "province": "宁夏",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "宁夏回族自治区",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-78-Norderstedt-陕西",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "foreignTitle": "Seide-Mythen-Märchen-Legenden / Gesponnene Geschichten entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Norderstedt",
+      "country": "Germany",
+      "publisher": "Books on Demand",
+      "province": "陕西",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "陕西省",
+      "from": [
+        108.94,
+        34.34
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "language": "德语"
+    },
+    {
+      "id": "excel-map-78-Norderstedt-新疆",
+      "source": "地图_中国故事集_出版地和故事来源地.xlsx#工作表1+Sheet1",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "foreignTitle": "Seide-Mythen-Märchen-Legenden / Gesponnene Geschichten entlang der Seidenstraße",
+      "year": 2013,
+      "yearText": "2013",
+      "city": "Norderstedt",
+      "country": "Germany",
+      "publisher": "Books on Demand",
+      "province": "新疆",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "新疆维吾尔自治区",
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "language": "德语"
+    }
+  ],
+  "flows": [
+    {
+      "id": "excel-map-2-Berlin-广西",
+      "title": "《中国传说与童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1912,
+      "from": [
+        113.0,
+        21.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "广西",
+      "toLabel": "Berlin · Germany",
+      "province": "广西",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "广西壮族自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-2-Berlin-台湾",
+      "title": "《中国传说与童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1912,
+      "from": [
+        121.0,
+        23.7
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "台湾",
+      "toLabel": "Berlin · Germany",
+      "province": "台湾",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "台湾省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-2-Berlin-澳门",
+      "title": "《中国传说与童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1912,
+      "from": [
+        113.0,
+        21.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "澳门",
+      "toLabel": "Berlin · Germany",
+      "province": "澳门",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "澳门特别行政区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-2-Berlin-香港",
+      "title": "《中国传说与童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1912,
+      "from": [
+        113.0,
+        21.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "香港",
+      "toLabel": "Berlin · Germany",
+      "province": "香港",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "香港特别行政区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-2-Berlin-广东",
+      "title": "《中国传说与童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1912,
+      "from": [
+        113.27,
+        23.13
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "广东",
+      "toLabel": "Berlin · Germany",
+      "province": "广东",
+      "sourceRegion": "华南地区",
+      "sourceProvince": "广东省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-3-Jena-山东",
+      "title": "《中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1914,
+      "from": [
+        120.4,
+        36.1
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "fromLabel": "山东",
+      "toLabel": "Jena · Germany",
+      "province": "山东",
+      "sourceRegion": "崂山地区",
+      "sourceProvince": "山东省青岛市",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-6-Berlin-山东",
+      "title": "《龙王》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1922,
+      "from": [
+        118.0,
+        36.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "山东",
+      "toLabel": "Berlin · Germany",
+      "province": "山东",
+      "sourceRegion": "山东地区",
+      "sourceProvince": "山东省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-8-Jena-新疆",
+      "title": "《突厥斯坦和藏区故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1923,
+      "from": [
+        85.0,
+        35.5
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "fromLabel": "新疆",
+      "toLabel": "Jena · Germany",
+      "province": "新疆",
+      "sourceRegion": "突厥斯坦和藏区",
+      "sourceProvince": "新疆维吾尔自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-8-Jena-青海",
+      "title": "《突厥斯坦和藏区故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1923,
+      "from": [
+        85.0,
+        35.5
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "fromLabel": "青海",
+      "toLabel": "Jena · Germany",
+      "province": "青海",
+      "sourceRegion": "突厥斯坦和藏区",
+      "sourceProvince": "青海省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-8-Jena-西藏",
+      "title": "《突厥斯坦和藏区故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1923,
+      "from": [
+        85.0,
+        35.5
+      ],
+      "to": [
+        11.59,
+        50.93
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Jena · Germany",
+      "province": "西藏",
+      "sourceRegion": "突厥斯坦和藏区",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-9-Berlin-西藏",
+      "title": "《西藏童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1923,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Berlin · Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-11-Leipzig-安徽",
+      "title": "《中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1936,
+      "from": [
+        113.0,
+        31.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "fromLabel": "安徽",
+      "toLabel": "Leipzig · Germany",
+      "province": "安徽",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "安徽省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-11-Leipzig-山西",
+      "title": "《中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1936,
+      "from": [
+        112.55,
+        37.87
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "fromLabel": "山西",
+      "toLabel": "Leipzig · Germany",
+      "province": "山西",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "山西省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-11-Leipzig-湖北",
+      "title": "《中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1936,
+      "from": [
+        113.0,
+        31.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "fromLabel": "湖北",
+      "toLabel": "Leipzig · Germany",
+      "province": "湖北",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "湖北省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-11-Leipzig-湖南",
+      "title": "《中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1936,
+      "from": [
+        113.0,
+        31.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "fromLabel": "湖南",
+      "toLabel": "Leipzig · Germany",
+      "province": "湖南",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "湖南省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-11-Leipzig-江西",
+      "title": "《中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1936,
+      "from": [
+        115.86,
+        28.68
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "fromLabel": "江西",
+      "toLabel": "Leipzig · Germany",
+      "province": "江西",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "江西省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-11-Leipzig-河南",
+      "title": "《中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1936,
+      "from": [
+        113.62,
+        34.75
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "fromLabel": "河南",
+      "toLabel": "Leipzig · Germany",
+      "province": "河南",
+      "sourceRegion": "中国中部",
+      "sourceProvince": "河南省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-14-Eisenach-西藏",
+      "title": "《天牛与冰川狮》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1955,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        10.32,
+        50.98
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Eisenach · Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-14-Kassel-西藏",
+      "title": "《天牛与冰川狮》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1955,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        9.49,
+        51.31
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Kassel · Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-18-Zürich-西藏",
+      "title": "《西藏：土地之神》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1960,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        8.54,
+        47.38
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Zürich · Switzerland",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Switzerland",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-18-Stuttgart-西藏",
+      "title": "《西藏：土地之神》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1960,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        9.18,
+        48.78
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Stuttgart · Switzerland / Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Switzerland / Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-25-Düsseldorf-内蒙古",
+      "title": "《蒙古民间故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1963,
+      "from": [
+        111.5,
+        45.0
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "fromLabel": "内蒙古",
+      "toLabel": "Düsseldorf · Germany",
+      "province": "内蒙古",
+      "sourceRegion": "蒙古",
+      "sourceProvince": "内蒙古自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-25-Köln-内蒙古",
+      "title": "《蒙古民间故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1963,
+      "from": [
+        111.5,
+        45.0
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "fromLabel": "内蒙古",
+      "toLabel": "Köln · Germany",
+      "province": "内蒙古",
+      "sourceRegion": "蒙古",
+      "sourceProvince": "内蒙古自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-26-Berlin-西藏",
+      "title": "《文成公主和拉萨使者》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1964,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Berlin · Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-27-Düsseldorf-西藏",
+      "title": "《西藏童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1965,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Düsseldorf · Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-28-Berlin-浙江",
+      "title": "《中国东南部的民间叙事文学》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1966,
+      "from": [
+        120.5,
+        29.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "浙江",
+      "toLabel": "Berlin · Germany",
+      "province": "浙江",
+      "sourceRegion": "浙江",
+      "sourceProvince": "浙江省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-29-Basel-西藏",
+      "title": "《古西藏文学中的珍宝》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1967,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        7.59,
+        47.56
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Basel · Switzerland",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Switzerland",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-29-Stuttgart-西藏",
+      "title": "《古西藏文学中的珍宝》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1967,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        9.18,
+        48.78
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Stuttgart · Switzerland / Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Switzerland / Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-34-Prag-西藏",
+      "title": "《西藏和远东其他国家的故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1974,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        14.42,
+        50.08
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Prag · Czech Republic",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Czech Republic",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-云南",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "fromLabel": "云南",
+      "toLabel": "Düsseldorf · Germany",
+      "province": "云南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "云南省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-贵州",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "fromLabel": "贵州",
+      "toLabel": "Düsseldorf · Germany",
+      "province": "贵州",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "贵州省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-湖南",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "fromLabel": "湖南",
+      "toLabel": "Düsseldorf · Germany",
+      "province": "湖南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "湖南省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Düsseldorf-台湾",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.77,
+        51.23
+      ],
+      "fromLabel": "台湾",
+      "toLabel": "Düsseldorf · Germany",
+      "province": "台湾",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "台湾省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Köln-云南",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "fromLabel": "云南",
+      "toLabel": "Köln · Germany",
+      "province": "云南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "云南省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Köln-贵州",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "fromLabel": "贵州",
+      "toLabel": "Köln · Germany",
+      "province": "贵州",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "贵州省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Köln-湖南",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "fromLabel": "湖南",
+      "toLabel": "Köln · Germany",
+      "province": "湖南",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "湖南省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-35-Köln-台湾",
+      "title": "《中国南部童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1976,
+      "from": [
+        109.5,
+        25.5
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "fromLabel": "台湾",
+      "toLabel": "Köln · Germany",
+      "province": "台湾",
+      "sourceRegion": "云南、贵州、湖南、台湾",
+      "sourceProvince": "台湾省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-36-Leipzig-山东",
+      "title": "《沂山故事八篇》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1978,
+      "from": [
+        118.0,
+        36.0
+      ],
+      "to": [
+        12.37,
+        51.34
+      ],
+      "fromLabel": "山东",
+      "toLabel": "Leipzig · Germany",
+      "province": "山东",
+      "sourceRegion": "山东",
+      "sourceProvince": "山东省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-41-Sankt Augustin-西藏",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1982,
+      "from": [
+        91.0,
+        31.0
+      ],
+      "to": [
+        7.19,
+        50.78
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Sankt Augustin · Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏中部和东部",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-42-Sankt Augustin-西藏",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1982,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        7.19,
+        50.78
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Sankt Augustin · Germany",
+      "province": "西藏",
+      "sourceRegion": "西藏",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-43-Sankt Augustin-西藏",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1982,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        7.19,
+        50.78
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Sankt Augustin · Germany",
+      "province": "西藏",
+      "sourceRegion": "牧牛人的故事以及来自斯基德格朗和丁日的传说",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-44-Berlin-西藏",
+      "title": "《世界屋脊上的童话、传说和故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1982,
+      "from": [
+        89.5,
+        34.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Berlin · Germany",
+      "province": "西藏",
+      "sourceRegion": "安多和布拉格亚布的故事",
+      "sourceProvince": "西藏自治区北部",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-53-Köln-新疆",
+      "title": "《新疆童话故事集》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1986,
+      "from": [
+        84.5,
+        42.0
+      ],
+      "to": [
+        6.96,
+        50.94
+      ],
+      "fromLabel": "新疆",
+      "toLabel": "Köln · Germany",
+      "province": "新疆",
+      "sourceRegion": "新疆",
+      "sourceProvince": "新疆维吾尔自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-56-München-黑龙江",
+      "title": "《中国东北少数民族神话故事选》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1988,
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "黑龙江",
+      "toLabel": "München · Germany",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "哈尔滨市",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-56-München-吉林",
+      "title": "《中国东北少数民族神话故事选》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1988,
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "吉林",
+      "toLabel": "München · Germany",
+      "province": "吉林",
+      "sourceRegion": "东北",
+      "sourceProvince": "吉林省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-56-München-黑龙江",
+      "title": "《中国东北少数民族神话故事选》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1988,
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "黑龙江",
+      "toLabel": "München · Germany",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "黑龙江省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-57-Berlin-山东",
+      "title": "《天鼓：中国民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1988,
+      "from": [
+        118.0,
+        36.0
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "山东",
+      "toLabel": "Berlin · Germany",
+      "province": "山东",
+      "sourceRegion": "主要源于山东省",
+      "sourceProvince": "山东省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-60-München-甘肃",
+      "title": "《丝路童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1990,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "甘肃",
+      "toLabel": "München · Germany",
+      "province": "甘肃",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "甘肃省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-60-München-青海",
+      "title": "《丝路童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1990,
+      "from": [
+        101.78,
+        36.62
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "青海",
+      "toLabel": "München · Germany",
+      "province": "青海",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "青海省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-60-München-宁夏",
+      "title": "《丝路童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1990,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "宁夏",
+      "toLabel": "München · Germany",
+      "province": "宁夏",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "宁夏回族自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-60-München-陕西",
+      "title": "《丝路童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1990,
+      "from": [
+        108.94,
+        34.34
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "陕西",
+      "toLabel": "München · Germany",
+      "province": "陕西",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "陕西省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-60-München-新疆",
+      "title": "《丝路童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1990,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "新疆",
+      "toLabel": "München · Germany",
+      "province": "新疆",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "新疆维吾尔自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-63-München-黑龙江",
+      "title": "《中国东北民间童话集》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1994,
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "黑龙江",
+      "toLabel": "München · Germany",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "哈尔滨市",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-63-München-吉林",
+      "title": "《中国东北民间童话集》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1994,
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "吉林",
+      "toLabel": "München · Germany",
+      "province": "吉林",
+      "sourceRegion": "东北",
+      "sourceProvince": "吉林省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-63-München-黑龙江",
+      "title": "《中国东北民间童话集》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1994,
+      "from": [
+        127.0,
+        46.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "黑龙江",
+      "toLabel": "München · Germany",
+      "province": "黑龙江",
+      "sourceRegion": "东北",
+      "sourceProvince": "黑龙江省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-65-München-西藏",
+      "title": "《藏族人的神话和传说：士兵、僧侣、恶魔和世界的起源》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1996,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "München · Germany",
+      "province": "西藏",
+      "sourceRegion": "藏区",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-66-Frankfurt am Main-西藏",
+      "title": "《藏族童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 1997,
+      "from": [
+        87.5,
+        31.0
+      ],
+      "to": [
+        8.68,
+        50.11
+      ],
+      "fromLabel": "西藏",
+      "toLabel": "Frankfurt am Main · Germany",
+      "province": "西藏",
+      "sourceRegion": "藏区",
+      "sourceProvince": "西藏自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-69-München-内蒙古",
+      "title": "《蒙古人的民间童话》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2004,
+      "from": [
+        111.5,
+        45.0
+      ],
+      "to": [
+        11.58,
+        48.14
+      ],
+      "fromLabel": "内蒙古",
+      "toLabel": "München · Germany",
+      "province": "内蒙古",
+      "sourceRegion": "蒙古",
+      "sourceProvince": "内蒙古自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-76-Berlin-甘肃",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "甘肃",
+      "toLabel": "Berlin · Germany",
+      "province": "甘肃",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "甘肃省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-76-Berlin-青海",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        101.78,
+        36.62
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "青海",
+      "toLabel": "Berlin · Germany",
+      "province": "青海",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "青海省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-76-Berlin-宁夏",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "宁夏",
+      "toLabel": "Berlin · Germany",
+      "province": "宁夏",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "宁夏回族自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-76-Berlin-陕西",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        108.94,
+        34.34
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "陕西",
+      "toLabel": "Berlin · Germany",
+      "province": "陕西",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "陕西省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-76-Berlin-新疆",
+      "title": "《蓝色商队：沿着丝绸之路》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        13.405,
+        52.52
+      ],
+      "fromLabel": "新疆",
+      "toLabel": "Berlin · Germany",
+      "province": "新疆",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "新疆维吾尔自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-78-Norderstedt-甘肃",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "fromLabel": "甘肃",
+      "toLabel": "Norderstedt · Germany",
+      "province": "甘肃",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "甘肃省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-78-Norderstedt-青海",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        101.78,
+        36.62
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "fromLabel": "青海",
+      "toLabel": "Norderstedt · Germany",
+      "province": "青海",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "青海省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-78-Norderstedt-宁夏",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "fromLabel": "宁夏",
+      "toLabel": "Norderstedt · Germany",
+      "province": "宁夏",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "宁夏回族自治区",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-78-Norderstedt-陕西",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        108.94,
+        34.34
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "fromLabel": "陕西",
+      "toLabel": "Norderstedt · Germany",
+      "province": "陕西",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "陕西省",
+      "country": "Germany",
+      "weight": 1
+    },
+    {
+      "id": "excel-map-78-Norderstedt-新疆",
+      "title": "《丝绸-神话-童话-传说/丝绸之路上编织的故事》",
+      "sectionId": "stories",
+      "resourceType": "中国故事集出版地和故事来源地",
+      "language": "德语",
+      "year": 2013,
+      "from": [
+        100.0,
+        38.5
+      ],
+      "to": [
+        9.98,
+        53.71
+      ],
+      "fromLabel": "新疆",
+      "toLabel": "Norderstedt · Germany",
+      "province": "新疆",
+      "sourceRegion": "西北丝绸之路",
+      "sourceProvince": "新疆维吾尔自治区",
+      "country": "Germany",
+      "weight": 1
+    }
+  ],
+  "skipped": [
+    {
+      "row": 58,
+      "title": "Legenden aus Beijing",
+      "city": "Beijing",
+      "sourceRegion": "北京",
+      "reason": "missing city coords or region mapping"
+    }
+  ]
+}

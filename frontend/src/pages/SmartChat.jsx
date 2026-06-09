@@ -2,16 +2,28 @@ import { useEffect, useMemo, useState } from "react";
 import { api } from "../services/api.js";
 import { modelProviders, mockKnowledgeItems, mockMapFlows } from "../data/mockData.js";
 import storyData from "../data/storyCollections.json";
+import wilhelmMapData from "../data/wilhelmPublicationSourceMap.json";
 import GraphCanvas from "../components/GraphCanvas.jsx";
-import MapVisualization from "../components/MapVisualization.jsx";
-import ChinaStoryMap from "../components/ChinaStoryMap.jsx";
+import SplitFlowMap from "../components/SplitFlowMap.jsx";
+import WilhelmSplitMap from "../components/WilhelmSplitMap.jsx";
+import {
+  IdentityProcessChart,
+  IdentityRiverChart,
+  PublicationBubbleMap,
+  SourceChinaMap,
+  PrefaceThemeCluster,
+  PrefaceWordCloud,
+  ChildThemeCooccurrence,
+} from "../components/StoryVisualAtlas.jsx";
 import StatisticsPanel from "../components/StatisticsPanel.jsx";
+import { loadWilhelmKnowledgeGraphs, loadWilhelmRecords, loadWilhelmStoryDrafts } from "../utils/localKnowledgeStore.js";
 
-const HISTORY_KEY = "china-narrative-chat-history";
+const HISTORY_KEY = "china-narrative-chat-history-real-data-v2";
 
 function readHistory() {
   try {
-    return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+    const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+    return Array.isArray(history) ? history : [];
   } catch {
     return [];
   }
@@ -21,8 +33,19 @@ function writeHistory(history) {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 30)));
 }
 
+function wantsStoryCollectionFlowMap(question) {
+  const text = String(question || "").toLowerCase();
+  return /(多语种中国故事集|中国故事集|德译中国故事集|story collection|story collections)/i.test(text)
+    && /(传播情况|传播路径|传播路线|传播地图|路径图|流传情况|传播.*什么样|flow map|route map)/i.test(text);
+}
+
 function inferVisual(question, answer) {
   const text = `${question} ${answer?.visuals?.type || ""}`.toLowerCase();
+  if (/(卫礼贤|richard wilhelm|wilhelm|chinesische volksmärchen|chinesische volksm.rchen)/i.test(text) && /(再版|传播|流传|出版情况|reprint|publication|map|route)/i.test(text)) return "wilhelm-map";
+  if (wantsStoryCollectionFlowMap(question)) return "story-flow-map";
+  if (/(取材来源|故事来源|来源地图|source map|source)/i.test(text)) return "source-map";
+  if (/(出版地图|出版地|出版城市|publication map|publisher)/i.test(text)) return "publication-map";
+  if (/(译者身份|编者身份|身份流变|身份变化|谁在翻译|时间河流|identity)/i.test(text)) return "identity";
   if (/智能体|传播路径|路径图|中国地图|省级|china-agent/.test(text)) return "agent-map";
   if (/统计|词云|词频|分布|趋势|stats/.test(text)) return "stats";
   if (/地图|路线|传播|国家|map|route/.test(text) && /图谱|关系|网络|graph/.test(text)) return "mixed";
@@ -78,6 +101,41 @@ function agentAnswer(question) {
     return "已根据故事集总表和“图书/期刊名”匹配结果生成嵌套表格。";
   }
   return "已基于当前故事集数据生成对应的图表结果。";
+}
+
+function localStoryKnowledgePayload(sectionId, retrievalMode) {
+  if (sectionId !== "stories" || retrievalMode === "none") return {};
+  return {
+    localRecords: loadWilhelmRecords(),
+    localStoryDrafts: loadWilhelmStoryDrafts(),
+    localGraphs: loadWilhelmKnowledgeGraphs(),
+  };
+}
+
+const WILHELM_TEXT_PATTERN = /卫礼贤|Richard Wilhelm|Wilhelm|Chinesische Volksmärchen|Chinesische Volksm.rchen/i;
+
+function isWilhelmCollection(item) {
+  return [
+    item?.name,
+    item?.chineseTitle,
+    item?.foreignTitle,
+    item?.editor,
+    item?.prefaceAuthor,
+    item?.publisher,
+  ].some((value) => WILHELM_TEXT_PATTERN.test(String(value || "")));
+}
+
+function buildWilhelmFallbackFlows() {
+  if (Array.isArray(wilhelmMapData.flows) && wilhelmMapData.flows.length) return wilhelmMapData.flows;
+  const collections = Array.isArray(storyData.collections) ? storyData.collections : [];
+  const allFlows = Array.isArray(storyData.flows) ? storyData.flows : [];
+  const matchedCollections = collections.filter(isWilhelmCollection);
+  const matchedIds = new Set(matchedCollections.map((item) => item.id).filter(Boolean));
+  const matchedFlows = allFlows.filter((flow) => matchedIds.has(flow.id));
+  if (matchedFlows.length) return matchedFlows;
+  return allFlows.filter((flow) =>
+    WILHELM_TEXT_PATTERN.test(`${flow?.title || ""} ${flow?.name || ""} ${flow?.resourceType || ""}`)
+  );
 }
 
 function normalizeMarkdown(text = "") {
@@ -190,6 +248,7 @@ function ChatMeta({ meta }) {
 export default function SmartChat({ sections = [] }) {
   const [items, setItems] = useState([]);
   const [graph, setGraph] = useState(null);
+  const [atlas, setAtlas] = useState(null);
   const [sectionId, setSectionId] = useState("stories");
   const [provider, setProvider] = useState("gpt");
   const [model, setModel] = useState("gpt-5.2");
@@ -202,10 +261,12 @@ export default function SmartChat({ sections = [] }) {
   const [messages, setMessages] = useState([
     { role: "assistant", text: "我可以调用已配置的大模型 API，并按问题返回文本、知识图谱、传播地图、统计图或故事集传播路径智能体结果。你也可以上传附件作为上下文。" }
   ]);
+  const fallbackWilhelmFlows = useMemo(() => buildWilhelmFallbackFlows(), []);
 
   useEffect(() => {
     api.knowledgeItems().then((data) => setItems(data.items || [])).catch(() => setItems(mockKnowledgeItems));
     api.graph().then(setGraph).catch(() => {});
+    api.storyVisualAtlas().then(setAtlas).catch(() => {});
   }, []);
 
   useEffect(() => writeHistory(history), [history]);
@@ -273,7 +334,7 @@ export default function SmartChat({ sections = [] }) {
     setQuestion("");
     setAttachments([]);
 
-    if (/智能体|传播路径|中国地图|省级|路径图/.test(content)) {
+    if (/(智能体|china-agent|省级中国地图)/i.test(content) && !/(卫礼贤|德译中国故事集|取材来源|出版地|出版地图)/.test(content)) {
       const finalMessages = [...nextMessages, { role: "assistant", text: agentAnswer(content), intent: "agent-map" }];
       setMessages(finalMessages);
       saveConversation(finalMessages);
@@ -306,7 +367,8 @@ export default function SmartChat({ sections = [] }) {
     }
 
     try {
-      await api.streamChat({ question: userMessage.text, sectionId, provider, model, retrievalMode, attachments }, (chunk) => {
+      const localKnowledge = localStoryKnowledgePayload(sectionId, retrievalMode);
+      await api.streamChat({ question: userMessage.text, sectionId, provider, model, retrievalMode, attachments, ...localKnowledge }, (chunk) => {
         if (chunk.meta) {
           responseMeta = { ...responseMeta, ...chunk.meta };
         }
@@ -316,19 +378,19 @@ export default function SmartChat({ sections = [] }) {
         }
         if (chunk.error) {
           flushStreamingMessage(chunk.error, false);
-          setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, meta: responseMeta, retrievalMode } : item));
+          setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, meta: responseMeta, answer: { visuals: responseMeta.visuals || { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, retrievalMode } : item));
           setLoading(false);
         }
         if (chunk.done) {
           const finalText = accumulated || "大模型没有返回内容。";
-          const finalMessages = [...nextMessages, { role: "assistant", text: finalText, question: userMessage.text, answer: { visuals: { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, meta: responseMeta, retrievalMode, streaming: false }];
+          const finalMessages = [...nextMessages, { role: "assistant", text: finalText, question: userMessage.text, answer: { visuals: responseMeta.visuals || { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, meta: responseMeta, retrievalMode, streaming: false }];
           setMessages(finalMessages);
           saveConversation(finalMessages);
           setLoading(false);
         }
       });
     } catch (error) {
-      const finalMessages = [...nextMessages, { role: "assistant", text: error.message || "大模型调用失败，请检查管理员接口配置。", meta: responseMeta, retrievalMode }];
+      const finalMessages = [...nextMessages, { role: "assistant", text: error.message || "大模型调用失败，请检查管理员接口配置。", answer: { visuals: responseMeta.visuals || { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, meta: responseMeta, retrievalMode }];
       setMessages(finalMessages);
       saveConversation(finalMessages);
       setLoading(false);
@@ -337,21 +399,107 @@ export default function SmartChat({ sections = [] }) {
 
   function renderVisual(message) {
     if (message.retrievalMode === "none") return null;
-    const type = message.intent || inferVisual(message.question || message.text || "", message.answer || {});
+    if (message.role === "user") return null;
+    const qText = String(message.question || message.text || "");
+    const answer = message.answer || {};
+    const type = message.intent || inferVisual(qText, answer);
     const answerItems = scopedItems.slice(0, 8);
-    const flows = mockMapFlows.filter((flow) => flow.sectionId === sectionId);
+    const retrievedFlows = Array.isArray(message.meta?.flows) ? message.meta.flows : [];
+    const answerFlows = Array.isArray(answer?.visuals?.map?.flows)
+      ? answer.visuals.map.flows
+      : Array.isArray(message.meta?.visuals?.map?.flows)
+        ? message.meta.visuals.map.flows
+        : [];
+    const flows = answerFlows.length ? answerFlows : retrievedFlows.length ? retrievedFlows : mockMapFlows.filter((flow) => flow.sectionId === sectionId);
+    const chartKeys = Array.isArray(answer?.visuals?.chartKeys)
+      ? answer.visuals.chartKeys
+      : Array.isArray(answer?.workflow?.plan?.chart_keys)
+        ? answer.workflow.plan.chart_keys
+        : Array.isArray(message.meta?.chartKeys)
+          ? message.meta.chartKeys
+          : Array.isArray(message.meta?.workflow?.plan?.chart_keys)
+            ? message.meta.workflow.plan.chart_keys
+            : [];
+    const charts = answer?.visuals?.charts || message.meta?.charts || atlas?.charts || {};
+    const wilhelmFlows = Array.isArray(answer?.visuals?.wilhelm?.flows) && answer.visuals.wilhelm.flows.length
+      ? answer.visuals.wilhelm.flows
+      : Array.isArray(message.meta?.wilhelm?.flows) && message.meta.wilhelm.flows.length
+        ? message.meta.wilhelm.flows
+      : Array.isArray(wilhelmMapData.flows) && wilhelmMapData.flows.length
+        ? wilhelmMapData.flows
+        : fallbackWilhelmFlows;
+    const wantsWilhelm = type === "wilhelm-map" || chartKeys.includes("wilhelm_reprint_map");
+    const wantsPublication = type === "publication-map" || chartKeys.includes("publication_map");
+    const wantsSource = type === "source-map" || chartKeys.includes("source_map");
+    const wantsIdentity = type === "identity" || chartKeys.includes("identity_process") || chartKeys.includes("identity_river");
+    const wantsStoryFlow = type === "story-flow-map" || chartKeys.includes("story_flow_map") || wantsStoryCollectionFlowMap(qText);
+
+    if (wantsWilhelm) {
+      return (
+        <div className="chat-visual-stack">
+          <WilhelmSplitMap flows={wilhelmFlows} title="德译中国故事集故事来源及出版地参照图" timeline />
+        </div>
+      );
+    }
+    if (wantsPublication && sectionId === "stories") {
+      return (
+        <div className="chat-visual-stack">
+          <PublicationBubbleMap
+            chart={charts.publicationMap || { title: "德译中国故事集出版地图", subtitle: "出版地分布", points: [] }}
+            id="smartchat-publication-map"
+          />
+        </div>
+      );
+    }
+    if (wantsSource && sectionId === "stories" && charts.sourceMap) {
+      return (
+        <div className="chat-visual-stack">
+          <SourceChinaMap chart={charts.sourceMap} />
+        </div>
+      );
+    }
+    if (wantsIdentity) {
+      return (
+        <div className="chat-visual-stack">
+          {charts.identityProcess && <IdentityProcessChart chart={charts.identityProcess} />}
+          {charts.identityRiver && <IdentityRiverChart chart={charts.identityRiver} />}
+        </div>
+      );
+    }
+    if (chartKeys.length) {
+      return (
+        <div className="chat-visual-stack">
+          {chartKeys.includes("story_flow_map") && (
+            <SplitFlowMap flows={flows.length ? flows : storyData.flows} title={`${section?.title || "知识库"}传播路径图`} timeline />
+          )}
+          {chartKeys.includes("preface_cluster") && charts.prefaceCluster && <PrefaceThemeCluster chart={charts.prefaceCluster} />}
+          {chartKeys.includes("preface_word_cloud") && charts.wordCloud && <PrefaceWordCloud chart={charts.wordCloud} />}
+          {chartKeys.includes("child_theme_cooccurrence") && charts.childCooccurrence && <ChildThemeCooccurrence chart={charts.childCooccurrence} />}
+          {chartKeys.includes("knowledge_graph") && visualGraph && (
+            <GraphCanvas graph={visualGraph} sections={sections} focusNodeIds={answerItems.flatMap((item) => item.graphNodeIds || [])} initialFilter={sectionId} title="问答关联图谱" />
+          )}
+          {chartKeys.includes("stats_panel") && (
+            <StatisticsPanel items={sectionId === "stories" ? storyStatsItems : answerItems} title="问答统计分析" />
+          )}
+        </div>
+      );
+    }
     if (type === "agent-map") {
       return (
         <div className="chat-visual-stack">
-          <ChinaStoryMap flows={storyData.flows} title="智能体生成传播路径图" />
+          <SplitFlowMap flows={storyData.flows} title="智能体生成传播路径图" timeline />
         </div>
       );
     }
     if ((type === "graph" || type === "mixed") && visualGraph) {
       return <GraphCanvas graph={visualGraph} sections={sections} focusNodeIds={answerItems.flatMap((item) => item.graphNodeIds || [])} initialFilter={sectionId} title="问答关联图谱" />;
     }
-    if (type === "map" || type === "mixed") {
-      return <MapVisualization flows={flows.length ? flows : mockMapFlows.filter((flow) => flow.sectionId === sectionId)} sections={sections} title={`${section?.title || "知识库"}传播地图`} />;
+    if ((type === "map" || type === "mixed" || wantsStoryFlow) && (sectionId !== "stories" || wantsStoryFlow)) {
+      return (
+        <div className="chat-visual-stack">
+          <SplitFlowMap flows={flows.length ? flows : storyData.flows} title={`${section?.title || "知识库"}传播路径图`} timeline />
+        </div>
+      );
     }
     if (type === "stats") {
       return <StatisticsPanel items={sectionId === "stories" ? storyStatsItems : answerItems} title="问答统计分析" />;

@@ -3,8 +3,7 @@ import { api } from "../services/api.js";
 import { mockKnowledgeItems, mockMapFlows } from "../data/mockData.js";
 import storyData from "../data/storyCollections.json";
 import GraphCanvas from "../components/GraphCanvas.jsx";
-import MapVisualization from "../components/MapVisualization.jsx";
-import ChinaStoryMap from "../components/ChinaStoryMap.jsx";
+import SplitFlowMap from "../components/SplitFlowMap.jsx";
 import StatisticsPanel from "../components/StatisticsPanel.jsx";
 
 function graphWithItems(graph, items) {
@@ -96,8 +95,8 @@ export default function Graph({ sections }) {
           />
         )}
         {sectionId === "stories"
-          ? <ChinaStoryMap flows={selectedFlow ? [selectedFlow] : []} selectedId={selectedFlow?.id} title={`${selectedCollection?.chineseTitle || "故事集"}传播地图`} />
-          : <MapVisualization flows={visibleFlows} sections={sections} title="上传数据传播地图" />}
+          ? <SplitFlowMap flows={selectedFlow ? [selectedFlow] : []} selectedId={selectedFlow?.id} title={`${selectedCollection?.chineseTitle || "故事集"}传播路径图`} timeline />
+          : <SplitFlowMap flows={visibleFlows} title="上传数据传播路径图" timeline />}
       </div>
 
       <StatisticsPanel items={statsItems} title={sectionId === "stories" ? `${selectedCollection?.chineseTitle || "故事集"}统计可视化` : "分库统计可视化"} />
