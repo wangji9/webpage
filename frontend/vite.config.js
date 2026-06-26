@@ -8,18 +8,16 @@ export default defineConfig({
   root: projectRoot,
   plugins: [react()],
   publicDir: "public",
-  build: {
-    outDir: "dist",
-    emptyOutDir: true
-  },
   server: {
-    host: "127.0.0.1",
-    port: 3000,
     proxy: {
       "/api": {
         target: "http://127.0.0.1:8002",
-        changeOrigin: true
-      }
-    }
+        changeOrigin: true,
+      },
+    },
+  },
+  build: {
+    outDir: "dist",
+    emptyOutDir: true
   }
 });

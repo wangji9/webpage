@@ -4,12 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build --watch",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1 --port 3000"
+    "preview": "vite preview --host 127.0.0.1 --port 8002"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "echarts": "^5.4.3",
     "maplibre-gl": "^5.1.0",
     "pmtiles": "^3.0.7",
     "react": "^18.3.1",

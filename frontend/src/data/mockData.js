@@ -46,7 +46,7 @@ export const modelProviders = [
   {
     id: "gpt",
     name: "OpenAI GPT",
-    models: ["gpt-5.2", "gpt-5.3-codex", "gpt-5.4", "gpt-5.4-mini", "gpt-5.4-openai-compact", "gpt-5.5"],
+    models: ["gpt-5.4", "gpt-5.4-mini", "gpt-5.4-openai-compact", "gpt-5.5", "gpt-5.3-codex", "gpt-5.2"],
     status: "API 可接入",
     note: "适合综合问答、长文本归纳与跨语种比较。"
   },

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../services/api.js";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 
 const WIDTH = 1400;
 const HEIGHT = 620;
@@ -282,7 +283,7 @@ function cityKey(text) {
   return normalizeLabel(text).toLowerCase();
 }
 
-export default function WilhelmSplitMap({ flows = [], selectedId = "", onSelect, title = "德译中国故事集故事来源及出版地参照图", timeline = false }) {
+export default function WilhelmSplitMap({ flows = [], selectedId = "", onSelect, title = "德译中国故事集故事来源及出版地参照图", timeline = false, allowExpand = true }) {
   const svgRef = useRef(null);
   const [world, setWorld] = useState(null);
   const [germany, setGermany] = useState(null);
@@ -295,6 +296,7 @@ export default function WilhelmSplitMap({ flows = [], selectedId = "", onSelect,
   const [sourceFilter, setSourceFilter] = useState("all");
   const [cityFilter, setCityFilter] = useState("all");
   const [minCount, setMinCount] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const years = useMemo(() => [...new Set(flows.map((flow) => Number(flow.year)).filter(Boolean))].sort((a, b) => a - b), [flows]);
   const timelineIndexValue = Math.min(timelineIndex ?? Math.max(0, years.length - 1), Math.max(0, years.length - 1));
@@ -565,12 +567,14 @@ export default function WilhelmSplitMap({ flows = [], selectedId = "", onSelect,
   const detailRoute = activeRoute || displayedRouteGroups[0] || null;
 
   return (
+    <>
     <div className="work-panel china-map-panel wilhelm-split-map">
       <div className="visual-heading map-heading">
         <div>
           <strong>{title}</strong>
           <span>{visibleFlows.length} 条记录 · {displayedRouteGroups.length}/{routeGroups.length} 条聚合路径 · 左：中国故事源地 · 中：聚合流带 · 右：德语出版城市</span>
         </div>
+        <div className="visual-heading-actions">
         {timeline && years.length > 1 && (
           <div className="china-map-timeline-controls">
             <button
@@ -596,6 +600,8 @@ export default function WilhelmSplitMap({ flows = [], selectedId = "", onSelect,
             <strong>{currentYear}</strong>
           </div>
         )}
+        {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
+        </div>
       </div>
       <div className="wilhelm-flow-filters legacy-hidden">
         <label>来源区
@@ -921,5 +927,11 @@ export default function WilhelmSplitMap({ flows = [], selectedId = "", onSelect,
         </aside>
       </div>
     </div>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={title} subtitle="放大查看故事来源、聚合流带与德语区出版城市" onClose={() => setModalOpen(false)}>
+        <WilhelmSplitMap flows={flows} selectedId={selectedId} onSelect={onSelect} title={title} timeline={timeline} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }

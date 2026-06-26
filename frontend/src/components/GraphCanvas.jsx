@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 
 const relationSet = new Set(["传播", "出版", "翻译", "海外传播", "改写", "编译", "母题关联"]);
 
@@ -24,7 +25,7 @@ function shortLabel(label, max = 12) {
   return label.length > max ? `${label.slice(0, max)}...` : label;
 }
 
-export default function GraphCanvas({ graph, sections, focusNodeIds = [], initialFilter = "all", onNodeSelect, title = "知识图谱" }) {
+export default function GraphCanvas({ graph, sections, focusNodeIds = [], initialFilter = "all", onNodeSelect, title = "知识图谱", allowExpand = true }) {
   const canvasRef = useRef(null);
   const nodesRef = useRef([]);
   const dragRef = useRef(null);
@@ -36,6 +37,8 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [relationQuery, setRelationQuery] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
 
   const focusSet = useMemo(() => new Set(focusNodeIds), [focusNodeIds]);
   const sectionMap = useMemo(() => new Map(sections.map((item) => [item.id, item])), [sections]);
@@ -131,10 +134,43 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return undefined;
+    function updateSize() {
+      const rect = canvas.getBoundingClientRect();
+      setCanvasSize((current) => {
+        const width = Math.round(rect.width);
+        const height = Math.round(rect.height);
+        if (Math.abs(current.width - width) < 2 && Math.abs(current.height - height) < 2) return current;
+        return { width, height };
+      });
+    }
+    updateSize();
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(updateSize) : null;
+    observer?.observe(canvas);
+    window.addEventListener("resize", updateSize);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", updateSize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
-    const width = Math.max(rect.width, 720);
-    const height = Math.max(rect.height, 460);
+    const width = Math.max(rect.width || canvasSize.width, 300);
+    const height = Math.max(rect.height || canvasSize.height, 360);
+    const compact = width < 560;
+    const bounds = {
+      left: compact ? 34 : 86,
+      right: compact ? 96 : 170,
+      top: compact ? 58 : 78,
+      bottom: compact ? 48 : 72
+    };
+    const baseGap = compact ? 58 : 92;
+    const itemGap = compact ? 26 : 34;
+    const itemRing = compact ? 58 : 92;
+    const itemRingStep = compact ? 28 : 38;
     const baseNodes = visibleNodes.filter((node) => !isItemNode(node));
     const itemNodes = visibleNodes.filter(isItemNode);
     const basePositions = new Map();
@@ -147,8 +183,8 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
       const py = node.y ? node.y * height : height / 2 + Math.sin(angle) * fallbackRadius;
       basePositions.set(node.id, {
         ...node,
-        px: clamp(px, 86, width - 170),
-        py: clamp(py, 78, height - 72),
+        px: clamp(px, bounds.left, Math.max(bounds.left, width - bounds.right)),
+        py: clamp(py, bounds.top, Math.max(bounds.top, height - bounds.bottom)),
         vx: 0,
         vy: 0,
         fixed: true
@@ -166,11 +202,11 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
       const anchor = basePositions.get(anchorId) || { px: width / 2, py: height / 2 };
       group.forEach((node, index) => {
         const angle = ((index / Math.max(1, group.length)) * Math.PI * 2) + (anchor.px > width / 2 ? Math.PI : 0);
-        const ring = 92 + Math.floor(index / 10) * 38;
+        const ring = itemRing + Math.floor(index / 10) * itemRingStep;
         basePositions.set(node.id, {
           ...node,
-          px: clamp(anchor.px + Math.cos(angle) * ring, 42, width - 84),
-          py: clamp(anchor.py + Math.sin(angle) * ring, 72, height - 46),
+          px: clamp(anchor.px + Math.cos(angle) * ring, compact ? 28 : 42, Math.max(compact ? 28 : 42, width - (compact ? 42 : 84))),
+          py: clamp(anchor.py + Math.sin(angle) * ring, compact ? 54 : 72, Math.max(compact ? 54 : 72, height - 46)),
           vx: 0,
           vy: 0,
           fixed: true
@@ -184,7 +220,7 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
         for (let j = i + 1; j < nodes.length; j += 1) {
           const a = nodes[i];
           const b = nodes[j];
-          const minDistance = (isItemNode(a) || isItemNode(b)) ? 34 : 92;
+          const minDistance = (isItemNode(a) || isItemNode(b)) ? itemGap : baseGap;
           const dx = b.px - a.px || 0.1;
           const dy = b.py - a.py || 0.1;
           const dist = Math.hypot(dx, dy);
@@ -204,13 +240,13 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
         }
       }
       nodes.forEach((node) => {
-        node.px = clamp(node.px, 42, width - 84);
-        node.py = clamp(node.py, 72, height - 46);
+        node.px = clamp(node.px, compact ? 28 : 42, Math.max(compact ? 28 : 42, width - (compact ? 42 : 84)));
+        node.py = clamp(node.py, compact ? 54 : 72, Math.max(compact ? 54 : 72, height - 46));
       });
     }
     nodesRef.current = nodes;
     transformRef.current = { scale: 1, ox: 0, oy: 0 };
-  }, [layoutKey, visibleEdges]);
+  }, [canvasSize.height, canvasSize.width, layoutKey, visibleEdges]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -304,12 +340,16 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
           const label = shortLabel(node.label, active || focused || matched ? 18 : 10);
           ctx.font = `${active || focused || matched ? 900 : 750} 13px Microsoft YaHei, sans-serif`;
           const labelWidth = ctx.measureText(label).width + 14;
+          const labelRightX = node.px + radius + 7;
+          const labelLeftX = node.px - radius - 7 - labelWidth;
+          const labelX = labelRightX + labelWidth > width - 8 ? Math.max(8, labelLeftX) : labelRightX;
+          const labelY = clamp(node.py - 11, 8, Math.max(8, height - 30));
           ctx.fillStyle = active || focused || matched ? "#ffffff" : "rgba(248,251,255,0.86)";
-          ctx.fillRect(node.px + radius + 7, node.py - 11, labelWidth, 22);
+          ctx.fillRect(labelX, labelY, labelWidth, 22);
           ctx.strokeStyle = active || focused || matched ? colorFor(node) : "#dbe7f3";
-          ctx.strokeRect(node.px + radius + 7, node.py - 11, labelWidth, 22);
+          ctx.strokeRect(labelX, labelY, labelWidth, 22);
           ctx.fillStyle = "#1f2937";
-          ctx.fillText(label, node.px + radius + 14, node.py + 5);
+          ctx.fillText(label, labelX + 7, labelY + 16);
         }
       });
       ctx.restore();
@@ -393,6 +433,7 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
   }
 
   return (
+    <>
     <div className="graph-workspace graph-network">
       <div className="toolbar flat-toolbar graph-toolbar">
         <label>
@@ -419,6 +460,7 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
         </label>
         <button type="button" className={trace ? "is-on" : ""} onClick={() => setTrace((value) => !value)}>关系路径</button>
         <button type="button" onClick={() => { setQuery(""); setTypeFilter("all"); setRelationQuery(""); setSelected(null); }}>重置检索</button>
+        {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大图谱" />}
         <button type="button" onClick={exportPng}>导出图谱</button>
         <button type="button" onClick={exportJson}>导出数据</button>
       </div>
@@ -467,5 +509,19 @@ export default function GraphCanvas({ graph, sections, focusNodeIds = [], initia
         </aside>
       </div>
     </div>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={title} subtitle="滚轮缩放、拖拽节点，使用顶部按钮调整窗口缩放" onClose={() => setModalOpen(false)}>
+        <GraphCanvas
+          graph={graph}
+          sections={sections}
+          focusNodeIds={focusNodeIds}
+          initialFilter={filter}
+          onNodeSelect={onNodeSelect}
+          title={title}
+          allowExpand={false}
+        />
+      </VisualModal>
+    )}
+    </>
   );
 }

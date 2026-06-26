@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../services/api.js";
 import { modelProviders, mockKnowledgeItems, mockMapFlows } from "../data/mockData.js";
 import storyData from "../data/storyCollections.json";
@@ -19,6 +19,12 @@ import StatisticsPanel from "../components/StatisticsPanel.jsx";
 import { loadWilhelmKnowledgeGraphs, loadWilhelmRecords, loadWilhelmStoryDrafts } from "../utils/localKnowledgeStore.js";
 
 const HISTORY_KEY = "china-narrative-chat-history-real-data-v2";
+const CHAT_QUICK_ACTIONS = [
+  { label: "传播路径图", prompt: "基于多语种中国故事集，生成传播路径图，并解释关键出版地、译介路径和节点关系。" },
+  { label: "译者身份变化", prompt: "梳理中国故事海外译介中译者、编者与出版机构的身份变化，并给出时间线分析。" },
+  { label: "知识图谱", prompt: "围绕当前知识范围生成问答关联知识图谱，说明核心人物、作品、地点和关系。" },
+  { label: "数据摘要", prompt: "请用研究报告口吻总结当前知识库中的数据分布、代表案例和可视化结论。" },
+];
 
 function readHistory() {
   try {
@@ -31,6 +37,95 @@ function readHistory() {
 
 function writeHistory(history) {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 30)));
+}
+
+function downloadText(filename, text, type = "text/plain;charset=utf-8") {
+  const blob = new Blob([text], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadDataUrl(filename, dataUrl) {
+  const link = document.createElement("a");
+  link.href = dataUrl;
+  link.download = filename;
+  link.click();
+}
+
+function safeFilename(value) {
+  return String(value || "智能问答记录").replace(/[\\/:*?"<>|]/g, "-").slice(0, 42);
+}
+
+function chatMarkdown(record) {
+  const lines = [
+    `# ${record.title || "智能问答记录"}`,
+    "",
+    `- 更新时间：${record.updatedAt || new Date().toLocaleString("zh-CN", { hour12: false })}`,
+    `- 知识范围：${record.sectionId || "未记录"}`,
+    `- 模型：${record.provider || ""} / ${record.model || ""}`,
+    `- 检索：${record.retrievalMode || "未记录"}`,
+    "",
+  ];
+  (record.messages || []).forEach((message, index) => {
+    lines.push(`## ${index + 1}. ${message.role === "user" ? "用户" : "助手"}`);
+    lines.push("");
+    lines.push(String(message.text || "").trim() || "（无文本内容）");
+    if (message.meta?.database) lines.push("", `> 数据库：${message.meta.database}`);
+    if (Array.isArray(message.meta?.evidence) && message.meta.evidence.length) {
+      lines.push("", `> 依据：${message.meta.evidence.slice(0, 6).join("；")}`);
+    }
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
+function buildProcessSteps(message, fallbackRetrievalMode) {
+  const meta = message.meta || {};
+  const workflow = meta.workflow || {};
+  const plan = workflow.plan || {};
+  const workflowSteps = Array.isArray(workflow.steps) ? workflow.steps : [];
+  const chartKeys = Array.isArray(meta.chartKeys)
+    ? meta.chartKeys
+    : Array.isArray(plan.chart_keys)
+      ? plan.chart_keys
+      : [];
+  const retrievalMode = message.retrievalMode || fallbackRetrievalMode;
+  const retrievalNeeded = meta.retrieval_needed !== false && retrievalMode !== "none";
+  const steps = [
+    {
+      label: "理解问题",
+      detail: Array.isArray(plan.keywords) && plan.keywords.length ? `关键词：${plan.keywords.slice(0, 5).join(" / ")}` : "解析研究意图与输出形式",
+    },
+    {
+      label: retrievalNeeded ? "检索知识库" : "直连模型",
+      detail: retrievalNeeded ? `范围：${meta.database || "当前知识库"}` : "不使用本地知识库召回",
+    },
+    ...workflowSteps.slice(0, 4).map((step) => ({ label: step, detail: "后端工作流已完成该步骤" })),
+    {
+      label: chartKeys.length ? "准备可视化" : "组织回答",
+      detail: chartKeys.length ? `图表：${chartKeys.join(" / ")}` : "生成结构化文本回答",
+    },
+    {
+      label: "流式输出",
+      detail: message.text ? `已输出 ${message.text.length} 字` : "等待首段内容",
+    },
+  ];
+  const deduped = [];
+  steps.forEach((step) => {
+    if (!step.label || deduped.some((item) => item.label === step.label)) return;
+    deduped.push(step);
+  });
+  const activeIndex = message.streaming
+    ? Math.min(deduped.length - 1, message.text ? deduped.length - 1 : Math.max(1, deduped.length - 2))
+    : deduped.length;
+  return deduped.map((step, index) => ({
+    ...step,
+    status: !message.streaming || index < activeIndex ? "done" : index === activeIndex ? "active" : "pending",
+  }));
 }
 
 function wantsStoryCollectionFlowMap(question) {
@@ -95,12 +190,36 @@ async function fileToAttachment(file) {
 
 function agentAnswer(question) {
   if (/传播|路径|地图/.test(question)) {
-    return "已根据故事集年份、来源省区与海外出版地生成传播路径图。";
+    return [
+      "已根据故事集年份、来源省区与海外出版地生成传播路径图。",
+      "",
+      "| 输出内容 | 说明 |",
+      "| --- | --- |",
+      "| 传播路径图 | 展示中国故事集从来源省区到海外出版地的流向。 |",
+      "| 节点关系 | 对照出版地、年份和故事集条目，突出关键中转节点。 |",
+      "| 可视化文件 | 下方图表可直接保存为 PNG 图片。 |",
+      "",
+      "> 图中路径用于辅助解释故事集海外传播格局，后续可继续叠加译者、出版社和年份筛选。"
+    ].join("\n");
   }
   if (/表格|子故事|故事集/.test(question)) {
-    return "已根据故事集总表和“图书/期刊名”匹配结果生成嵌套表格。";
+    return [
+      "已根据故事集总表和“图书/期刊名”匹配结果生成嵌套表格。",
+      "",
+      "| 数据层级 | 更新方式 | 前端展示 |",
+      "| --- | --- | --- |",
+      "| 故事集总表 | 管理员上传新表格后重建索引 | 知识库列表、详情页、问答依据 |",
+      "| 子故事明细 | 按图书或期刊名自动匹配 | 嵌套表格、知识图谱节点 |",
+      "| 传播关系 | 依据年份、来源地、出版地生成 | 地图、路径图、统计图 |"
+    ].join("\n");
   }
-  return "已基于当前故事集数据生成对应的图表结果。";
+  return [
+    "已基于当前故事集数据生成对应的图表结果。",
+    "",
+    "- 回答文本会以 Markdown 形式渲染。",
+    "- 如包含地图、图表或知识图谱，会在回答下方同步展示。",
+    "- 可通过“保存图片”导出当前可视化结果。"
+  ].join("\n");
 }
 
 function localStoryKnowledgePayload(sectionId, retrievalMode) {
@@ -149,19 +268,48 @@ function normalizeMarkdown(text = "") {
 }
 
 function renderInlineMarkdown(text) {
-  const parts = String(text).split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
+  const parts = String(text).split(/(\[[^\]]+\]\([^)]+\)|`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*)/g).filter(Boolean);
   return parts.map((part, index) => {
+    const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (link) {
+      return <a href={link[2]} key={index} rel="noreferrer" target="_blank">{link[1]}</a>;
+    }
+    if (part.startsWith("`") && part.endsWith("`")) {
+      return <code key={index}>{part.slice(1, -1)}</code>;
+    }
     if (part.startsWith("**") && part.endsWith("**")) {
       return <strong key={index}>{part.slice(2, -2).trim()}</strong>;
+    }
+    if (part.startsWith("*") && part.endsWith("*")) {
+      return <em key={index}>{part.slice(1, -1).trim()}</em>;
     }
     return <span key={index}>{part}</span>;
   });
 }
 
+function parseMarkdownTable(lines, startIndex) {
+  const headerLine = lines[startIndex]?.trim();
+  const dividerLine = lines[startIndex + 1]?.trim();
+  if (!headerLine?.includes("|") || !/^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$/.test(dividerLine || "")) return null;
+  const rows = [];
+  let index = startIndex;
+  while (index < lines.length && lines[index].trim().includes("|")) {
+    rows.push(lines[index].trim());
+    index += 1;
+  }
+  const cells = (line) => line.replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
+  return {
+    endIndex: index,
+    headers: cells(rows[0]),
+    rows: rows.slice(2).map(cells),
+  };
+}
+
 function renderMarkdown(text) {
-  const lines = normalizeMarkdown(text).split("\n").map((line) => line.trim()).filter(Boolean);
+  const lines = normalizeMarkdown(text).split("\n");
   const blocks = [];
   let list = [];
+  let paragraph = [];
 
   function flushList() {
     if (!list.length) return;
@@ -175,33 +323,115 @@ function renderMarkdown(text) {
     list = [];
   }
 
-  lines.forEach((line) => {
+  function flushParagraph() {
+    if (!paragraph.length) return;
+    const body = paragraph.join("\n").trim();
+    if (body) blocks.push(<p key={`p-${blocks.length}`}>{renderInlineMarkdown(body)}</p>);
+    paragraph = [];
+  }
+
+  let index = 0;
+  while (index < lines.length) {
+    const line = lines[index].trim();
+
+    if (!line) {
+      flushList();
+      flushParagraph();
+      index += 1;
+      continue;
+    }
+
+    const fence = line.match(/^```(\w+)?/);
+    if (fence) {
+      flushList();
+      flushParagraph();
+      const codeLines = [];
+      index += 1;
+      while (index < lines.length && !lines[index].trim().startsWith("```")) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+      if (index < lines.length) index += 1;
+      blocks.push(
+        <pre className="markdown-code-block" key={`code-${blocks.length}`}>
+          <code>{codeLines.join("\n")}</code>
+        </pre>
+      );
+      continue;
+    }
+
+    const table = parseMarkdownTable(lines, index);
+    if (table) {
+      flushList();
+      flushParagraph();
+      blocks.push(
+        <div className="markdown-table-wrap" key={`table-${blocks.length}`}>
+          <table className="markdown-table">
+            <thead>
+              <tr>{table.headers.map((cell, cellIndex) => <th key={cellIndex}>{renderInlineMarkdown(cell)}</th>)}</tr>
+            </thead>
+            <tbody>
+              {table.rows.map((row, rowIndex) => (
+                <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex}>{renderInlineMarkdown(cell)}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+      index = table.endIndex;
+      continue;
+    }
+
+    const quote = line.match(/^>\s+(.+)$/);
+    if (quote) {
+      flushList();
+      flushParagraph();
+      const quoteLines = [quote[1]];
+      index += 1;
+      while (index < lines.length) {
+        const next = lines[index].trim().match(/^>\s+(.+)$/);
+        if (!next) break;
+        quoteLines.push(next[1]);
+        index += 1;
+      }
+      blocks.push(<blockquote key={`quote-${blocks.length}`}>{renderInlineMarkdown(quoteLines.join(" "))}</blockquote>);
+      continue;
+    }
+
     const heading = line.match(/^(#{1,4})\s+(.+)$/);
     if (heading) {
       flushList();
+      flushParagraph();
       const level = Math.min(heading[1].length + 2, 4);
       const HeadingTag = `h${level}`;
       blocks.push(<HeadingTag className="markdown-heading" key={`heading-${blocks.length}`}>{renderInlineMarkdown(heading[2])}</HeadingTag>);
-      return;
+      index += 1;
+      continue;
     }
 
     const ordered = line.match(/^\d+\.\s+(.+)$/);
     if (ordered) {
+      flushParagraph();
       list.push({ type: "ol", text: ordered[1] });
-      return;
+      index += 1;
+      continue;
     }
 
     const unordered = line.match(/^[-*]\s+(.+)$/);
     if (unordered) {
+      flushParagraph();
       list.push({ type: "ul", text: unordered[1] });
-      return;
+      index += 1;
+      continue;
     }
 
     flushList();
-    blocks.push(<p key={`p-${blocks.length}`}>{renderInlineMarkdown(line)}</p>);
-  });
+    paragraph.push(line);
+    index += 1;
+  }
 
   flushList();
+  flushParagraph();
   return blocks.length ? blocks : <p>{text}</p>;
 }
 
@@ -235,14 +465,84 @@ function ChatMeta({ meta }) {
   const elapsed = typeof meta.elapsed_ms === "number" ? `${(meta.elapsed_ms / 1000).toFixed(2)}s` : "计算中";
   const tokenText = meta.tokens ? `${meta.token_estimated ? "约 " : ""}${meta.tokens}` : "未返回";
   const evidence = Array.isArray(meta.evidence) && meta.evidence.length ? meta.evidence.slice(0, 4).join("；") : "无";
+  const subgraph = meta.subgraph?.scope?.name ? `${meta.subgraph.scope.name}（${meta.subgraph.nodes?.length || 0}点/${meta.subgraph.edges?.length || 0}边）` : "";
   return (
     <div className="chat-answer-meta">
       <span>Token：{tokenText}</span>
       <span>耗时：{elapsed}</span>
       <span>数据库：{meta.database || "无"}</span>
+      {subgraph && <span>子图：{subgraph}</span>}
       <span>依据：{evidence}</span>
     </div>
   );
+}
+
+function ThinkingTrace({ message, retrievalMode }) {
+  if (message.role !== "assistant") return null;
+  if (!message.streaming && !message.meta?.workflow && !message.meta?.database && !message.meta?.chartKeys?.length) return null;
+  const steps = buildProcessSteps(message, retrievalMode);
+  return (
+    <div className="thinking-trace" aria-live={message.streaming ? "polite" : "off"}>
+      <div className="thinking-trace-head">
+        <strong>{message.streaming ? "正在处理" : "处理过程"}</strong>
+        {message.streaming && <span>实时生成中</span>}
+      </div>
+      <div className="thinking-steps">
+        {steps.map((step, index) => (
+          <div className={`thinking-step ${step.status}`} key={`${step.label}-${index}`}>
+            <i aria-hidden="true" />
+            <div>
+              <strong>{step.label}</strong>
+              <span>{step.detail}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function svgToPngDataUrl(svg) {
+  return new Promise((resolve, reject) => {
+    const clone = svg.cloneNode(true);
+    const box = svg.getBoundingClientRect();
+    const width = Math.max(1, Math.round(box.width || svg.clientWidth || 1200));
+    const height = Math.max(1, Math.round(box.height || svg.clientHeight || 760));
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    clone.setAttribute("width", `${width}`);
+    clone.setAttribute("height", `${height}`);
+    const serialized = new XMLSerializer().serializeToString(clone);
+    const blob = new Blob([serialized], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const image = new Image();
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d");
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, width, height);
+      context.drawImage(image, 0, 0, width, height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("无法导出该可视化图片"));
+    };
+    image.src = url;
+  });
+}
+
+async function captureVisualElement(element) {
+  if (!element) return null;
+  const svg = element.querySelector("svg");
+  if (svg) {
+    return svgToPngDataUrl(svg);
+  }
+  const canvas = element.querySelector("canvas");
+  if (canvas) return canvas.toDataURL("image/png");
+  return null;
 }
 
 export default function SmartChat({ sections = [] }) {
@@ -251,13 +551,19 @@ export default function SmartChat({ sections = [] }) {
   const [atlas, setAtlas] = useState(null);
   const [sectionId, setSectionId] = useState("stories");
   const [provider, setProvider] = useState("gpt");
-  const [model, setModel] = useState("gpt-5.2");
+  const [model, setModel] = useState("gpt-5.4");
   const [retrievalMode, setRetrievalMode] = useState("graph-rag");
   const [question, setQuestion] = useState("");
   const [attachments, setAttachments] = useState([]);
   const [history, setHistory] = useState(() => readHistory());
   const [conversationId, setConversationId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [indexNotice, setIndexNotice] = useState("");
+  const threadRef = useRef(null);
+  const textareaRef = useRef(null);
+  const streamQueueRef = useRef([]);
+  const streamTimerRef = useRef(0);
+  const [copiedMessageKey, setCopiedMessageKey] = useState("");
   const [messages, setMessages] = useState([
     { role: "assistant", text: "我可以调用已配置的大模型 API，并按问题返回文本、知识图谱、传播地图、统计图或故事集传播路径智能体结果。你也可以上传附件作为上下文。" }
   ]);
@@ -270,6 +576,14 @@ export default function SmartChat({ sections = [] }) {
   }, []);
 
   useEffect(() => writeHistory(history), [history]);
+
+  useEffect(() => {
+    threadRef.current?.scrollTo({ top: threadRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, loading]);
+
+  useEffect(() => () => {
+    if (streamTimerRef.current) window.clearTimeout(streamTimerRef.current);
+  }, []);
 
   const providerInfo = modelProviders.find((item) => item.id === provider) || modelProviders[0];
   const section = sections.find((item) => item.id === sectionId) || sections[0] || { title: "知识库" };
@@ -306,7 +620,7 @@ export default function SmartChat({ sections = [] }) {
     setConversationId(record.id);
     setSectionId(record.sectionId || "stories");
     setProvider(record.provider || "gpt");
-    setModel(record.model || "gpt-5.2");
+    setModel(record.model || "gpt-5.4");
     setRetrievalMode(record.retrievalMode || "graph-rag");
     setMessages(record.messages || []);
   }
@@ -316,11 +630,123 @@ export default function SmartChat({ sections = [] }) {
     if (conversationId === id) newConversation();
   }
 
+  function clearHistory() {
+    if (!history.length) return;
+    if (!window.confirm("确定清空所有历史对话吗？")) return;
+    setHistory([]);
+    setConversationId("");
+  }
+
+  function applyQuickAction(prompt) {
+    setQuestion(prompt);
+    window.requestAnimationFrame(() => textareaRef.current?.focus());
+  }
+
+  async function copyMessageText(text, key) {
+    const content = String(text || "").trim();
+    if (!content) return;
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopiedMessageKey(key);
+      window.setTimeout(() => setCopiedMessageKey((current) => current === key ? "" : current), 1400);
+    } catch {
+      downloadText("智能问答回答.txt", content);
+    }
+  }
+
+  function downloadMessageText(message, index) {
+    const title = messages.find((item) => item.role === "user")?.text?.slice(0, 24) || `回答-${index + 1}`;
+    downloadText(`${safeFilename(title)}.md`, String(message.text || ""), "text/markdown;charset=utf-8");
+  }
+
+  async function downloadVisual(event, message, index) {
+    const visualNode = event.currentTarget.closest(".chat-visual-shell")?.querySelector(".chat-visual-content");
+    const dataUrl = await captureVisualElement(visualNode).catch(() => null);
+    if (dataUrl) {
+      downloadDataUrl(`${safeFilename(message.question || `问答可视化-${index + 1}`)}.png`, dataUrl);
+    }
+  }
+
+  function clearStreamQueue() {
+    streamQueueRef.current = [];
+    if (streamTimerRef.current) {
+      window.clearTimeout(streamTimerRef.current);
+      streamTimerRef.current = 0;
+    }
+  }
+
+  function revealQueuedText(assistantId, meta = {}) {
+    if (!streamQueueRef.current.length) {
+      streamTimerRef.current = 0;
+      return;
+    }
+    const batch = streamQueueRef.current.splice(0, Math.min(3, streamQueueRef.current.length)).join("");
+    setMessages((current) => current.map((item) => item.id === assistantId ? { ...item, text: `${item.text || ""}${batch}`, meta, retrievalMode, streaming: true } : item));
+    streamTimerRef.current = window.setTimeout(() => revealQueuedText(assistantId, meta), 24);
+  }
+
+  function enqueueStreamingText(assistantId, text, meta = {}) {
+    streamQueueRef.current.push(...String(text || "").split(""));
+    if (!streamTimerRef.current) revealQueuedText(assistantId, meta);
+  }
+
+  function streamAssistantMessage({ nextMessages, assistantId, text, userQuestion, answer = {}, meta = {}, intent = "" }) {
+    clearStreamQueue();
+    setMessages([...nextMessages, { id: assistantId, role: "assistant", text: "", question: userQuestion, answer, meta, intent, retrievalMode, streaming: true }]);
+    enqueueStreamingText(assistantId, text, meta);
+    const finalize = () => {
+      if (streamQueueRef.current.length || streamTimerRef.current) {
+        window.setTimeout(finalize, 40);
+        return;
+      }
+      const finalMessages = [...nextMessages, { role: "assistant", text, question: userQuestion, answer, meta, intent, retrievalMode, streaming: false }];
+      setMessages(finalMessages);
+      saveConversation(finalMessages);
+      setLoading(false);
+    };
+    finalize();
+  }
+
+  function exportCurrentConversation() {
+    const record = {
+      id: conversationId || `${Date.now()}`,
+      title: messages.find((item) => item.role === "user")?.text?.slice(0, 28) || "智能问答记录",
+      sectionId,
+      provider,
+      model,
+      retrievalMode,
+      messages,
+      updatedAt: new Date().toLocaleString("zh-CN", { hour12: false }),
+    };
+    downloadText(`${safeFilename(record.title)}.md`, chatMarkdown(record), "text/markdown;charset=utf-8");
+  }
+
+  function exportAllConversations() {
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      conversations: history,
+    };
+    downloadText("智能问答历史记录.json", JSON.stringify(payload, null, 2), "application/json;charset=utf-8");
+  }
+
   async function handleFiles(event) {
     const files = Array.from(event.target.files || []);
     if (!files.length) return;
     const parsed = await Promise.all(files.map(fileToAttachment));
     setAttachments((current) => [...parsed, ...current].slice(0, 8));
+    setIndexNotice("");
+    const textAttachments = parsed.filter((file) => String(file.text || "").trim().length > 40);
+    if (textAttachments.length) {
+      Promise.allSettled(textAttachments.map((file) => api.extractKnowledgeGraph({
+        title: file.name,
+        text: file.text,
+        scopeId: sectionId === "stories" ? "stories:upload" : sectionId,
+        textKind: /\.(pdf)$/i.test(file.name) ? "pdf" : /\.(png|jpg|jpeg|webp|tif|tiff)$/i.test(file.name) ? "ocr" : "upload"
+      }))).then((results) => {
+        const success = results.filter((item) => item.status === "fulfilled").length;
+        if (success) setIndexNotice(`已从 ${success} 个附件抽取知识图谱并写入检索索引。`);
+      }).catch(() => {});
+    }
     event.target.value = "";
   }
 
@@ -335,35 +761,43 @@ export default function SmartChat({ sections = [] }) {
     setAttachments([]);
 
     if (/(智能体|china-agent|省级中国地图)/i.test(content) && !/(卫礼贤|德译中国故事集|取材来源|出版地|出版地图)/.test(content)) {
-      const finalMessages = [...nextMessages, { role: "assistant", text: agentAnswer(content), intent: "agent-map" }];
-      setMessages(finalMessages);
-      saveConversation(finalMessages);
+      setLoading(true);
+      const assistantId = `assistant-${Date.now()}`;
+      const meta = {
+        retrieval_needed: false,
+        database: "智能体本地绘图",
+        chartKeys: ["story_flow_map"],
+        workflow: {
+          plan: { keywords: ["智能体", "传播路径图"], chart_keys: ["story_flow_map"] },
+          steps: ["识别绘图意图", "生成传播路径图", "组织图文回答"],
+        },
+      };
+      streamAssistantMessage({
+        nextMessages,
+        assistantId,
+        text: agentAnswer(content),
+        userQuestion: userMessage.text,
+        answer: { visuals: { type: "agent-map", chartKeys: ["story_flow_map"] } },
+        meta,
+        intent: "agent-map",
+      });
       return;
     }
 
     setLoading(true);
-    const assistantIndex = nextMessages.length;
-    setMessages([...nextMessages, { role: "assistant", text: "", question: userMessage.text, answer: { visuals: null }, streaming: true }]);
+    const assistantId = `assistant-${Date.now()}`;
+    setMessages([...nextMessages, { id: assistantId, role: "assistant", text: "", question: userMessage.text, answer: { visuals: null }, retrievalMode, streaming: true }]);
     let accumulated = "";
-    let scheduledFrame = 0;
-    let pendingText = "";
     let responseMeta = {};
+    clearStreamQueue();
 
-    function updateStreamingMessage(text, streaming = true) {
-      pendingText = text;
-      if (scheduledFrame) return;
-      scheduledFrame = window.requestAnimationFrame(() => {
-        scheduledFrame = 0;
-        setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, text: pendingText, streaming } : item));
-      });
+    function updateStreamingMessage(text, streaming = true, meta = responseMeta) {
+      setMessages((current) => current.map((item) => item.id === assistantId ? { ...item, meta, retrievalMode, streaming } : item));
     }
 
-    function flushStreamingMessage(text, streaming = false) {
-      if (scheduledFrame) {
-        window.cancelAnimationFrame(scheduledFrame);
-        scheduledFrame = 0;
-      }
-      setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, text, streaming } : item));
+    function flushStreamingMessage(text, streaming = false, meta = responseMeta) {
+      clearStreamQueue();
+      setMessages((current) => current.map((item) => item.id === assistantId ? { ...item, text, meta, retrievalMode, streaming } : item));
     }
 
     try {
@@ -371,22 +805,33 @@ export default function SmartChat({ sections = [] }) {
       await api.streamChat({ question: userMessage.text, sectionId, provider, model, retrievalMode, attachments, ...localKnowledge }, (chunk) => {
         if (chunk.meta) {
           responseMeta = { ...responseMeta, ...chunk.meta };
+          updateStreamingMessage(accumulated, true, responseMeta);
         }
         if (chunk.text) {
           accumulated += chunk.text;
-          updateStreamingMessage(accumulated);
+          enqueueStreamingText(assistantId, chunk.text, responseMeta);
         }
         if (chunk.error) {
           flushStreamingMessage(chunk.error, false);
-          setMessages((current) => current.map((item, index) => index === assistantIndex ? { ...item, meta: responseMeta, answer: { visuals: responseMeta.visuals || { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, retrievalMode } : item));
+          setMessages((current) => current.map((item) => item.id === assistantId ? { ...item, meta: responseMeta, answer: { visuals: responseMeta.visuals || { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, retrievalMode } : item));
           setLoading(false);
         }
         if (chunk.done) {
           const finalText = accumulated || "大模型没有返回内容。";
-          const finalMessages = [...nextMessages, { role: "assistant", text: finalText, question: userMessage.text, answer: { visuals: responseMeta.visuals || { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, meta: responseMeta, retrievalMode, streaming: false }];
-          setMessages(finalMessages);
-          saveConversation(finalMessages);
-          setLoading(false);
+          const finalize = () => {
+            const finalMessages = [...nextMessages, { role: "assistant", text: finalText, question: userMessage.text, answer: { visuals: responseMeta.visuals || { type: retrievalMode === "none" ? "text" : inferVisual(userMessage.text, {}) } }, meta: responseMeta, retrievalMode, streaming: false }];
+            setMessages(finalMessages);
+            saveConversation(finalMessages);
+            setLoading(false);
+          };
+          const waitForQueue = () => {
+            if (streamQueueRef.current.length || streamTimerRef.current) {
+              window.setTimeout(waitForQueue, 40);
+              return;
+            }
+            finalize();
+          };
+          waitForQueue();
         }
       });
     } catch (error) {
@@ -397,11 +842,32 @@ export default function SmartChat({ sections = [] }) {
     }
   }
 
-  function renderVisual(message) {
+  function withVisualShell(content, message, index, title = "问答可视化") {
+    return (
+      <div className="chat-visual-shell">
+        <div className="chat-visual-toolbar">
+          <strong>{title}</strong>
+          <button type="button" onClick={(event) => downloadVisual(event, message, index)}>保存图片</button>
+        </div>
+        <div className="chat-visual-content">{content}</div>
+      </div>
+    );
+  }
+
+  function renderVisual(message, index) {
     if (message.retrievalMode === "none") return null;
     if (message.role === "user") return null;
-    const qText = String(message.question || message.text || "");
     const answer = message.answer || {};
+    const hasVisualSignal = Boolean(
+      message.question
+      || message.intent
+      || answer?.visuals
+      || message.meta?.visuals
+      || message.meta?.chartKeys?.length
+      || message.meta?.workflow?.plan?.chart_keys?.length
+    );
+    if (!hasVisualSignal) return null;
+    const qText = String(message.question || "");
     const type = message.intent || inferVisual(qText, answer);
     const answerItems = scopedItems.slice(0, 8);
     const retrievedFlows = Array.isArray(message.meta?.flows) ? message.meta.flows : [];
@@ -421,6 +887,11 @@ export default function SmartChat({ sections = [] }) {
             ? message.meta.workflow.plan.chart_keys
             : [];
     const charts = answer?.visuals?.charts || message.meta?.charts || atlas?.charts || {};
+    const returnedSubgraph = answer?.visuals?.subgraph || message.meta?.subgraph || message.meta?.visuals?.subgraph;
+    const graphForAnswer = returnedSubgraph?.nodes?.length ? returnedSubgraph : visualGraph;
+    const graphFocusNodeIds = returnedSubgraph?.nodes?.length
+      ? returnedSubgraph.nodes.slice(0, 12).map((node) => node.id)
+      : answerItems.flatMap((item) => item.graphNodeIds || []);
     const wilhelmFlows = Array.isArray(answer?.visuals?.wilhelm?.flows) && answer.visuals.wilhelm.flows.length
       ? answer.visuals.wilhelm.flows
       : Array.isArray(message.meta?.wilhelm?.flows) && message.meta.wilhelm.flows.length
@@ -435,39 +906,37 @@ export default function SmartChat({ sections = [] }) {
     const wantsStoryFlow = type === "story-flow-map" || chartKeys.includes("story_flow_map") || wantsStoryCollectionFlowMap(qText);
 
     if (wantsWilhelm) {
-      return (
-        <div className="chat-visual-stack">
-          <WilhelmSplitMap flows={wilhelmFlows} title="德译中国故事集故事来源及出版地参照图" timeline />
-        </div>
-      );
+      return withVisualShell(<WilhelmSplitMap flows={wilhelmFlows} title="德译中国故事集故事来源及出版地参照图" timeline />, message, index, "德译中国故事集地图");
     }
     if (wantsPublication && sectionId === "stories") {
-      return (
+      return withVisualShell(
         <div className="chat-visual-stack">
           <PublicationBubbleMap
             chart={charts.publicationMap || { title: "德译中国故事集出版地图", subtitle: "出版地分布", points: [] }}
             id="smartchat-publication-map"
           />
-        </div>
+        </div>,
+        message,
+        index,
+        "出版地分布图"
       );
     }
     if (wantsSource && sectionId === "stories" && charts.sourceMap) {
-      return (
-        <div className="chat-visual-stack">
-          <SourceChinaMap chart={charts.sourceMap} />
-        </div>
-      );
+      return withVisualShell(<SourceChinaMap chart={charts.sourceMap} />, message, index, "故事来源地图");
     }
     if (wantsIdentity) {
-      return (
+      return withVisualShell(
         <div className="chat-visual-stack">
           {charts.identityProcess && <IdentityProcessChart chart={charts.identityProcess} />}
           {charts.identityRiver && <IdentityRiverChart chart={charts.identityRiver} />}
-        </div>
+        </div>,
+        message,
+        index,
+        "身份变化图"
       );
     }
     if (chartKeys.length) {
-      return (
+      return withVisualShell(
         <div className="chat-visual-stack">
           {chartKeys.includes("story_flow_map") && (
             <SplitFlowMap flows={flows.length ? flows : storyData.flows} title={`${section?.title || "知识库"}传播路径图`} timeline />
@@ -475,34 +944,29 @@ export default function SmartChat({ sections = [] }) {
           {chartKeys.includes("preface_cluster") && charts.prefaceCluster && <PrefaceThemeCluster chart={charts.prefaceCluster} />}
           {chartKeys.includes("preface_word_cloud") && charts.wordCloud && <PrefaceWordCloud chart={charts.wordCloud} />}
           {chartKeys.includes("child_theme_cooccurrence") && charts.childCooccurrence && <ChildThemeCooccurrence chart={charts.childCooccurrence} />}
-          {chartKeys.includes("knowledge_graph") && visualGraph && (
-            <GraphCanvas graph={visualGraph} sections={sections} focusNodeIds={answerItems.flatMap((item) => item.graphNodeIds || [])} initialFilter={sectionId} title="问答关联图谱" />
+          {chartKeys.includes("knowledge_graph") && graphForAnswer && (
+            <GraphCanvas graph={graphForAnswer} sections={sections} focusNodeIds={graphFocusNodeIds} initialFilter={sectionId} title={returnedSubgraph?.scope?.name || "问答关联图谱"} />
           )}
           {chartKeys.includes("stats_panel") && (
             <StatisticsPanel items={sectionId === "stories" ? storyStatsItems : answerItems} title="问答统计分析" />
           )}
-        </div>
+        </div>,
+        message,
+        index,
+        "问答可视化"
       );
     }
     if (type === "agent-map") {
-      return (
-        <div className="chat-visual-stack">
-          <SplitFlowMap flows={storyData.flows} title="智能体生成传播路径图" timeline />
-        </div>
-      );
+      return withVisualShell(<SplitFlowMap flows={storyData.flows} title="智能体生成传播路径图" timeline />, message, index, "智能体传播路径图");
     }
-    if ((type === "graph" || type === "mixed") && visualGraph) {
-      return <GraphCanvas graph={visualGraph} sections={sections} focusNodeIds={answerItems.flatMap((item) => item.graphNodeIds || [])} initialFilter={sectionId} title="问答关联图谱" />;
+    if ((type === "graph" || type === "mixed") && graphForAnswer) {
+      return withVisualShell(<GraphCanvas graph={graphForAnswer} sections={sections} focusNodeIds={graphFocusNodeIds} initialFilter={sectionId} title={returnedSubgraph?.scope?.name || "问答关联图谱"} />, message, index, "问答关联图谱");
     }
     if ((type === "map" || type === "mixed" || wantsStoryFlow) && (sectionId !== "stories" || wantsStoryFlow)) {
-      return (
-        <div className="chat-visual-stack">
-          <SplitFlowMap flows={flows.length ? flows : storyData.flows} title={`${section?.title || "知识库"}传播路径图`} timeline />
-        </div>
-      );
+      return withVisualShell(<SplitFlowMap flows={flows.length ? flows : storyData.flows} title={`${section?.title || "知识库"}传播路径图`} timeline />, message, index, "传播路径图");
     }
     if (type === "stats") {
-      return <StatisticsPanel items={sectionId === "stories" ? storyStatsItems : answerItems} title="问答统计分析" />;
+      return withVisualShell(<StatisticsPanel items={sectionId === "stories" ? storyStatsItems : answerItems} title="问答统计分析" />, message, index, "统计分析图");
     }
     return null;
   }
@@ -513,6 +977,11 @@ export default function SmartChat({ sections = [] }) {
         <div className="chat-side-head">
           <strong>智能问答</strong>
           <button type="button" onClick={newConversation}>新对话</button>
+        </div>
+        <div className="chat-side-actions">
+          <button type="button" onClick={exportCurrentConversation}>下载当前记录</button>
+          <button type="button" onClick={exportAllConversations} disabled={!history.length}>导出全部历史</button>
+          <button type="button" onClick={clearHistory} disabled={!history.length}>清空历史</button>
         </div>
         <label>知识范围
           <select value={sectionId} onChange={(event) => setSectionId(event.target.value)}>
@@ -552,23 +1021,57 @@ export default function SmartChat({ sections = [] }) {
       </aside>
 
       <div className="chat-main work-panel">
-        <div className="chat-thread">
+        <div className="chat-main-head">
+          <div>
+            <span>Research Copilot</span>
+            <strong>{section?.title || "知识库"}智能问答</strong>
+            <p>{retrievalMode === "none" ? "直连已配置大模型，适合开放式写作与附件分析。" : "结合本地知识库、GraphRAG、地图与统计图表生成回答。"}</p>
+          </div>
+          <div className="chat-status-pills">
+            <span>{providerInfo?.name || provider}</span>
+            <span>{model}</span>
+            <span>{retrievalMode === "graph-rag" ? "GraphRAG" : retrievalMode === "rag" ? "RAG" : "Direct"}</span>
+          </div>
+        </div>
+        <div className="chat-quick-actions" aria-label="快捷研究指令">
+          <span>快捷研究</span>
+          {CHAT_QUICK_ACTIONS.map((action) => (
+            <button type="button" key={action.label} onClick={() => applyQuickAction(action.prompt)}>
+              {action.label}
+            </button>
+          ))}
+        </div>
+        <div className="chat-thread" ref={threadRef}>
           {messages.map((message, index) => (
-            !message.text && message.streaming ? null :
             <article className={`chat-message-row ${message.role}`} key={`${message.role}-${index}`}>
-              <ChatAvatar role={message.role} />
               <div className={`chat-bubble ${message.role}`}>
-                <div className="markdown-body">{renderMarkdown(message.text)}</div>
+                {message.role === "assistant" && <ThinkingTrace message={message} retrievalMode={retrievalMode} />}
+                <div className={[
+                  "markdown-body",
+                  message.streaming ? "streaming-answer" : "",
+                  message.streaming && !message.text ? "streaming-placeholder" : ""
+                ].filter(Boolean).join(" ")}>
+                  {message.text ? renderMarkdown(message.text) : <p>{message.streaming ? "正在组织回答，内容会实时出现在这里..." : "（无文本内容）"}</p>}
+                </div>
                 {message.attachments?.length > 0 && (
                   <div className="attachment-strip">{message.attachments.map((file) => <span key={file.id}>{file.name}</span>)}</div>
                 )}
-                {renderVisual(message)}
+                {renderVisual(message, index)}
+                {message.role === "assistant" && message.text && (
+                  <div className="chat-message-actions">
+                    <button type="button" onClick={() => copyMessageText(message.text, `${message.role}-${index}`)}>
+                      {copiedMessageKey === `${message.role}-${index}` ? "已复制" : "复制回答"}
+                    </button>
+                    <button type="button" onClick={() => downloadMessageText(message, index)}>下载回答</button>
+                  </div>
+                )}
                 {message.role === "assistant" && <ChatMeta meta={message.meta} />}
               </div>
             </article>
           ))}
         </div>
         <form className="chat-composer advanced-composer" onSubmit={submit}>
+          {indexNotice && <div className="composer-index-notice">{indexNotice}</div>}
           <div className="composer-attachments">
             <label className="attach-button">上传附件
               <input accept=".txt,.md,.csv,.json,.pdf,.doc,.docx,image/*,text/*" multiple onChange={handleFiles} type="file" />
@@ -578,6 +1081,7 @@ export default function SmartChat({ sections = [] }) {
             ))}
           </div>
           <textarea
+            ref={textareaRef}
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
             onKeyDown={(event) => {

@@ -62,9 +62,41 @@ export default function Graph({ sections }) {
   const statsItems = sectionId === "stories"
     ? selectedChildren.map((item) => ({ ...item, country: item.country || item.nationality, translator: item.translator || item.editor }))
     : visibleItems;
+  const selectedSection = sections.find((section) => section.id === sectionId) || (sectionId === "stories" ? { title: "多语种中国故事集" } : null);
+  const activeFlows = sectionId === "stories" ? (selectedFlow ? [selectedFlow] : []) : visibleFlows;
+  const fallbackStoryCount = selectedCollection?.matchedChildIds?.length || selectedCollection?.declaredChildCount || 0;
+  const analysisItemCount = statsItems.length || (sectionId === "stories" ? fallbackStoryCount : visibleItems.length);
+  const graphNodeCount = visualGraph?.nodes?.length || (sectionId === "stories" ? analysisItemCount + (selectedCollection ? 1 : 0) : visibleItems.length);
+  const graphEdgeCount = visualGraph?.edges?.length || (sectionId === "stories" ? analysisItemCount : visibleItems.reduce((sum, item) => sum + (item.graphNodeIds?.length || 0), 0));
+  const graphCapabilities = ["实体关系抽取", "跨表节点联结", "传播路径映射", "子图聚焦分析", "统计图表联动", "研究线索发现"];
+  const graphMetrics = [
+    ["图谱节点", graphNodeCount],
+    ["关系边", graphEdgeCount],
+    ["分析条目", analysisItemCount],
+    ["传播路径", activeFlows.length],
+  ];
 
   return (
     <section className="graph-page">
+      <header className="graph-page-title">
+        <div className="graph-title-main">
+          <span className="graph-title-kicker">Knowledge Graph</span>
+          <strong>知识图谱</strong>
+          <p>面向译介文献、故事集、子故事、译者机构与传播地点的关系网络分析工作台，支持实体关系浏览、路径追踪、子图聚焦、地图联动与统计解释。</p>
+          <div className="graph-title-context" aria-label="当前图谱上下文">
+            <span><b>当前范围</b>{selectedSection?.title || "待选择"}</span>
+            {sectionId === "stories" && <span><b>当前故事集</b>{selectedCollection?.chineseTitle || selectedCollection?.name || "待选择"}</span>}
+          </div>
+          <div className="graph-title-tags" aria-label="图谱分析能力">
+            {graphCapabilities.map((item) => <span key={item}>{item}</span>)}
+          </div>
+        </div>
+        <dl className="graph-title-metrics">
+          {graphMetrics.map(([label, value]) => (
+            <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+          ))}
+        </dl>
+      </header>
       {error && <div className="alert">{error}</div>}
       {storyError && <div className="alert">{storyError}</div>}
       <div className="work-panel graph-query-panel graph-specific-controls">

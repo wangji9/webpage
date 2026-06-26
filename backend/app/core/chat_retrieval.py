@@ -4,6 +4,8 @@ import re
 from typing import Any
 
 from backend.app.core.data import KNOWLEDGE_ITEMS, MAP_FLOWS
+from backend.app.core.dataset_store import custom_knowledge_items
+from backend.app.core.platform_store import knowledge_items_for_chat
 from backend.app.core.story_visuals import story_data
 
 
@@ -325,32 +327,19 @@ def local_graph_docs(local_graphs: dict[str, Any]) -> list[dict[str, Any]]:
     return docs
 
 
-def story_documents(payload: Any) -> list[dict[str, Any]]:
-    docs = [dict(item) for item in story_collection_documents()]
-    for item in getattr(payload, "localRecords", []) or []:
-        if isinstance(item, dict):
-            docs.append(wilhelm_edition_doc(item, source=f"浏览器本地上传: {item.get('source') or 'wilhelm-folktales'}", source_kind="local"))
-    for story_id, draft in (getattr(payload, "localStoryDrafts", {}) or {}).items():
-        if isinstance(draft, dict):
-            docs.append(wilhelm_story_doc({**draft, "id": story_id}, source="浏览器本地保存: wilhelm-story-drafts", source_kind="local"))
-    docs.extend(local_graph_docs(getattr(payload, "localGraphs", {}) or {}))
-    return docs
-
-
-def legacy_documents(section_id: str) -> list[dict[str, Any]]:
+def uploaded_table_documents(section_id: str) -> list[dict[str, Any]]:
     docs: list[dict[str, Any]] = []
-    for item in KNOWLEDGE_ITEMS:
-        if item.get("sectionId") != section_id:
-            continue
+    for item in custom_knowledge_items(section_id):
         docs.append({
             **item,
-            "source": "backend.app.core.data.KNOWLEDGE_ITEMS",
-            "sourceKind": "legacy",
-            "relations": [
+            "source": item.get("source") or "管理员上传表格",
+            "sourceKind": item.get("sourceKind") or "uploaded-table",
+            "relations": item.get("relations") or [
+                f"所属表格 -> {item.get('resourceType')}",
                 f"译者/作者 -> {item.get('translator') or item.get('author')}",
                 f"出版节点 -> {item.get('city')} / {item.get('country')} / {item.get('publisher')}",
             ],
-            "searchText": join_values(
+            "searchText": item.get("searchText") or join_values(
                 item.get("canonicalTitle"),
                 item.get("translatedTitle"),
                 item.get("author"),
@@ -365,6 +354,52 @@ def legacy_documents(section_id: str) -> list[dict[str, Any]]:
                 " ".join(item.get("evidence", [])),
             ),
         })
+    return docs
+
+
+def story_documents(payload: Any) -> list[dict[str, Any]]:
+    docs = [dict(item) for item in story_collection_documents()]
+    for item in getattr(payload, "localRecords", []) or []:
+        if isinstance(item, dict):
+            docs.append(wilhelm_edition_doc(item, source=f"浏览器本地上传: {item.get('source') or 'wilhelm-folktales'}", source_kind="local"))
+    for story_id, draft in (getattr(payload, "localStoryDrafts", {}) or {}).items():
+        if isinstance(draft, dict):
+            docs.append(wilhelm_story_doc({**draft, "id": story_id}, source="浏览器本地保存: wilhelm-story-drafts", source_kind="local"))
+    docs.extend(local_graph_docs(getattr(payload, "localGraphs", {}) or {}))
+    docs.extend(uploaded_table_documents("stories"))
+    docs.extend(knowledge_items_for_chat("stories"))
+    return docs
+
+
+def legacy_documents(section_id: str) -> list[dict[str, Any]]:
+    docs: list[dict[str, Any]] = []
+    for item in [*KNOWLEDGE_ITEMS, *custom_knowledge_items(section_id)]:
+        if item.get("sectionId") != section_id:
+            continue
+        docs.append({
+            **item,
+            "source": item.get("source") or "backend.app.core.data.KNOWLEDGE_ITEMS",
+            "sourceKind": item.get("sourceKind") or "legacy",
+            "relations": item.get("relations") or [
+                f"译者/作者 -> {item.get('translator') or item.get('author')}",
+                f"出版节点 -> {item.get('city')} / {item.get('country')} / {item.get('publisher')}",
+            ],
+            "searchText": item.get("searchText") or join_values(
+                item.get("canonicalTitle"),
+                item.get("translatedTitle"),
+                item.get("author"),
+                item.get("translator"),
+                item.get("language"),
+                item.get("country"),
+                item.get("city"),
+                item.get("publisher"),
+                item.get("year"),
+                item.get("summary"),
+                " ".join(item.get("tags", [])),
+                " ".join(item.get("evidence", [])),
+            ),
+        })
+    docs.extend(knowledge_items_for_chat(section_id))
     return docs
 
 
@@ -389,6 +424,8 @@ def score_document(doc: dict[str, Any], question: str, terms: set[str], mode: st
             score += 4.0
     if clean_text(doc.get("sourceKind")) == "local":
         score += 1.75
+    if clean_text(doc.get("sourceKind")) == "uploaded-document":
+        score += 2.5
     if mode == "graph-rag" and doc.get("relations"):
         score += 1.25
     return score

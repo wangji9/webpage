@@ -1,7 +1,38 @@
+# Python
 __pycache__/
 *.py[cod]
-backend/llm_config.json
-frontend/node_modules/
-frontend/dist/
+.pytest_cache/
+
+# Local configuration and secrets
 .env
 .env.*
+!.env.example
+backend/llm_config.json
+backend/app/*.db
+backend/app/user_secret.key
+
+# Generated backend state and caches
+backend/app/dataset_uploads.json
+backend/app/knowledge_indexes.json
+backend/app/*_cache.json
+backend/app/wilhelm_*_cache.json
+
+# Frontend dependencies, builds, and logs
+frontend/node_modules/
+frontend/dist/
+frontend/vite-*.log
+frontend/vite-*.err
+
+# Local/generated data and exports
+/.codex/
+/.local_ai/
+/data/
+/output/
+*.zip
+*.bak
+*.tmp
+*.log
+
+# Imported spreadsheet assets
+frontend/public/assets/*.xlsx
+frontend/public/assets/*.xls

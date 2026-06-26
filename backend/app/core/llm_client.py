@@ -8,7 +8,7 @@ import typing
 
 import requests
 
-CONFIG_PATH = Path(__file__).resolve().parents[2] / "llm_config.json"
+CONFIG_PATH = Path(os.environ.get("LLM_CONFIG_PATH") or (Path(__file__).resolve().parents[2] / "llm_config.json")).resolve()
 DEFAULT_API_URL = "https://api.aigogo.pro/v1/chat/completions"
 DEFAULT_MODEL = "gpt-5.4"
 DEFAULT_MAX_TOKENS = 4096
@@ -89,6 +89,7 @@ def save_config(url_base: str, url_key: str, default_model: str, provider: str =
         "url_key": url_key.strip() or current.get("url_key", ""),
         "default_model": default_model.strip() or DEFAULT_MODEL,
     }
+    CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
     CONFIG_PATH.write_text(json.dumps(_config, ensure_ascii=False, indent=2), encoding="utf-8")
     return public_config(provider=provider)
 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "../services/api.js";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 
 const WIDTH = 1200;
 const HEIGHT = 560;
@@ -255,7 +256,7 @@ function countBy(items, keyFn) {
   return map;
 }
 
-export default function SplitFlowMap({ flows = [], selectedId = "", onSelect, title = "传播路径图（源地—目的地）", timeline = false }) {
+export default function SplitFlowMap({ flows = [], selectedId = "", onSelect, title = "传播路径图（源地—目的地）", timeline = false, allowExpand = true }) {
   const [china, setChina] = useState(null);
   const [world, setWorld] = useState(null);
   const [cityLookup, setCityLookup] = useState(null);
@@ -263,6 +264,7 @@ export default function SplitFlowMap({ flows = [], selectedId = "", onSelect, ti
   const [timelineIndex, setTimelineIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [pickedId, setPickedId] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const years = useMemo(() => [...new Set(flows.map((flow) => Number(flow.year)).filter(Boolean))].sort((a, b) => a - b), [flows]);
   const currentYear = years[Math.min(timelineIndex, Math.max(0, years.length - 1))] || "";
@@ -383,12 +385,14 @@ export default function SplitFlowMap({ flows = [], selectedId = "", onSelect, ti
   }, [activeFlows, cityCounts, cityLookup]);
 
   return (
+    <>
     <div className="work-panel china-map-panel wilhelm-split-map">
       <div className="visual-heading map-heading">
         <div>
           <strong>{title}</strong>
           <span>{activeFlows.length} 条路径 · {timeline ? `时间至 ${currentYear || "全部"}` : "全部"}</span>
         </div>
+        <div className="visual-heading-actions">
         {timeline && (
           <div className="china-map-timeline-controls">
             <button type="button" onClick={togglePlay}>{playing ? "暂停" : "播放"}</button>
@@ -402,6 +406,8 @@ export default function SplitFlowMap({ flows = [], selectedId = "", onSelect, ti
             <strong>{currentYear || "全部"}</strong>
           </div>
         )}
+        {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
+        </div>
       </div>
 
       <div className="china-map-frame">
@@ -533,5 +539,11 @@ export default function SplitFlowMap({ flows = [], selectedId = "", onSelect, ti
         </aside>
       </div>
     </div>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={title} subtitle="放大查看传播路径，支持窗口缩放和时间播放" onClose={() => setModalOpen(false)}>
+        <SplitFlowMap flows={flows} selectedId={selectedId} onSelect={onSelect} title={title} timeline={timeline} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }

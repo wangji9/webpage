@@ -6,8 +6,9 @@
   "scripts": {
     "build": "npm install --prefix frontend && npm run build --prefix frontend",
     "pages:build": "npm install --prefix frontend && npm run build --prefix frontend",
+    "dev": "npm.cmd run build --prefix frontend && python -m uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8002",
     "dev:backend": "python -m uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8002",
-    "dev:frontend": "cd frontend && npm.cmd run dev -- --host 127.0.0.1 --port 3000",
+    "dev:frontend": "npm.cmd run build --prefix frontend -- --watch",
     "check:backend": "python -m py_compile backend/app/main.py backend/app/api/routes.py backend/app/core/data.py backend/app/core/security.py",
     "check:frontend": "npm run build --prefix frontend",
     "check": "npm.cmd run check:backend"
@@ -15,5 +16,18 @@
   "engines": {
     "node": ">=18",
     "python": ">=3.10"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangji9/webpage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/wangji9/webpage/issues"
+  },
+  "homepage": "https://github.com/wangji9/webpage#readme"
 }

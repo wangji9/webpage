@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../services/api.js";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 
 const WIDTH = 960;
 const HEIGHT = 640;
@@ -160,7 +161,7 @@ export default function ChinaStoryMap({ flows = [], selectedId = "", onSelect, t
         <div className="map-mode-tabs">
           <button className={mode === "flow" ? "active" : ""} type="button" onClick={() => setMode("flow")}>流变地图</button>
           <button className={mode === "heat" ? "active" : ""} type="button" onClick={() => setMode("heat")}>热力地图</button>
-          {expandable && <button type="button" onClick={() => setModalOpen(true)}>放大地图</button>}
+          {expandable && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
           <button type="button" onClick={exportSvg}>导出 SVG</button>
           <button type="button" onClick={exportCsv}>导出数据</button>
         </div>
@@ -232,17 +233,9 @@ export default function ChinaStoryMap({ flows = [], selectedId = "", onSelect, t
         </svg>
         {!geo && <div className="map-loading">{error || "正在加载中国省级边界..."}</div>}
       </div>
-      {modalOpen && (
-        <div className="map-modal-backdrop" role="presentation" onClick={() => setModalOpen(false)}>
-          <section className="map-modal" role="dialog" aria-modal="true" aria-label="放大地图" onClick={(event) => event.stopPropagation()}>
-            <div className="panel-title-row">
-              <div><strong>{title}</strong><span>放大查看动态传播路径</span></div>
-              <button type="button" onClick={() => setModalOpen(false)}>关闭</button>
-            </div>
-            <ChinaStoryMap flows={flows} selectedId={selectedId} onSelect={onSelect} title={title} timeline={timeline} expandable={false} expanded />
-          </section>
-        </div>
-      )}
+      <VisualModal open={modalOpen} title={title} subtitle="放大查看动态传播路径" onClose={() => setModalOpen(false)}>
+        <ChinaStoryMap flows={flows} selectedId={selectedId} onSelect={onSelect} title={title} timeline={timeline} expandable={false} expanded />
+      </VisualModal>
     </div>
   );
 }

@@ -10,14 +10,28 @@ from pathlib import Path
 from openpyxl import load_workbook
 
 ROOT = Path(__file__).resolve().parents[1]
+DATA_DIR = ROOT / "data"
 PUBLIC_ASSETS = ROOT / "frontend" / "public" / "assets"
 DIST_ASSETS = ROOT / "frontend" / "dist" / "assets"
 
 
 def asset_path(filename: str) -> Path:
+    data_path = DATA_DIR / filename
+    if data_path.exists():
+        return data_path
     public_path = PUBLIC_ASSETS / filename
     if public_path.exists():
         return public_path
+    legacy_names = {
+        "中国故事集总表_知识库(1).xlsx": "中国故事集总表_知识库.xlsx",
+    }
+    if filename in legacy_names:
+        data_alias = DATA_DIR / legacy_names[filename]
+        if data_alias.exists():
+            return data_alias
+        public_alias = PUBLIC_ASSETS / legacy_names[filename]
+        if public_alias.exists():
+            return public_alias
     return DIST_ASSETS / filename
 OUT = ROOT / "frontend" / "src" / "data" / "storyCollections.json"
 

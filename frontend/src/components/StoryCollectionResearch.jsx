@@ -279,7 +279,13 @@ function ChildStoryVisuals({ children }) {
   );
 }
 
-export default function StoryCollectionResearch() {
+export default function StoryCollectionResearch({
+  embedded = false,
+  showHeader = true,
+  showFunctionCards = true,
+  showVisuals = true,
+  showStats = true,
+} = {}) {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(storyData.collections[0]?.id || "");
   const [childLimit, setChildLimit] = useState(24);
@@ -370,14 +376,16 @@ export default function StoryCollectionResearch() {
   }
 
   return (
-    <div className="story-research">
-      <div className="story-hero-band">
-        <div>
-          <strong>多语种中国故事集数据库</strong>
-          <span>故事集 / 民间故事 / 主题流变</span>
+    <div className={`story-research ${embedded ? "story-research-embedded" : ""}`}>
+      {showHeader && (
+        <div className="story-hero-band">
+          <div>
+            <strong>多语种中国故事集数据库</strong>
+            <span>故事集 / 民间故事 / 主题流变</span>
+          </div>
+          <button type="button" onClick={downloadJson}>导出全库 JSON</button>
         </div>
-        <button type="button" onClick={downloadJson}>导出全库 JSON</button>
-      </div>
+      )}
 
       <div className="story-kpis">
         <div><b>{storyData.stats.collectionCount}</b><span>故事集条目</span></div>
@@ -386,18 +394,16 @@ export default function StoryCollectionResearch() {
         <div><b>{storyData.stats.languages.length}</b><span>主要语种</span></div>
       </div>
 
-      <div className="research-function-grid">
-        {functionCards.map((card) => (
-          <button className={activeMode === card.id ? "active" : ""} key={card.id} type="button" onClick={() => focusVisual(card)}>
-            <strong>{card.title}</strong>
-            <span>{card.meta}</span>
-          </button>
-        ))}
-        <button className="wilhelm-entry-card" type="button" onClick={() => { window.location.hash = "wilhelm"; }}>
-          <strong>卫礼贤《中国民间童话》</strong>
-          <span>进入独立专题库</span>
-        </button>
-      </div>
+      {showFunctionCards && (
+        <div className="research-function-grid">
+          {functionCards.map((card) => (
+            <button className={activeMode === card.id ? "active" : ""} key={card.id} type="button" onClick={() => focusVisual(card)}>
+              <strong>{card.title}</strong>
+              <span>{card.meta}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="story-grid-main equal-height-grid">
         <div className="work-panel story-table-panel">
@@ -515,9 +521,9 @@ export default function StoryCollectionResearch() {
         </div>
       </div>
 
-      <StoryVisualAtlas mode={activeMode} prefaces={prefaces} />
+      {showVisuals && <StoryVisualAtlas mode={activeMode} prefaces={prefaces} />}
 
-      <StatisticsPanel items={statsItems} title="多语种中国故事集全库统计可视化" />
+      {showStats && <StatisticsPanel items={statsItems} title="多语种中国故事集全库统计可视化" />}
 
       {prefacePreview && (
         <div className="preface-modal-backdrop" role="presentation" onClick={() => setPrefacePreview(null)}>

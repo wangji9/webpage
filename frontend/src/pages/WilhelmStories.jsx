@@ -512,7 +512,7 @@ function useForceLayout(graph, width, height, centerRadius = 180, options = {}) 
   return { positions, startDrag, moveDrag, endDrag };
 }
 
-function WilhelmKnowledgeGraph({ graph, selectedTerm, onTermSelect, title, onExtract, onAlgorithmExtract, onAbort, extracting, cacheState }) {
+function WilhelmKnowledgeGraph({ graph, selectedTerm, onTermSelect, title, onExtract, onAlgorithmExtract, onAbort, extracting, cacheState, readOnly = false }) {
   const svgRef = useRef(null);
   const [query, setQuery] = useState("");
   const rawNodes = graph?.nodes || [];
@@ -520,7 +520,7 @@ function WilhelmKnowledgeGraph({ graph, selectedTerm, onTermSelect, title, onExt
   const rawTriples = graph?.triples || [];
   const fallbackCenterType = String(title || "").includes("卫礼贤") ? "故事集" : "故事";
   const fallbackCenterLabel = String(title || "").replace("知识图谱", "").trim() || title;
-  const allNodes = (rawNodes.length ? rawNodes : [{ id: "center", label: fallbackCenterLabel, type: fallbackCenterType, count: 1, summary: "点击算法抽取后生成知识图谱" }]).slice(0, 90);
+  const allNodes = (rawNodes.length ? rawNodes : [{ id: "center", label: fallbackCenterLabel, type: fallbackCenterType, count: 1, summary: readOnly ? "当前范围暂无可用知识图谱" : "点击算法抽取后生成知识图谱" }]).slice(0, 90);
   const allEdges = rawEdges.slice(0, 150);
   const allNodeMap = useMemo(() => new Map(allNodes.map((node) => [node.id, node])), [allNodes]);
   const nodeLookup = useMemo(() => {
@@ -664,10 +664,14 @@ function WilhelmKnowledgeGraph({ graph, selectedTerm, onTermSelect, title, onExt
   return (
     <div className="work-panel wilhelm-graph-panel">
       <div className="panel-title-row">
-        <div><strong>{title}</strong><span>{cacheState || "使用智能问答同一套大模型 API 抽取，已保存的图谱会自动读取。"}</span></div>
+        <div><strong>{title}</strong><span>{cacheState || (readOnly ? "展示当前已接入的专题知识图谱。" : "使用智能问答同一套大模型 API 抽取，已保存的图谱会自动读取。")}</span></div>
         <GraphExportButtons svgRef={svgRef} csvRows={csvRows} baseName="卫礼贤中国民间童话知识图谱">
-          <button type="button" onClick={onAlgorithmExtract}>算法抽取</button>
-          <button type="button" onClick={extracting ? onAbort : onExtract}>{extracting ? "终止抽取" : "大模型抽取"}</button>
+          {!readOnly && (
+            <>
+              <button type="button" onClick={onAlgorithmExtract}>算法抽取</button>
+              <button type="button" onClick={extracting ? onAbort : onExtract}>{extracting ? "终止抽取" : "大模型抽取"}</button>
+            </>
+          )}
         </GraphExportButtons>
       </div>
       <label className="knowledge-search">检索节点边
@@ -769,7 +773,7 @@ function WilhelmKnowledgeGraph({ graph, selectedTerm, onTermSelect, title, onExt
   );
 }
 
-function WilhelmKeywordNetwork({ graph, query, onQueryChange, onAlgorithmRefresh, onModelExtract, extracting }) {
+function WilhelmKeywordNetwork({ graph, query, onQueryChange, onAlgorithmRefresh, onModelExtract, extracting, readOnly = false }) {
   const svgRef = useRef(null);
   const [category, setCategory] = useState("全部");
   const [selected, setSelected] = useState("");
@@ -852,8 +856,12 @@ function WilhelmKeywordNetwork({ graph, query, onQueryChange, onAlgorithmRefresh
       <div className="panel-title-row">
         <div><strong>关键词共现网络分析</strong><span>{categoryNotice}</span></div>
         <GraphExportButtons svgRef={svgRef} csvRows={csvRows} baseName="卫礼贤关键词共现网络分析">
-          <button type="button" onClick={onAlgorithmRefresh}>算法提取</button>
-          <button type="button" onClick={onModelExtract} disabled={extracting}>{extracting ? "抽取中..." : "大模型抽取关键词"}</button>
+          {!readOnly && (
+            <>
+              <button type="button" onClick={onAlgorithmRefresh}>算法提取</button>
+              <button type="button" onClick={onModelExtract} disabled={extracting}>{extracting ? "抽取中..." : "大模型抽取关键词"}</button>
+            </>
+          )}
         </GraphExportButtons>
       </div>
       <div className="keyword-network-stack">
@@ -869,8 +877,8 @@ function WilhelmKeywordNetwork({ graph, query, onQueryChange, onAlgorithmRefresh
           <rect width="900" height="540" fill="url(#keywordCanvasGlow)" />
           {!nodes.length && (
             <g transform="translate(450 248)">
-              <text className="atlas-title" textAnchor="middle">尚未提取关键词共现网络</text>
-              <text className="atlas-subtitle" y="32" textAnchor="middle">点击“算法提取”后，系统将复用知识图谱的故事学分类抽取算法生成节点与共现关系。</text>
+              <text className="atlas-title" textAnchor="middle">暂无关键词共现网络</text>
+              <text className="atlas-subtitle" y="32" textAnchor="middle">{readOnly ? "当前范围暂无可用关键词关系数据。" : "点击“算法提取”后，系统将复用知识图谱的故事学分类抽取算法生成节点与共现关系。"}</text>
             </g>
           )}
           {edges.map((edge) => {
@@ -962,53 +970,129 @@ function WilhelmKeywordNetwork({ graph, query, onQueryChange, onAlgorithmRefresh
   );
 }
 
-function WilhelmAdvancedVisuals({ stories, records }) {
+const wilhelmChartEntries = [
+  { id: "table", target: "table", title: "单篇译文表格", meta: "全文检索、分类筛选、译文证据回看" },
+  { id: "knowledge", target: "graph", title: "卫礼贤《中国民间童话》知识图谱", meta: "后端自然语言算法与大模型双通道抽取" },
+  { id: "keywords", target: "text", title: "关键词共现网络分析", meta: "后端关键词抽取、分类与共现关系计算" },
+  { id: "structure", target: "structure", title: "单篇译文结构谱系", meta: "后端按分类、文本规模与来源重合度计算" },
+  { id: "density", target: "density", title: "再版传播时间密度", meta: "后端按年代、出版城市、出版社与语种聚合" },
+  { id: "route", target: "map", title: "故事来源及出版地参照图", meta: "中国来源地到德语区出版地传播路径" },
+  { id: "publication", target: "publication", title: "卫礼贤《中国民间童话》再版出版地图", meta: "出版城市气泡、年份过滤与出版中心排行" },
+  { id: "stats", target: "charts", title: "卫礼贤《中国民间童话》专题统计可视化", meta: "年份、语种、出版地、出版社对比统计" },
+];
+
+function WilhelmTopicMatrix({ anchorBase, records, stories, terms, graphEdges }) {
+  function go(target) {
+    document.getElementById(`${anchorBase}-${target}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  const counts = {
+    table: stories.length,
+    graph: graphEdges,
+    text: terms,
+    structure: stories.length,
+    density: records.length,
+    map: records.length,
+    publication: records.length,
+    charts: records.length,
+  };
+  return (
+    <section className="work-panel wilhelm-topic-matrix" aria-label="卫礼贤专题图谱矩阵">
+      <div className="panel-title-row">
+        <div>
+          <strong>卫礼贤《中国民间童话》专题图谱矩阵</strong>
+          <span>下列图表均接入专题后端数据与算法结果，可点击进入对应图表。</span>
+        </div>
+      </div>
+      <div className="wilhelm-topic-grid">
+        {wilhelmChartEntries.map((entry) => (
+          <button key={entry.id} type="button" onClick={() => go(entry.target)}>
+            <span>{entry.title}</span>
+            <strong>{counts[entry.target] ?? records.length}</strong>
+            <small>{entry.meta}</small>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function normalizeBackendStructure(analysis, stories) {
+  const backendRows = analysis?.structure?.categories;
+  if (Array.isArray(backendRows) && backendRows.length) {
+    return backendRows.map((row) => ({
+      ...row,
+      sources: new Set(row.sources || []),
+      examples: row.examples || [],
+      avgLength: Number(row.avgLength || 0),
+      sourceCount: Number(row.sourceCount || (row.sources || []).length || 0),
+      count: Number(row.count || 0),
+    }));
+  }
+  const map = new Map();
+  stories.forEach((story) => {
+    const key = story.category || "未分类";
+    const row = map.get(key) || { category: key, count: 0, length: 0, sources: new Set(), examples: [] };
+    row.count += 1;
+    row.length += String(story.text || "").length;
+    if (story.source) row.sources.add(story.source);
+    if (row.examples.length < 4) row.examples.push(story.title);
+    map.set(key, row);
+  });
+  return [...map.values()].map((row) => ({ ...row, avgLength: Math.round(row.length / Math.max(1, row.count)), sourceCount: row.sources.size })).sort((a, b) => b.count - a.count).slice(0, 11);
+}
+
+function normalizeBackendPeriods(analysis, records) {
+  const backendRows = analysis?.timeDensity?.periods;
+  if (Array.isArray(backendRows) && backendRows.length) {
+    return backendRows.map((row) => ({
+      ...row,
+      count: Number(row.count || 0),
+      publishers: new Set(row.publishers || []),
+      cities: new Set(row.cities || []),
+      languages: new Set(row.languages || []),
+      examples: row.examples || [],
+    }));
+  }
+  const map = new Map();
+  records.forEach((record) => {
+    const year = record.year || Number(String(record.yearText || "").match(/\d{4}/)?.[0]) || 0;
+    const key = year ? String(Math.floor(year / 10) * 10) + "s" : "未记录";
+    const row = map.get(key) || { period: key, count: 0, publishers: new Set(), cities: new Set(), languages: new Set(), examples: [] };
+    row.count += 1;
+    if (record.publisher) row.publishers.add(record.publisher);
+    if (record.city) row.cities.add(record.city);
+    if (record.language) row.languages.add(record.language);
+    if (row.examples.length < 3) row.examples.push(record.title);
+    map.set(key, row);
+  });
+  return [...map.values()].sort((a, b) => String(a.period).localeCompare(String(b.period)));
+}
+
+function normalizeBackendStructureLinks(analysis, categoryStats) {
+  const backendLinks = analysis?.structure?.links;
+  if (Array.isArray(backendLinks) && backendLinks.length) return backendLinks.slice(0, 14);
+  const links = [];
+  categoryStats.forEach((source, sourceIndex) => {
+    categoryStats.slice(sourceIndex + 1).forEach((target, offset) => {
+      const targetIndex = sourceIndex + offset + 1;
+      const shared = [...(source.sources || new Set())].filter((item) => target.sources?.has(item)).length;
+      if (shared) links.push({ sourceIndex, targetIndex, weight: shared });
+    });
+  });
+  return links.sort((a, b) => b.weight - a.weight).slice(0, 14);
+}
+
+function WilhelmAdvancedVisuals({ stories, records, analysis, anchorBase = "kb-stories-wilhelm" }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPeriod, setSelectedPeriod] = useState("");
-  const categoryStats = useMemo(() => {
-    const map = new Map();
-    stories.forEach((story) => {
-      const key = story.category || "未分类";
-      const row = map.get(key) || { category: key, count: 0, length: 0, sources: new Set(), examples: [] };
-      row.count += 1;
-      row.length += String(story.text || "").length;
-      if (story.source) row.sources.add(story.source);
-      if (row.examples.length < 4) row.examples.push(story.title);
-      map.set(key, row);
-    });
-    return [...map.values()].map((row) => ({ ...row, avgLength: Math.round(row.length / Math.max(1, row.count)), sourceCount: row.sources.size })).sort((a, b) => b.count - a.count).slice(0, 11);
-  }, [stories]);
-  const periodStats = useMemo(() => {
-    const map = new Map();
-    records.forEach((record) => {
-      const year = record.year || Number(String(record.yearText || "").match(/\d{4}/)?.[0]) || 0;
-      const key = year ? String(Math.floor(year / 10) * 10) + "s" : "未记录";
-      const row = map.get(key) || { period: key, count: 0, publishers: new Set(), cities: new Set(), languages: new Set(), examples: [] };
-      row.count += 1;
-      if (record.publisher) row.publishers.add(record.publisher);
-      if (record.city) row.cities.add(record.city);
-      if (record.language) row.languages.add(record.language);
-      if (row.examples.length < 3) row.examples.push(record.title);
-      map.set(key, row);
-    });
-    return [...map.values()].sort((a, b) => String(a.period).localeCompare(String(b.period)));
-  }, [records]);
+  const categoryStats = useMemo(() => normalizeBackendStructure(analysis, stories), [analysis, stories]);
+  const periodStats = useMemo(() => normalizeBackendPeriods(analysis, records), [analysis, records]);
   const maxCategory = Math.max(1, ...categoryStats.map((item) => item.count));
   const maxAvgLength = Math.max(1, ...categoryStats.map((item) => item.avgLength));
   const maxPeriod = Math.max(1, ...periodStats.map((item) => item.count));
   const activeCategory = categoryStats.find((item) => item.category === selectedCategory) || categoryStats[0];
   const activePeriod = periodStats.find((item) => item.period === selectedPeriod) || periodStats[0];
-  const categoryLinks = useMemo(() => {
-    const links = [];
-    categoryStats.forEach((source, sourceIndex) => {
-      categoryStats.slice(sourceIndex + 1).forEach((target, offset) => {
-        const targetIndex = sourceIndex + offset + 1;
-        const shared = [...(source.sources || new Set())].filter((item) => target.sources?.has(item)).length;
-        if (shared) links.push({ sourceIndex, targetIndex, weight: shared });
-      });
-    });
-    return links.sort((a, b) => b.weight - a.weight).slice(0, 14);
-  }, [categoryStats]);
+  const categoryLinks = useMemo(() => normalizeBackendStructureLinks(analysis, categoryStats), [analysis, categoryStats]);
   const categoryPlot = { left: 118, right: 820, top: 76, bottom: 350, width: 702, height: 274 };
   const periodPlot = { left: 74, right: 828, top: 76, bottom: 342, width: 754, height: 266 };
   const periodPoints = periodStats.map((item, index) => {
@@ -1018,8 +1102,8 @@ function WilhelmAdvancedVisuals({ stories, records }) {
   });
   return (
     <div className="wilhelm-advanced-grid">
-      <div className="work-panel advanced-visual-panel">
-        <div className="panel-title-row"><div><strong>单篇译文结构谱系</strong><span>分类数量、文本规模与来源复杂度的复合视图，可点击类别查看样本。</span></div></div>
+      <div id={`${anchorBase}-structure`} className="work-panel advanced-visual-panel kb-anchor-target">
+        <div className="panel-title-row"><div><strong>单篇译文结构谱系</strong><span>{analysis?.structure?.method || "分类数量、文本规模与来源复杂度的复合视图，可点击类别查看样本。"}</span></div></div>
         <svg viewBox="0 0 900 480" className="advanced-visual-svg" role="img" aria-label="单篇译文结构谱系">
           <rect width="900" height="480" fill="#fff" />
           {[0, 0.25, 0.5, 0.75, 1].map((tick) => {
@@ -1067,8 +1151,8 @@ function WilhelmAdvancedVisuals({ stories, records }) {
           </g>
         </svg>
       </div>
-      <div className="work-panel advanced-visual-panel">
-        <div className="panel-title-row"><div><strong>再版传播时间密度</strong><span>时间密度、出版地丰富度与出版社网络的复合视图，可点击时间段查看传播结构。</span></div></div>
+      <div id={`${anchorBase}-density`} className="work-panel advanced-visual-panel kb-anchor-target">
+        <div className="panel-title-row"><div><strong>再版传播时间密度</strong><span>{analysis?.timeDensity?.method || "时间密度、出版地丰富度与出版社网络的复合视图，可点击时间段查看传播结构。"}</span></div></div>
         <svg viewBox="0 0 900 480" className="advanced-visual-svg" role="img" aria-label="再版传播时间密度">
           <rect width="900" height="480" fill="#fff" />
           {[0, 0.25, 0.5, 0.75, 1].map((tick) => {
@@ -1108,7 +1192,7 @@ function WilhelmAdvancedVisuals({ stories, records }) {
   );
 }
 
-function StoryPreviewModal({ story, draft, onChange, onSave, onClose, onOpenWindow }) {
+function StoryPreviewModal({ story, draft, onChange, onSave, onClose, onOpenWindow, readOnly = false }) {
   if (!story) return null;
   const meta = [story.source, story.category].filter(Boolean).join(" · ");
   return (
@@ -1118,20 +1202,20 @@ function StoryPreviewModal({ story, draft, onChange, onSave, onClose, onOpenWind
           <div><strong>{story.title}</strong><span>{meta}</span></div>
           <div className="upload-actions">
             <button type="button" onClick={onOpenWindow}>单独窗口打开</button>
-            <button type="button" onClick={onSave}>保存单条数据</button>
+            {!readOnly && <button type="button" onClick={onSave}>保存单条数据</button>}
             <button type="button" onClick={onClose}>关闭</button>
           </div>
         </div>
-        <label>故事名<input value={draft.title || ""} onChange={(event) => onChange({ ...draft, title: event.target.value })} /></label>
-        <label>故事来源<input value={draft.source || ""} onChange={(event) => onChange({ ...draft, source: event.target.value })} /></label>
-        <label>卫礼贤分类<input value={draft.category || ""} onChange={(event) => onChange({ ...draft, category: event.target.value })} /></label>
-        <label>译文内容<textarea value={draft.text || ""} onChange={(event) => onChange({ ...draft, text: event.target.value })} /></label>
+        <label>故事名<input value={draft.title || ""} readOnly={readOnly} onChange={(event) => onChange({ ...draft, title: event.target.value })} /></label>
+        <label>故事来源<input value={draft.source || ""} readOnly={readOnly} onChange={(event) => onChange({ ...draft, source: event.target.value })} /></label>
+        <label>卫礼贤分类<input value={draft.category || ""} readOnly={readOnly} onChange={(event) => onChange({ ...draft, category: event.target.value })} /></label>
+        <label>译文内容<textarea value={draft.text || ""} readOnly={readOnly} onChange={(event) => onChange({ ...draft, text: event.target.value })} /></label>
       </div>
     </div>
   );
 }
 
-export default function WilhelmStories() {
+export function WilhelmStoriesWorkbench({ embedded = false, anchorBase = "kb-stories-wilhelm", focused = false } = {}) {
   const baseRecords = storyData.wilhelmEditions || [];
   const [uploaded, setUploaded] = useState(() => loadWilhelmRecords());
   const [storyDrafts, setStoryDrafts] = useState(() => loadStoryDrafts());
@@ -1139,8 +1223,9 @@ export default function WilhelmStories() {
   const [notice, setNotice] = useState("");
   const [backendVisuals, setBackendVisuals] = useState(null);
   const [backendGraphs, setBackendGraphs] = useState(null);
+  const [backendAnalysis, setBackendAnalysis] = useState(null);
   const [visualNotice, setVisualNotice] = useState("");
-  const [keywordNetworkNotice, setKeywordNetworkNotice] = useState("尚未提取关键词共现网络，请点击“算法提取”。");
+  const [keywordNetworkNotice, setKeywordNetworkNotice] = useState(embedded ? "展示当前已接入的关键词共现网络。" : "尚未提取关键词共现网络，请点击“算法提取”。");
   const [storyQuery, setStoryQuery] = useState("");
   const [storyTitleQuery, setStoryTitleQuery] = useState("");
   const [storyTextQuery, setStoryTextQuery] = useState("");
@@ -1170,9 +1255,9 @@ export default function WilhelmStories() {
     return [preface, ...stories];
   }, [stories, storyDrafts]);
   const generatedGraphBundle = useMemo(() => ({
-    total: storyData.wilhelmThemeGraph || { terms: [], cooccurrence: [], nodes: [], edges: [], notice: keywordNetworkNotice },
-    byStory: storyData.wilhelmStoryGraphs || {},
-  }), [keywordNetworkNotice]);
+    total: backendAnalysis?.total || storyData.wilhelmThemeGraph || { terms: [], cooccurrence: [], nodes: [], edges: [], notice: keywordNetworkNotice },
+    byStory: backendAnalysis?.byStory || storyData.wilhelmStoryGraphs || {},
+  }), [backendAnalysis, keywordNetworkNotice]);
   const graphBundle = backendGraphs || generatedGraphBundle;
   const selectedStoryGraph = selectedStoryId === "all" ? null : graphBundle.byStory?.[selectedStoryId];
   const effectiveGraph = selectedStoryGraph || graphBundle.total || { terms: [], cooccurrence: [], notice: keywordNetworkNotice };
@@ -1182,7 +1267,9 @@ export default function WilhelmStories() {
   const knowledgeScopeText = selectedStory
     ? String(selectedStory.text || "").slice(0, 8000)
     : stories.map((story) => `${story.title}\n${String(story.text || "").slice(0, 420)}`).join("\n\n").slice(0, 12000);
-  const selectedKnowledgeGraph = knowledgeGraphCache[knowledgeScopeId] || null;
+  const selectedKnowledgeGraph = knowledgeGraphCache[knowledgeScopeId]
+    || (selectedStoryId === "all" ? backendAnalysis?.total : backendAnalysis?.byStory?.[selectedStoryId])
+    || null;
   const previewStory = storyTableRows.find((story) => story.id === previewStoryId);
   const storyTable = useSortableRows(storyTableRows, storyQuery, ["title", "category", "source", "text"]);
   const recordTable = useSortableRows(records, recordQuery, ["title", "foreignTitle", "yearText", "edition", "language", "publisher", "city", "country", "province", "note"]);
@@ -1208,16 +1295,32 @@ export default function WilhelmStories() {
 
   useEffect(() => {
     setBackendGraphs(null);
-    setKeywordNetworkNotice("尚未提取关键词共现网络，请点击“算法提取”。");
-  }, [stories]);
+    setKeywordNetworkNotice(embedded ? "展示当前已接入的关键词共现网络。" : "尚未提取关键词共现网络，请点击“算法提取”。");
+  }, [embedded, stories]);
+
+  useEffect(() => {
+    let canceled = false;
+    api.wilhelmStoryAnalysis({ stories, records })
+      .then((data) => {
+        if (!canceled) setBackendAnalysis(data);
+      })
+      .catch(() => {
+        if (!canceled) setBackendAnalysis(null);
+      });
+    return () => { canceled = true; };
+  }, [records, stories]);
 
   useEffect(() => {
     if (knowledgeGraphCache[knowledgeScopeId]) {
-      setKnowledgeNotice("已读取本地保存的知识图谱。");
+      setKnowledgeNotice(embedded ? "已读取专题知识图谱。" : "已读取本地保存的知识图谱。");
       return;
     }
-    setKnowledgeNotice("当前范围尚未生成知识图谱，可点击“算法抽取”或“大模型抽取”。");
-  }, [knowledgeGraphCache, knowledgeScopeId]);
+    if (selectedKnowledgeGraph?.nodes?.length) {
+      setKnowledgeNotice(embedded ? "已接入后端自然语言算法生成的知识图谱。" : "已接入后端自然语言算法生成的知识图谱，可继续使用算法抽取或大模型抽取刷新。");
+      return;
+    }
+    setKnowledgeNotice(embedded ? "当前范围暂无可用知识图谱。" : "当前范围尚未生成知识图谱，可点击“算法抽取”或“大模型抽取”。");
+  }, [embedded, knowledgeGraphCache, knowledgeScopeId, selectedKnowledgeGraph]);
 
   async function extractKnowledgeGraph() {
     extractControllerRef.current?.abort();
@@ -1394,15 +1497,56 @@ export default function WilhelmStories() {
     downloadTextFile("卫礼贤再版及传播表格.csv", toCsv(rows), "text/csv;charset=utf-8");
   }
 
-  return (
-    <section className="wilhelm-page">
-      <div className="wilhelm-hero">
-        <div>
-          <strong>卫礼贤《中国民间童话》专题库</strong>
-          <span>故事文本 / 关键词共现 / 知识图谱 / 再版传播地图</span>
+  if (focused) {
+    return (
+      <section className={`wilhelm-page ${embedded ? "wilhelm-page-embedded" : ""}`}>
+        {!embedded && (
+          <div className="wilhelm-hero">
+            <div>
+              <strong>卫礼贤《中国民间童话》专题库</strong>
+              <span>单篇译文结构谱系 / 再版传播时间密度 / 知识图谱 / 关键词共现网络</span>
+            </div>
+            <button type="button" onClick={() => { window.location.hash = "knowledge"; }}>返回德译故事集</button>
+          </div>
+        )}
+
+        <WilhelmAdvancedVisuals stories={stories} records={records} analysis={backendAnalysis} anchorBase={anchorBase} />
+
+        <div id={`${anchorBase}-graph`} className="wilhelm-atlas-grid kb-anchor-target">
+          <WilhelmKnowledgeGraph graph={selectedKnowledgeGraph} selectedTerm={highlightTerm} onTermSelect={setHighlightTerm} title={knowledgeScopeTitle} onExtract={extractKnowledgeGraph} onAlgorithmExtract={extractAlgorithmKnowledgeGraph} onAbort={abortKnowledgeExtraction} extracting={extractingGraph} cacheState={knowledgeNotice} readOnly />
+          <div id={`${anchorBase}-text`} className="kb-anchor-target">
+            <WilhelmKeywordNetwork graph={effectiveGraph} query={networkQuery} onQueryChange={setNetworkQuery} onAlgorithmRefresh={() => refreshKeywordNetwork("algorithm")} onModelExtract={() => refreshKeywordNetwork("llm")} extracting={extractingKeywords} readOnly />
+          </div>
         </div>
-        <button type="button" onClick={() => { window.location.hash = "knowledge"; }}>返回德译故事集</button>
-      </div>
+
+        <div id={`${anchorBase}-charts`} className="kb-stats-bottom kb-anchor-target">
+          <StatisticsPanel items={tableRows(records)} title="卫礼贤《中国民间童话》专题统计可视化" />
+        </div>
+
+        <StoryPreviewModal
+          story={previewStory}
+          draft={previewDraft}
+          onChange={setPreviewDraft}
+          onSave={savePreview}
+          onClose={() => setPreviewStoryId("")}
+          onOpenWindow={openPreviewWindow}
+          readOnly
+        />
+      </section>
+    );
+  }
+
+  return (
+    <section className={`wilhelm-page ${embedded ? "wilhelm-page-embedded" : ""}`}>
+      {!embedded && (
+        <div className="wilhelm-hero">
+          <div>
+            <strong>卫礼贤《中国民间童话》专题库</strong>
+            <span>故事文本 / 关键词共现 / 知识图谱 / 再版传播地图</span>
+          </div>
+          <button type="button" onClick={() => { window.location.hash = "knowledge"; }}>返回德译故事集</button>
+        </div>
+      )}
 
       <div className="story-kpis">
         <div><b>{records.length}</b><span>再版传播记录</span></div>
@@ -1411,7 +1555,17 @@ export default function WilhelmStories() {
         <div><b>{effectiveGraph?.triples?.length || effectiveGraph?.edges?.length || 0}</b><span>关系三元组</span></div>
       </div>
 
-      <div className="work-panel wilhelm-story-text-panel">
+      {embedded && (
+        <WilhelmTopicMatrix
+          anchorBase={anchorBase}
+          records={records}
+          stories={stories}
+          terms={effectiveGraph?.terms?.length || 0}
+          graphEdges={selectedKnowledgeGraph?.edges?.length || backendAnalysis?.total?.edges?.length || 0}
+        />
+      )}
+
+      <div id={`${anchorBase}-table`} className="work-panel wilhelm-story-text-panel kb-anchor-target">
         <div className="panel-title-row">
           <div><strong>单篇译文故事表格</strong></div>
           <div className="upload-actions">
@@ -1442,7 +1596,7 @@ export default function WilhelmStories() {
                   <td>{story.isTableOnly ? "" : story.source || "未记录"}</td>
                   <td>{story.isTableOnly ? "" : story.category}</td>
                   <td><button className="text-preview-button" type="button" onClick={(event) => { event.stopPropagation(); openPreview(story); }}>{short(story.text, 90)}</button></td>
-                  <td><button className="row-action-button" type="button" onClick={(event) => { event.stopPropagation(); openPreview(story); }}>预览/保存</button></td>
+                  <td><button className="row-action-button" type="button" onClick={(event) => { event.stopPropagation(); openPreview(story); }}>{embedded ? "预览" : "预览/保存"}</button></td>
                 </tr>
               ))}
             </tbody>
@@ -1455,11 +1609,11 @@ export default function WilhelmStories() {
           <div><strong>再版及传播表格</strong></div>
           <div className="upload-actions">
             <button type="button" onClick={exportRecords}>导出数据</button>
-            <label className="upload-button compact-upload">上传补充表<input type="file" accept=".xlsx,.xls,.csv,.tsv,.json" onChange={handleUpload} /></label>
-            {uploaded.length > 0 && <button type="button" onClick={clearUploads}>清空本地上传</button>}
+            {!embedded && <label className="upload-button compact-upload">上传补充表<input type="file" accept=".xlsx,.xls,.csv,.tsv,.json" onChange={handleUpload} /></label>}
+            {!embedded && uploaded.length > 0 && <button type="button" onClick={clearUploads}>清空本地上传</button>}
           </div>
         </div>
-        {notice && <p className="local-save-notice">{notice}</p>}
+        {!embedded && notice && <p className="local-save-notice">{notice}</p>}
         <div className="table-tools">
           <label>综合检索<input value={recordQuery} onChange={(event) => setRecordQuery(event.target.value)} placeholder="题名、年份、语种、出版地、出版社" /></label>
           <label>年份筛选<input value={recordTable.filters.yearText || ""} onChange={(event) => recordTable.updateFilter("yearText", event.target.value)} placeholder="如 1914" /></label>
@@ -1512,19 +1666,25 @@ export default function WilhelmStories() {
         </div>
       </div>
 
-      <div className="wilhelm-atlas-grid">
-        <WilhelmKnowledgeGraph graph={selectedKnowledgeGraph} selectedTerm={highlightTerm} onTermSelect={setHighlightTerm} title={knowledgeScopeTitle} onExtract={extractKnowledgeGraph} onAlgorithmExtract={extractAlgorithmKnowledgeGraph} onAbort={abortKnowledgeExtraction} extracting={extractingGraph} cacheState={knowledgeNotice} />
-        <WilhelmKeywordNetwork graph={effectiveGraph} query={networkQuery} onQueryChange={setNetworkQuery} onAlgorithmRefresh={() => refreshKeywordNetwork("algorithm")} onModelExtract={() => refreshKeywordNetwork("llm")} extracting={extractingKeywords} />
+      <div id={embedded ? `${anchorBase}-graph` : undefined} className="wilhelm-atlas-grid kb-anchor-target">
+        <WilhelmKnowledgeGraph graph={selectedKnowledgeGraph} selectedTerm={highlightTerm} onTermSelect={setHighlightTerm} title={knowledgeScopeTitle} onExtract={extractKnowledgeGraph} onAlgorithmExtract={extractAlgorithmKnowledgeGraph} onAbort={abortKnowledgeExtraction} extracting={extractingGraph} cacheState={knowledgeNotice} readOnly={embedded} />
+        {embedded ? (
+          <div id={`${anchorBase}-text`} className="kb-anchor-target">
+            <WilhelmKeywordNetwork graph={effectiveGraph} query={networkQuery} onQueryChange={setNetworkQuery} onAlgorithmRefresh={() => refreshKeywordNetwork("algorithm")} onModelExtract={() => refreshKeywordNetwork("llm")} extracting={extractingKeywords} readOnly={embedded} />
+          </div>
+        ) : (
+          <WilhelmKeywordNetwork graph={effectiveGraph} query={networkQuery} onQueryChange={setNetworkQuery} onAlgorithmRefresh={() => refreshKeywordNetwork("algorithm")} onModelExtract={() => refreshKeywordNetwork("llm")} extracting={extractingKeywords} readOnly={embedded} />
+        )}
       </div>
 
-      <WilhelmAdvancedVisuals stories={stories} records={records} />
+      <WilhelmAdvancedVisuals stories={stories} records={records} analysis={backendAnalysis} anchorBase={anchorBase} />
 
-      <div className="wilhelm-map-wide">
+      <div id={embedded ? `${anchorBase}-map` : undefined} className="wilhelm-map-wide kb-anchor-target">
         {visualNotice && <p className="local-save-notice">{visualNotice}</p>}
         <WilhelmSplitMap flows={flows.length ? flows : fallbackFlows.slice(0, 1)} selectedId={selected?.id || selectedId} onSelect={setSelectedId} title="德译中国故事集故事来源及出版地参照图" timeline />
       </div>
 
-      <div className="wilhelm-layout wilhelm-detail-layout">
+      <div id={embedded ? `${anchorBase}-publication` : undefined} className="wilhelm-layout wilhelm-detail-layout kb-anchor-target">
         <aside className="work-panel wilhelm-record-card">
           <div className="panel-title-row">
             <div><strong>当前出版记录</strong><span>{selected?.source}</span></div>
@@ -1542,7 +1702,9 @@ export default function WilhelmStories() {
         <PublicationBubbleMap chart={backendVisuals?.publicationMap} items={records} title="卫礼贤《中国民间童话》再版出版地" id="visual-atlas-wilhelm-publication" />
       </div>
 
-      <StatisticsPanel items={tableRows(records)} title="卫礼贤《中国民间童话》专题统计可视化" />
+      <div id={embedded ? `${anchorBase}-charts` : undefined} className="kb-stats-bottom kb-anchor-target">
+        <StatisticsPanel items={tableRows(records)} title="卫礼贤《中国民间童话》专题统计可视化" />
+      </div>
 
       <StoryPreviewModal
         story={previewStory}
@@ -1551,7 +1713,20 @@ export default function WilhelmStories() {
         onSave={savePreview}
         onClose={() => setPreviewStoryId("")}
         onOpenWindow={openPreviewWindow}
+        readOnly={embedded}
       />
+    </section>
+  );
+}
+
+export default function WilhelmStories() {
+  useEffect(() => {
+    window.location.hash = "knowledge?domain=stories&submodule=stories-wilhelm";
+  }, []);
+
+  return (
+    <section className="platform-page-loading">
+      正在打开“卫礼贤中国民间故事”子模块...
     </section>
   );
 }

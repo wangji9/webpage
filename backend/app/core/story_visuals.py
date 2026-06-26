@@ -1590,7 +1590,7 @@ def child_cooccurrence(collections: list[dict[str, Any]], children: list[dict[st
         "years": sorted({int(item.get("year") or 0) for item in collections if item.get("year")}),
         "structureGraph": {
             "title": "子故事语义—书目结构知识图谱",
-            "subtitle": "将上传表格中的故事集、子故事、抽取主题、推断类型、年份、译者身份、出版机构与来源区域组织为多关系动态图谱。",
+            "subtitle": "将数据表格中的故事集、子故事、抽取主题、推断类型、年份、译者身份、出版机构与来源区域组织为多关系动态图谱。",
             "nodes": structure_node_values[:120],
             "edges": structure_edges[:220],
             "triples": [
@@ -2068,15 +2068,143 @@ def build_wilhelm_graph(stories: list[dict[str, Any]], graph_id: str = "total", 
     }
 
 
-def wilhelm_story_analysis(stories: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+def _wilhelm_story_structure(stories: list[dict[str, Any]]) -> dict[str, Any]:
+    categories: dict[str, dict[str, Any]] = {}
+    for story in stories:
+        key = str(story.get("category") or "未分类").strip() or "未分类"
+        row = categories.setdefault(
+            key,
+            {
+                "category": key,
+                "count": 0,
+                "length": 0,
+                "sources": set(),
+                "examples": [],
+            },
+        )
+        row["count"] += 1
+        row["length"] += len(str(story.get("text") or ""))
+        source = str(story.get("source") or "").strip()
+        if source:
+            row["sources"].add(source)
+        if len(row["examples"]) < 4:
+            row["examples"].append(story.get("title") or "未命名译文")
+
+    rows = []
+    for row in categories.values():
+        count = max(1, int(row["count"]))
+        sources = sorted(row["sources"])
+        rows.append(
+            {
+                "category": row["category"],
+                "count": row["count"],
+                "avgLength": round(row["length"] / count),
+                "sourceCount": len(sources),
+                "sources": sources,
+                "examples": row["examples"],
+            }
+        )
+    rows.sort(key=lambda item: (-item["count"], item["category"]))
+
+    links = []
+    for source_index, source in enumerate(rows):
+        source_sources = set(source.get("sources") or [])
+        for target_index, target in enumerate(rows[source_index + 1 :], start=source_index + 1):
+            shared = sorted(source_sources.intersection(target.get("sources") or []))
+            if shared:
+                links.append(
+                    {
+                        "sourceIndex": source_index,
+                        "targetIndex": target_index,
+                        "weight": len(shared),
+                        "sharedSources": shared[:6],
+                    }
+                )
+    links.sort(key=lambda item: item["weight"], reverse=True)
+    return {
+        "title": "单篇译文结构谱系",
+        "categories": rows[:16],
+        "links": links[:24],
+        "method": "后端按卫礼贤分类、译文长度与来源重合度计算",
+    }
+
+
+def _wilhelm_time_density(records: list[dict[str, Any]]) -> dict[str, Any]:
+    periods: dict[str, dict[str, Any]] = {}
+    for record in records:
+        year_match = re.search(r"\d{4}", str(record.get("year") or record.get("yearText") or ""))
+        year = int(year_match.group(0)) if year_match else 0
+        period = f"{year // 10 * 10}s" if year else "未记录"
+        row = periods.setdefault(
+            period,
+            {
+                "period": period,
+                "count": 0,
+                "years": [],
+                "publishers": set(),
+                "cities": set(),
+                "languages": set(),
+                "examples": [],
+            },
+        )
+        row["count"] += 1
+        if year:
+            row["years"].append(year)
+        for key, bucket in [("publisher", "publishers"), ("city", "cities"), ("language", "languages")]:
+            value = str(record.get(key) or "").strip()
+            if value:
+                row[bucket].add(value)
+        if len(row["examples"]) < 4:
+            row["examples"].append(record.get("title") or record.get("name") or "卫礼贤《中国民间童话》")
+
+    def sort_key(item: dict[str, Any]) -> tuple[int, str]:
+        match = re.search(r"\d{4}", item["period"])
+        return (int(match.group(0)) if match else 9999, item["period"])
+
+    rows = []
+    for row in periods.values():
+        years = sorted(row["years"])
+        publishers = sorted(row["publishers"])
+        cities = sorted(row["cities"])
+        languages = sorted(row["languages"])
+        rows.append(
+            {
+                "period": row["period"],
+                "count": row["count"],
+                "years": years,
+                "minYear": years[0] if years else None,
+                "maxYear": years[-1] if years else None,
+                "publishers": publishers,
+                "publisherCount": len(publishers),
+                "cities": cities,
+                "cityCount": len(cities),
+                "languages": languages,
+                "languageCount": len(languages),
+                "examples": row["examples"],
+            }
+        )
+    rows.sort(key=sort_key)
+    return {
+        "title": "再版传播时间密度",
+        "periods": rows,
+        "method": "后端按再版年代、出版城市、出版社与语种聚合计算",
+    }
+
+
+def wilhelm_story_analysis(stories: list[dict[str, Any]] | None = None, records: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     data = story_data()
     rows = stories or data.get("wilhelmStories", [])
+    edition_rows = records or data.get("wilhelmEditions", []) or wilhelm_rows(data.get("collections", []))
+    cached_by_story = data.get("wilhelmStoryGraphs", {})
+    cached_total = data.get("wilhelmThemeGraph")
+    total_graph = cached_total if isinstance(cached_total, dict) and cached_total.get("nodes") else build_wilhelm_graph(rows, "total", "卫礼贤《中国民间童话》")
     return {
-        "total": build_wilhelm_graph(rows, "total", "卫礼贤《中国民间童话》"),
-        "byStory": {
-            (story.get("id") or f"story-{index + 1}"): build_wilhelm_graph([story], story.get("id") or f"story-{index + 1}", story.get("title") or "单篇译文")
-            for index, story in enumerate(rows)
-        },
+        "total": total_graph,
+        "byStory": cached_by_story if isinstance(cached_by_story, dict) else {},
+        "structure": _wilhelm_story_structure(rows),
+        "timeDensity": _wilhelm_time_density(edition_rows),
+        "recordCount": len(edition_rows),
+        "storyCount": len(rows),
     }
 
 

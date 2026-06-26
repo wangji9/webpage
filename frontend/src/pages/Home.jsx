@@ -1,17 +1,37 @@
+import { useEffect, useState } from "react";
 import { dynamicItems, detailHref } from "../data/dynamicContent.js";
+import { loadSiteContent } from "../data/siteContent.js";
 
 function tagHref(label) {
   return detailHref("tag", encodeURIComponent(label));
 }
 
+function knowledgeHref(sectionId) {
+  return `#knowledge?domain=${encodeURIComponent(sectionId)}`;
+}
+
 export default function Home({ sections }) {
+  const [managedDynamics, setManagedDynamics] = useState([]);
   const tabs = [
     ["knowledge", "知识库分区"],
     ["topic", "专题聚焦", detailHref("topic", "focus")],
     ["topic", "综合研究", detailHref("topic", "research")],
     ["topic", "媒体关注", detailHref("topic", "media")]
   ];
-  const dynamics = dynamicItems;
+  useEffect(() => {
+    let canceled = false;
+    loadSiteContent()
+      .then((content) => {
+        if (!canceled) setManagedDynamics(content.dynamics || []);
+      })
+      .catch(() => {
+        if (!canceled) setManagedDynamics([]);
+      });
+    return () => {
+      canceled = true;
+    };
+  }, []);
+  const dynamics = managedDynamics.length ? managedDynamics : dynamicItems;
   const featured = dynamics[0];
 
   return (
@@ -42,7 +62,7 @@ export default function Home({ sections }) {
         </div>
         <div className="home-dynamic-layout">
           {featured ? (
-            <a className="home-dynamic-spotlight" href={detailHref("dynamic", featured.id)} target="_blank" rel="noreferrer">
+            <a className="home-dynamic-spotlight" href={featured.href || detailHref("dynamic", featured.id)} target="_blank" rel="noreferrer">
               <img src={featured.image} alt={featured.title} />
               <span>{featured.type}</span>
               <h3>{featured.title}</h3>
@@ -50,7 +70,7 @@ export default function Home({ sections }) {
           ) : null}
           <div className="home-dynamic-grid">
             {dynamics.slice(1, 7).map((item) => (
-              <a key={item.id} href={detailHref("dynamic", item.id)} target="_blank" rel="noreferrer">
+              <a key={item.id} href={item.href || detailHref("dynamic", item.id)} target="_blank" rel="noreferrer">
                 <img src={item.image} alt={item.title} loading="lazy" />
                 <div>
                   <strong>{item.type}</strong>
@@ -68,19 +88,19 @@ export default function Home({ sections }) {
             href ? (
               <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>
             ) : (
-              <strong key={label}>{label}</strong>
+              <a className="active" key={label} href="#knowledge">{label}</a>
             )
           ))}
         </div>
         <div className="section-grid">
           {sections.map((section, index) => (
-            <article className="section-card" key={section.id}>
+            <article className="section-card" key={section.id} onClick={() => { window.location.hash = knowledgeHref(section.id); }}>
               <em>0{index + 1}</em>
-              <h3><a href={detailHref("section", section.id)} target="_blank" rel="noreferrer">{section.title}</a></h3>
+              <h3><a href={knowledgeHref(section.id)}>{section.title}</a></h3>
               <p>{section.intro}</p>
               <div>
                 {section.keywords.map((keyword) => (
-                  <a key={keyword} href={tagHref(keyword)} target="_blank" rel="noreferrer">{keyword}</a>
+                  <a key={keyword} href={knowledgeHref(section.id)} onClick={(event) => event.stopPropagation()}>{keyword}</a>
                 ))}
               </div>
             </article>

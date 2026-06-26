@@ -6,7 +6,9 @@ import openpyxl
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "地图_中国故事集_出版地和故事来源地.xlsx"
+SOURCE = ROOT / "data" / "地图_中国故事集_出版地和故事来源地.xlsx"
+if not SOURCE.exists():
+    SOURCE = ROOT / "地图_中国故事集_出版地和故事来源地.xlsx"
 OUTPUT = ROOT / "frontend" / "src" / "data" / "wilhelmPublicationSourceMap.json"
 
 PROVINCE_COORDS = {

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "../services/api.js";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 
 const MAP_WIDTH = 980;
 const MAP_HEIGHT = 520;
@@ -89,12 +90,13 @@ function featureOpacity(feature, countryCounts, maxCount, viewMode) {
   return viewMode === "heat" ? 0.42 + (count / Math.max(1, maxCount)) * 0.46 : 0.96;
 }
 
-export default function MapVisualization({ flows = [], title = "传播地图", sections = [], selectedFlowId = "" }) {
+export default function MapVisualization({ flows = [], title = "传播地图", sections = [], selectedFlowId = "", allowExpand = true }) {
   const [viewMode, setViewMode] = useState("flow");
   const [playing, setPlaying] = useState(false);
   const [pickedFlowId, setPickedFlowId] = useState(selectedFlowId);
   const [world, setWorld] = useState(null);
   const [mapError, setMapError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const years = useMemo(() => [...new Set(flows.map((flow) => Number(flow.year)).filter(Boolean))].sort((a, b) => a - b), [flows]);
   const [yearIndex, setYearIndex] = useState(Math.max(0, years.length - 1));
   const activeYear = years[Math.min(yearIndex, Math.max(0, years.length - 1))] || null;
@@ -180,6 +182,7 @@ export default function MapVisualization({ flows = [], title = "传播地图", s
   }
 
   return (
+    <>
     <div className="map-visual real-map thematic-map-shell">
       <div className="visual-heading map-heading">
         <div>
@@ -189,6 +192,7 @@ export default function MapVisualization({ flows = [], title = "传播地图", s
         <div className="map-mode-tabs">
           <button className={viewMode === "flow" ? "active" : ""} type="button" onClick={() => setViewMode("flow")}>流变地图</button>
           <button className={viewMode === "heat" ? "active" : ""} type="button" onClick={() => setViewMode("heat")}>热力地图</button>
+          {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
           <button type="button" onClick={exportMapSvg}>导出 SVG</button>
           <button type="button" onClick={exportMapCsv}>导出数据</button>
         </div>
@@ -263,5 +267,11 @@ export default function MapVisualization({ flows = [], title = "传播地图", s
         ))}
       </div>
     </div>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={title} subtitle="放大查看传播地图，支持窗口缩放和时间轴播放" onClose={() => setModalOpen(false)}>
+        <MapVisualization flows={flows} title={title} sections={sections} selectedFlowId={selectedFlowId} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }

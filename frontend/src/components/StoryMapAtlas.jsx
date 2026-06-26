@@ -3,6 +3,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Protocol } from "pmtiles";
 import { api } from "../services/api.js";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 
 const palette = ["#0b66b2", "#15a884", "#f59e0b", "#7c3aed", "#ef4444", "#0891b2", "#64748b", "#d97706"];
 const regionColors = ["#2563eb", "#15a884", "#f59e0b", "#7c3aed", "#ef4444", "#0891b2", "#64748b", "#84cc16", "#ec4899", "#14b8a6"];
@@ -521,12 +522,17 @@ function buildPublicationYearSlices(points = [], maxSlices = 7) {
   return slices;
 }
 
-function Panel({ chart, children, selected, onExport, id }) {
+function Panel({ chart, children, selected, onExport, id, allowExpand = true }) {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
+    <>
     <div className="work-panel atlas-panel" id={id}>
       <div className="panel-title-row">
         <div><strong>{chart?.title}</strong><span>{chart?.subtitle}</span></div>
-        <button className="atlas-export-button" type="button" onClick={onExport}>导出 SVG</button>
+        <div className="visual-heading-actions">
+          {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大图表" />}
+          {onExport && <button className="atlas-export-button" type="button" onClick={onExport}>导出 SVG</button>}
+        </div>
       </div>
       {children}
       {selected && (
@@ -536,6 +542,17 @@ function Panel({ chart, children, selected, onExport, id }) {
         </div>
       )}
     </div>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={chart?.title} subtitle={chart?.subtitle || "放大查看图表细节"} onClose={() => setModalOpen(false)}>
+        <div className="work-panel atlas-panel visual-modal-panel">
+          <div className="panel-title-row">
+            <div><strong>{chart?.title}</strong><span>{chart?.subtitle}</span></div>
+          </div>
+          {children}
+        </div>
+      </VisualModal>
+    )}
+    </>
   );
 }
 
@@ -1175,10 +1192,11 @@ function PublicationBubbleMap({ chart, items = [], title, id }) {
   );
 }
 
-function MapLibrePublicationOverlayMap({ chart }) {
+function MapLibrePublicationOverlayMap({ chart, allowExpand = true }) {
   const [selected, setSelected] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [sliceIndex, setSliceIndex] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const [viewportVersion, setViewportVersion] = useState(0);
   const [mainSize, setMainSize] = useState({ width: 0, height: 0 });
   const [insetSize, setInsetSize] = useState({ width: 0, height: 0 });
@@ -1437,6 +1455,7 @@ function MapLibrePublicationOverlayMap({ chart }) {
     function makeBlankStyle(bg = "#ffffff") {
       return {
         version: 8,
+        glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
         sources: {},
         layers: [{ id: "bg", type: "background", paint: { "background-color": bg } }],
       };
@@ -1520,8 +1539,10 @@ function MapLibrePublicationOverlayMap({ chart }) {
   }, [shown]);
 
   return (
-    <Panel chart={chart} selected={null} onExport={undefined} id="visual-atlas-publication-maplibre">
+    <>
+    <Panel chart={chart} selected={null} onExport={undefined} id="visual-atlas-publication-maplibre" allowExpand={false}>
       <div className="atlas-map-controls">
+        {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
         {timelineEnabled ? (
           <>
             <label>时间切片
@@ -1680,13 +1701,20 @@ function MapLibrePublicationOverlayMap({ chart }) {
         </div>
       </div>
     </Panel>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={chart?.title} subtitle={chart?.subtitle || "放大查看出版地图"} onClose={() => setModalOpen(false)}>
+        <MapLibrePublicationOverlayMap chart={chart} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }
 
-function MapLibrePublicationMap({ chart }) {
+function MapLibrePublicationMap({ chart, allowExpand = true }) {
   const [selected, setSelected] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [sliceIndex, setSliceIndex] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const [syncNote, setSyncNote] = useState("等待地图同步");
   const [sourcesVersion, setSourcesVersion] = useState(0);
   const mapContainerRef = useRef(null);
@@ -1901,6 +1929,7 @@ function MapLibrePublicationMap({ chart }) {
     function makeBlankStyle(bg = "#ffffff") {
       return {
         version: 8,
+        glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
         sources: {},
         layers: [{ id: "bg", type: "background", paint: { "background-color": bg } }],
       };
@@ -2154,8 +2183,10 @@ function MapLibrePublicationMap({ chart }) {
   }, [selected?.id]);
 
   return (
-    <Panel chart={chart} selected={selected} onExport={undefined} id="visual-atlas-publication-maplibre">
+    <>
+    <Panel chart={chart} selected={selected} onExport={undefined} id="visual-atlas-publication-maplibre" allowExpand={false}>
       <div className="atlas-map-controls">
+        {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
         <label>时间切片
           <input
             type="range"
@@ -2237,13 +2268,20 @@ function MapLibrePublicationMap({ chart }) {
         </div>
       </div>
     </Panel>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={chart?.title} subtitle={chart?.subtitle || "放大查看出版地图"} onClose={() => setModalOpen(false)}>
+        <MapLibrePublicationMap chart={chart} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }
 
-function MapLibreWilhelmPublicationMap({ chart }) {
+function MapLibreWilhelmPublicationMap({ chart, allowExpand = true }) {
   const [selected, setSelected] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [sliceIndex, setSliceIndex] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const [syncNote, setSyncNote] = useState("等待地图同步");
   const [mapReadyVersion, setMapReadyVersion] = useState(0);
   const mapContainerRef = useRef(null);
@@ -2469,6 +2507,7 @@ function MapLibreWilhelmPublicationMap({ chart }) {
     function makeBlankStyle(bg = "#ffffff") {
       return {
         version: 8,
+        glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
         sources: {},
         layers: [{ id: "bg", type: "background", paint: { "background-color": bg } }],
       };
@@ -2735,8 +2774,10 @@ function MapLibreWilhelmPublicationMap({ chart }) {
   }, [selected?.id]);
 
   return (
-    <Panel chart={chart} selected={null} onExport={undefined} id="visual-atlas-wilhelm-publication-maplibre">
+    <>
+    <Panel chart={chart} selected={null} onExport={undefined} id="visual-atlas-wilhelm-publication-maplibre" allowExpand={false}>
       <div className="atlas-map-controls">
+        {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
         <label>时间切片
           <input
             type="range"
@@ -2840,6 +2881,12 @@ function MapLibreWilhelmPublicationMap({ chart }) {
         )}
       </div>
     </Panel>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={chart?.title} subtitle={chart?.subtitle || "放大查看卫礼贤出版地图"} onClose={() => setModalOpen(false)}>
+        <MapLibreWilhelmPublicationMap chart={chart} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }
 
@@ -2986,10 +3033,11 @@ function SourceChinaMap({ chart }) {
   );
 }
 
-function MapLibreSourceChinaMap({ chart }) {
+function MapLibreSourceChinaMap({ chart, allowExpand = true }) {
   const [selected, setSelected] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [sliceIndex, setSliceIndex] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const [baseData, setBaseData] = useState(null);
   const [sourcesVersion, setSourcesVersion] = useState(0);
   const mapContainerRef = useRef(null);
@@ -3198,6 +3246,7 @@ function MapLibreSourceChinaMap({ chart }) {
     function makeBlankStyle(bg = "#ffffff") {
       return {
         version: 8,
+        glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
         sources: {},
         layers: [{ id: "bg", type: "background", paint: { "background-color": bg } }],
       };
@@ -3601,8 +3650,10 @@ function MapLibreSourceChinaMap({ chart }) {
   const sliderValue = Math.max(-1, sliceIndex);
 
   return (
-    <Panel chart={chart} selected={null} onExport={undefined} id="visual-atlas-source-maplibre">
+    <>
+    <Panel chart={chart} selected={null} onExport={undefined} id="visual-atlas-source-maplibre" allowExpand={false}>
       <div className="atlas-map-controls">
+        {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大地图" />}
         {timelineEnabled ? (
           <>
             <label>时间切片
@@ -3727,6 +3778,12 @@ function MapLibreSourceChinaMap({ chart }) {
         </div>
       </div>
     </Panel>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={chart?.title} subtitle={chart?.subtitle || "放大查看来源地图"} onClose={() => setModalOpen(false)}>
+        <MapLibreSourceChinaMap chart={chart} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }
 

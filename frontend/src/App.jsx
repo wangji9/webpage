@@ -12,53 +12,26 @@ import Login from "./pages/Login.jsx";
 import Admin from "./pages/Admin.jsx";
 import Detail from "./pages/Detail.jsx";
 import WilhelmStories from "./pages/WilhelmStories.jsx";
+import Profile from "./pages/Profile.jsx";
+import PermissionGate from "./components/PermissionGate.jsx";
+import { accessKey, canAccessRoute, loginHash, permissionNotice, routeAccess, userRole } from "./utils/permissions.js";
 
-const routeAccess = {
-  home: "guest",
-  about: "guest",
-  detail: "guest",
-  login: "guest",
-  knowledge: "registered",
-  graph: "researcher",
-  chat: "researcher",
-  upload: "researcher",
-  admin: "admin",
-  wilhelm: "researcher"
+const routeLabels = {
+  home: "平台首页",
+    about: "关于我们",
+  detail: "知识详情",
+  login: "用户登录",
+  profile: "个人中心",
+  knowledge: "知识库",
+  graph: "知识图谱",
+  chat: "智能问答",
+  upload: "数据上传",
+  admin: "管理控制台",
+  wilhelm: "卫礼贤中国民间故事"
 };
-
-const roleRank = {
-  guest: 0,
-  registered: 1,
-  researcher: 2,
-  admin: 3
-};
-
-const roleLabel = {
-  guest: "访客",
-  registered: "注册用户",
-  researcher: "研究者用户",
-  admin: "管理员"
-};
-
-function accessKey(route) {
-  return route.startsWith("about")
-    ? "about"
-    : route.startsWith("detail/")
-    ? "detail"
-    : route;
-}
-
-function userRole(session) {
-  return session.loggedIn ? session.user?.role || "registered" : "guest";
-}
-
-function canAccessRoute(route, session) {
-  const required = routeAccess[accessKey(route)] || "guest";
-  return roleRank[userRole(session)] >= roleRank[required];
-}
 
 function currentRoute() {
-  return (window.location.hash || "#home").replace("#", "") || "home";
+  return ((window.location.hash || "#home").replace("#", "") || "home").split("?")[0] || "home";
 }
 
 export default function App() {
@@ -82,25 +55,53 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    Promise.all([api.session(), api.sections(), api.results()])
-      .then(([sessionData, sectionData, resultData]) => {
+    api.session()
+      .then((sessionData) => {
         setSession(sessionData);
-        setSections(sectionData.sections);
-        setResults(resultData.results);
+        if (!sessionData.loggedIn) return null;
+        return Promise.all([api.sections(), api.results()]).then(([sectionData, resultData]) => {
+          setSections(sectionData.sections);
+          setResults(resultData.results);
+        });
       })
       .catch((error) => setBootError(error.message))
       .finally(() => setSessionReady(true));
   }, []);
 
   useEffect(() => {
+    if (!sessionReady || !session.loggedIn) {
+      setSections([]);
+      setResults([]);
+      return;
+    }
+    Promise.all([api.sections(), api.results()])
+      .then(([sectionData, resultData]) => {
+        setSections(sectionData.sections);
+        setResults(resultData.results);
+      })
+      .catch((error) => setBootError(error.message));
+  }, [sessionReady, session.loggedIn, session.user?.id]);
+
+  useEffect(() => {
     document.body.dataset.route = route;
     if (!sessionReady) return;
     if (!canAccessRoute(route, session)) {
       const required = routeAccess[accessKey(route)] || "guest";
-      setLoginNotice(`当前身份为${roleLabel[userRole(session)]}，访问该页面需要${roleLabel[required]}及以上权限。`);
-      window.location.hash = "login";
+      const notice = permissionNotice(required, userRole(session), routeLabels[accessKey(route)] || route);
+      setLoginNotice(notice);
+      window.location.hash = loginHash(required, notice);
     }
   }, [route, session, sessionReady]);
+
+  useEffect(() => {
+    if (!sessionReady || !session.loggedIn || accessKey(route) === "login" || !canAccessRoute(route, session)) return;
+    const module = accessKey(route);
+    api.recordActivity({
+      route,
+      label: routeLabels[module] || route,
+      module
+    });
+  }, [route, session.loggedIn, session.user?.id, session.user?.role, sessionReady]);
 
   const context = useMemo(() => ({
     session,
@@ -113,25 +114,28 @@ export default function App() {
 
   const pages = {
     home: <Home {...context} />,
-    knowledge: <Knowledge {...context} />,
-    graph: <Graph {...context} />,
-    chat: <SmartChat {...context} />,
-    upload: <Upload />,
-    about: <About route={route} />,
+    knowledge: <PermissionGate session={session} requiredRole="registered" moduleName="知识库"><Knowledge {...context} /></PermissionGate>,
+    graph: <PermissionGate session={session} requiredRole="registered" moduleName="知识图谱"><Graph {...context} /></PermissionGate>,
+    chat: <PermissionGate session={session} requiredRole="researcher" moduleName="智能问答"><SmartChat {...context} /></PermissionGate>,
+    upload: <PermissionGate session={session} requiredRole="researcher" moduleName="数据上传"><Upload /></PermissionGate>,
+    about: <PermissionGate session={session} requiredRole="registered" moduleName="关于我们"><About route={route} /></PermissionGate>,
     login: <Login {...context} />,
+    profile: <PermissionGate session={session} requiredRole="registered" moduleName="个人中心"><Profile {...context} route={route} /></PermissionGate>,
     admin: <Admin {...context} />,
-    wilhelm: <WilhelmStories />
+    wilhelm: <PermissionGate session={session} requiredRole="registered" moduleName="卫礼贤中国民间故事"><WilhelmStories /></PermissionGate>
   };
 
   const page = route.startsWith("about")
-    ? <About route={route} />
+    ? <PermissionGate session={session} requiredRole="registered" moduleName="关于我们"><About route={route} /></PermissionGate>
     : route.startsWith("detail/")
-    ? <Detail route={route} sections={sections} results={results} />
+    ? <PermissionGate session={session} requiredRole="registered" moduleName="知识详情"><Detail route={route} sections={sections} results={results} /></PermissionGate>
+    : route.startsWith("profile")
+    ? <PermissionGate session={session} requiredRole="registered" moduleName="个人中心"><Profile {...context} route={route} /></PermissionGate>
     : pages[route] || pages.home;
 
   return (
     <>
-      <Header route={route} session={session} />
+      <Header route={route} session={session} setSession={setSession} />
       <main className="app-shell">
         {bootError ? <section className="page-alert">{bootError}</section> : page}
       </main>

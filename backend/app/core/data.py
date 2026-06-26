@@ -20,6 +20,22 @@ PASSWORDS = {
 
 KNOWLEDGE_SECTIONS = [
     {
+        "id": "classics",
+        "title": "中国典籍海外译介",
+        "intro": "维护中国经典文献在海外的译介、出版、评论与接受信息，可通过管理员表格上传扩展数据。",
+        "color": "#0f766e",
+        "sublibraries": ["典籍译本", "译者与汉学家", "出版机构", "评论接受", "传播地图"],
+        "keywords": ["典籍", "译介", "汉学", "出版", "接受史"],
+    },
+    {
+        "id": "shanghai",
+        "title": "上海文学海外传播",
+        "intro": "面向上海文学作品、作家、译者、海外出版社和传播路径的专题知识库。",
+        "color": "#0b66b2",
+        "sublibraries": ["作品译本", "作家档案", "海外出版社", "评论传播", "传播地图"],
+        "keywords": ["上海文学", "海外传播", "作家", "译本", "城市文化"],
+    },
+    {
         "id": "stories",
         "title": "多语种中国故事集",
         "intro": "依据《中国民间童话.xlsx》等真实表格构建，整理故事集总表、子故事、序跋、卫礼贤版本与传播路径。",
@@ -27,9 +43,33 @@ KNOWLEDGE_SECTIONS = [
         "sublibraries": ["故事集总表", "子故事表", "序跋表", "卫礼贤《中国民间童话》", "传播地图"],
         "keywords": ["真实数据", "故事集", "子故事", "序跋", "传播路径"],
     },
+    {
+        "id": "world",
+        "title": "世界文学的中国叙事",
+        "intro": "整理世界文学作品中的中国题材、中国形象、改编翻译与跨文化叙事关系。",
+        "color": "#3949ab",
+        "sublibraries": ["外文改编本", "外文翻译本", "中国形象", "叙事母题", "关系图谱"],
+        "keywords": ["世界文学", "中国叙事", "改编", "翻译", "形象研究"],
+    },
 ]
 
 REPRESENTATIVE_RESULTS = [
+    {
+        "id": "classics-upload-ready",
+        "title": "中国典籍海外译介数据集",
+        "summary": "模块结构已开放，可在管理员控制台上传典籍译本、译者、出版地和接受史表格后更新前端展示。",
+        "section": "中国典籍海外译介",
+        "date": "2026-06-11",
+        "type": "待维护数据集",
+    },
+    {
+        "id": "shanghai-upload-ready",
+        "title": "上海文学海外传播数据集",
+        "summary": "模块结构已开放，可维护作家、作品译本、海外出版社、评论接受与传播路径数据。",
+        "section": "上海文学海外传播",
+        "date": "2026-06-11",
+        "type": "待维护数据集",
+    },
     {
         "id": "real-story-db",
         "title": "多语种中国故事集真实数据库",
@@ -37,6 +77,14 @@ REPRESENTATIVE_RESULTS = [
         "section": "多语种中国故事集",
         "date": "2026-06-05",
         "type": "真实数据集",
+    },
+    {
+        "id": "world-upload-ready",
+        "title": "世界文学的中国叙事数据集",
+        "summary": "已纳入数据库信息表的维护入口，可继续扩展外文改编本、翻译本和中国叙事图谱。",
+        "section": "世界文学的中国叙事",
+        "date": "2026-06-11",
+        "type": "待维护数据集",
     },
 ]
 
@@ -228,3 +276,16 @@ def build_graph() -> dict[str, list[dict[str, Any]]]:
 
 
 GRAPH_DATA = build_graph()
+
+
+def refresh_data() -> None:
+    global STORY_DATA, COLLECTIONS_BY_NAME, KNOWLEDGE_ITEMS, MAP_FLOWS, GRAPH_DATA
+    STORY_DATA = load_story_data()
+    COLLECTIONS_BY_NAME = collection_lookup()
+    KNOWLEDGE_ITEMS = [
+        *(collection_item(item) for item in STORY_DATA.get("collections", [])),
+        *(child_item(item) for item in STORY_DATA.get("childStories", [])),
+        *(wilhelm_edition_item(item) for item in STORY_DATA.get("wilhelmEditions", [])),
+    ]
+    MAP_FLOWS = STORY_DATA.get("flows", [])
+    GRAPH_DATA = build_graph()

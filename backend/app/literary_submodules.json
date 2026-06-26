@@ -1,0 +1,21 @@
+[
+  {
+    "id": "stories-1781445292",
+    "moduleId": "stories",
+    "name": "新专题子模块",
+    "englishName": "新专题子模块",
+    "kind": "theme",
+    "language": "多语种",
+    "dataset": "",
+    "components": [
+      "KnowledgeGraph",
+      "Timeline",
+      "WorldMap",
+      "NetworkGraph",
+      "CoOccurrenceGraph",
+      "CitationGraph"
+    ],
+    "description": "动态注册子模块",
+    "createdAt": 1781445292
+  }
+]

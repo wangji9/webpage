@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useGlobalFilter } from "../context/GlobalFilterContext.jsx";
 import { api } from "../services/api.js";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 import {
   PublicationBubbleMap as StoryMapPublicationBubbleMap,
   SourceChinaMap as StoryMapSourceChinaMap,
@@ -399,13 +401,18 @@ function cleanChartSubtitle(value) {
   return hiddenMethodSubtitleMarkers.some((marker) => text.includes(marker)) ? "" : text;
 }
 
-function Panel({ chart, children, selected, onExport, id }) {
+function Panel({ chart, children, selected, onExport, id, allowExpand = true }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const subtitle = cleanChartSubtitle(chart?.subtitle);
   return (
+    <>
     <div className="work-panel atlas-panel" id={id}>
       <div className="panel-title-row">
         <div><strong>{chart?.title}</strong>{subtitle && <span>{subtitle}</span>}</div>
-        <button className="atlas-export-button" type="button" onClick={onExport}>导出 SVG</button>
+        <div className="visual-heading-actions">
+          {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大图表" />}
+          {onExport && <button className="atlas-export-button" type="button" onClick={onExport}>导出 SVG</button>}
+        </div>
       </div>
       {children}
       {selected && (
@@ -415,6 +422,17 @@ function Panel({ chart, children, selected, onExport, id }) {
         </div>
       )}
     </div>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={chart?.title} subtitle={subtitle || "放大查看图表细节"} onClose={() => setModalOpen(false)}>
+        <div className="work-panel atlas-panel visual-modal-panel">
+          <div className="panel-title-row">
+            <div><strong>{chart?.title}</strong>{subtitle && <span>{subtitle}</span>}</div>
+          </div>
+          {children}
+        </div>
+      </VisualModal>
+    )}
+    </>
   );
 }
 
@@ -775,6 +793,7 @@ function PublicationBubbleMap({ chart, items, title, id }) {
   }
 
   return (
+    <div id={id} className="atlas-panel-anchor">
     <Panel chart={effectiveChart} selected={selected} onExport={() => downloadSvg(`${effectiveChart.title || "出版地图"}.svg`, svg)}>
       <div className="atlas-map-controls">
         <label>时间过滤
@@ -783,7 +802,7 @@ function PublicationBubbleMap({ chart, items, title, id }) {
         <button type="button" onClick={() => setYear("all")}>全部年份</button>
         <span>{year === "all" ? "显示全部出版节点" : `显示 ${year} 年及以前节点`}</span>
       </div>
-      <svg ref={setSvg} viewBox="0 0 980 600" className="atlas-svg publication-svg" role="img" id={id}>
+      <svg ref={setSvg} viewBox="0 0 980 600" className="atlas-svg publication-svg" role="img">
         <rect width="980" height="600" fill="#fff" />
         <text className="atlas-title" x="44" y="56">德国及德语区出版城市</text>
         {europe.flatMap((feature, featureIndex) => geometryPaths(feature.geometry, projectEurope).map((path, pathIndex) => (
@@ -828,6 +847,7 @@ function PublicationBubbleMap({ chart, items, title, id }) {
         </g>
       </svg>
     </Panel>
+    </div>
   );
 }
 
@@ -1011,6 +1031,10 @@ function PrefaceThemeCluster({ chart }) {
   const [mode, setMode] = useState("all");
   const [start, setStart] = useState(range.min);
   const [end, setEnd] = useState(range.max);
+  useEffect(() => {
+    setStart(range.min);
+    setEnd(range.max);
+  }, [range.min, range.max]);
   const rawNodes = chart?.nodes || [];
   const rawClusters = chart?.clusters || [];
   const needsClientClusters = rawClusters.length <= 1 || new Set(rawNodes.map((node) => node.cluster || "default")).size <= 1;
@@ -1236,7 +1260,23 @@ function PrefaceWordCloud({ chart }) {
   const [selected, setSelected] = useState(null);
   const [cloudId, setCloudId] = useState("all");
   const [svg, setSvg] = useState(null);
-  const clouds = chart?.wordClouds?.length ? chart.wordClouds : [{ id: "all", label: "总词云", words: chart?.words || [] }];
+  const clouds = useMemo(() => {
+    const sourceClouds = chart?.wordClouds || [];
+    const allCloud = sourceClouds.find((item) => item.id === "all") || { id: "all", label: "总词云", words: chart?.words || [] };
+    const itemClouds = sourceClouds
+      .filter((item) => item.id !== "all")
+      .map((item) => ({
+        ...item,
+        label: [item.year, item.label].filter(Boolean).join(" · ") || item.id,
+      }));
+    return [allCloud, ...itemClouds].filter((item) => item.words?.length);
+  }, [chart?.wordClouds, chart?.words]);
+  useEffect(() => {
+    if (!clouds.some((item) => item.id === cloudId)) {
+      setCloudId(clouds[0]?.id || "all");
+      setSelected(null);
+    }
+  }, [cloudId, clouds]);
   const activeCloud = clouds.find((item) => item.id === cloudId) || clouds[0];
   const cloudLimit = activeCloud?.id === "all" ? 980 : 420;
   const words = useMemo(() => {
@@ -1506,7 +1546,7 @@ function buildFallbackChildStructureGraph(chart) {
     type: "故事集",
     cluster: "书目层",
     count: Math.max(1, totalThemeWeight),
-    summary: "由上传附件中的子故事主题、类型、年代与样本标题生成的结构图谱。",
+    summary: "由结构化表格中的子故事主题、类型、年代与样本标题生成的结构图谱。",
   });
 
   themeRows.slice(0, 34).forEach((theme, index) => {
@@ -1572,7 +1612,7 @@ function buildFallbackChildStructureGraph(chart) {
   const labelOf = (id) => nodes.get(id)?.label || id;
   return {
     title: "子故事语义—书目结构知识图谱",
-    subtitle: "在后端结构图谱未加载时，依据上传附件中的主题共现、类型归属、年代分布与样本子故事动态重建。",
+    subtitle: "在后端结构图谱未加载时，依据结构化表格中的主题共现、类型归属、年代分布与样本子故事动态重建。",
     nodes: graphNodes,
     edges: graphEdges,
     triples: graphEdges.map((edge) => ({ subject: labelOf(edge.source), predicate: edge.relation, object: labelOf(edge.target), weight: edge.weight })),
@@ -1850,15 +1890,67 @@ export {
   ChildThemeCooccurrence,
 };
 
-export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }) {
+function focusValue(record, key, fallback = "") {
+  const raw = record?.raw || {};
+  const system = record?.system || {};
+  const value = record?.[key] ?? system[key] ?? raw[key];
+  return value === undefined || value === null || value === "" ? fallback : String(value);
+}
+
+function FocusedRecordVisual({ records }) {
+  if (!records?.length || records.length !== 1) return null;
+  const record = records[0];
+  const raw = record.raw || {};
+  const title = focusValue(record, "title", raw.name || raw.foreignTitle || "当前选中记录");
+  const year = focusValue(record, "publish_year", raw.yearText || raw.year || "未记录");
+  const translator = focusValue(record, "translator", raw.editor || "未记录");
+  const publisher = focusValue(record, "publisher", raw.publisher || "未记录");
+  const type = focusValue(record, "document_type", raw.prefaceType || raw.carrier || "文献记录");
+  const collection = focusValue(record, "collection", raw.bookName || raw.name || "");
+  const source = focusValue(record, "source_place", raw.sourceRegion || raw.ethnicity || raw.source || "");
+  const childCount = Number(raw.declaredChildCount || raw.matchedChildIds?.length || record.reprint_count || 0);
+  const bars = [
+    { label: "时间", value: /^\d+$/.test(String(year)) ? Math.max(4, Math.min(100, (Number(year) - 1900) / 1.3)) : 18 },
+    { label: "子故事", value: childCount ? Math.max(8, Math.min(100, childCount)) : 16 },
+    { label: "文本", value: Math.max(10, Math.min(100, String(focusValue(record, "content", raw.prefaceText || raw.prefaceIntro || "")).length / 90)) },
+  ];
+  return (
+    <section className="focused-record-visual" aria-label="当前选中记录可视化">
+      <div>
+        <span>当前选中记录</span>
+        <strong>{title}</strong>
+        {collection && collection !== title && <small>{collection}</small>}
+      </div>
+      <dl>
+        <div><dt>年份</dt><dd>{year}</dd></div>
+        <div><dt>译者/编者</dt><dd>{translator}</dd></div>
+        <div><dt>出版社</dt><dd>{publisher}</dd></div>
+        <div><dt>类型</dt><dd>{type}</dd></div>
+        <div><dt>来源</dt><dd>{source || "未记录"}</dd></div>
+      </dl>
+      <div className="focused-record-bars">
+        {bars.map((bar) => (
+          <label key={bar.label}>
+            <span>{bar.label}</span>
+            <i style={{ "--value": `${bar.value}%` }} />
+          </label>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function StoryVisualAtlas({ mode = "collections", prefaces = {}, focusedRecords }) {
+  const { state } = useGlobalFilter();
   const [atlas, setAtlas] = useState(null);
   const [error, setError] = useState("");
   const [prefaceAtlas, setPrefaceAtlas] = useState(null);
+  const apiMode = mode === "identity" ? "collections" : mode;
 
   useEffect(() => {
     let canceled = false;
     setError("");
-    api.storyVisualAtlas(mode)
+    api.storyVisualAtlas(apiMode)
       .then((data) => {
         if (canceled) return;
         setAtlas((current) => ({
@@ -1870,7 +1962,7 @@ export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }
       })
       .catch((err) => { if (!canceled) setError(err.message); });
     return () => { canceled = true; };
-  }, [mode]);
+  }, [apiMode]);
 
   useEffect(() => {
     if (mode !== "prefaces") return undefined;
@@ -1893,7 +1985,10 @@ export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }
   const wordCloudChart = prefaceAtlas?.wordClouds?.length
     ? { ...charts.wordCloud, wordClouds: prefaceAtlas.wordClouds, words: prefaceAtlas.wordClouds[0]?.words || charts.wordCloud?.words || [] }
     : charts.wordCloud;
-  const chartReady = mode === "collections"
+  const activeFocusedRecords = focusedRecords || state.analysisRecords;
+  const chartReady = mode === "identity"
+    ? Boolean(charts.identityProcess && charts.identityRiver)
+    : mode === "collections"
     ? Boolean(charts.identityProcess && charts.identityRiver && charts.publicationMap && charts.sourceMap)
     : mode === "prefaces"
       ? Boolean(prefaceClusterChart && wordCloudChart)
@@ -1906,6 +2001,7 @@ export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }
   if (mode === "prefaces") {
     return (
       <section className="story-atlas story-atlas-prefaces" id="visual-atlas-preface-cluster">
+        <FocusedRecordVisual records={activeFocusedRecords} />
         <div className="atlas-grid two-col equal-atlas-row">
           <PrefaceThemeCluster chart={prefaceClusterChart} />
           <PrefaceWordCloud chart={wordCloudChart} />
@@ -1917,6 +2013,7 @@ export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }
   if (mode === "children") {
     return (
       <section className="story-atlas story-atlas-children" id="visual-atlas-child-co">
+        <FocusedRecordVisual records={activeFocusedRecords} />
         <div className="atlas-grid two-col equal-atlas-row child-graph-split">
           <ChildThemeCooccurrence chart={charts.childCooccurrence} />
           <ChildThemeTypeNetwork chart={charts.childCooccurrence} />
@@ -1925,8 +2022,21 @@ export default function StoryVisualAtlas({ mode = "collections", prefaces = {} }
     );
   }
 
+  if (mode === "identity") {
+    return (
+      <section className="story-atlas story-atlas-collections" id="visual-atlas-identity-process">
+        <FocusedRecordVisual records={activeFocusedRecords} />
+        <div className="atlas-grid two-col equal-atlas-row">
+          <IdentityProcessChart chart={charts.identityProcess} />
+          <IdentityRiverChart chart={charts.identityRiver} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="story-atlas story-atlas-collections" id="visual-atlas-identity-process">
+      <FocusedRecordVisual records={activeFocusedRecords} />
       <div className="atlas-grid two-col equal-atlas-row">
         <IdentityProcessChart chart={charts.identityProcess} />
         <IdentityRiverChart chart={charts.identityRiver} />

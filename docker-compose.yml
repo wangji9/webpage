@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: china-narrative-knowledge-platform:latest
+    container_name: china-narrative-platform
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PLATFORM_DATA_ROOT: /app/data
+      USER_DB_PATH: /app/data/runtime/users.db
+      USER_SECRET_PATH: /app/data/runtime/user_secret.key
+      LLM_CONFIG_PATH: /app/data/runtime/llm_config.json
+      DATASET_MANIFEST_PATH: /app/data/runtime/dataset_uploads.json
+      BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-30}
+      JWT_SECRET: ${JWT_SECRET:-change-this-jwt-secret-before-production}
+    ports:
+      - "${APP_PORT:-8002}:8002"
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8002/api/session"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s

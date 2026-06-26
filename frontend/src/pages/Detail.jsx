@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { dynamicItems, findDynamicItem, topicContent } from "../data/dynamicContent.js";
+import { loadSiteContent } from "../data/siteContent.js";
 
 const fallback = {
   title: "专题内容",
@@ -8,11 +10,28 @@ const fallback = {
 };
 
 export default function Detail({ route, sections, results }) {
+  const [managedDynamics, setManagedDynamics] = useState([]);
   const [, kind = "topic", id = "overview"] = route.split("/");
   const decodedId = decodeURIComponent(id);
   const result = results.find((item) => item.id === id);
   const section = sections.find((item) => item.id === id);
-  const dynamicItem = kind === "dynamic" ? findDynamicItem(id) : null;
+  useEffect(() => {
+    let canceled = false;
+    loadSiteContent()
+      .then((content) => {
+        if (!canceled) setManagedDynamics(content.dynamics || []);
+      })
+      .catch(() => {
+        if (!canceled) setManagedDynamics([]);
+      });
+    return () => {
+      canceled = true;
+    };
+  }, []);
+  const dynamicSource = managedDynamics.length ? managedDynamics : dynamicItems;
+  const dynamicItem = kind === "dynamic"
+    ? dynamicSource.find((item) => item.id === id || item.id === decodedId || item.filename === decodedId) || findDynamicItem(id)
+    : null;
 
   const topicMap = {
     ...topicContent,
@@ -55,7 +74,7 @@ export default function Detail({ route, sections, results }) {
         )}
         {kind === "topic" && topicContent[id] ? (
           <div className="detail-card-grid">
-            {dynamicItems
+            {dynamicSource
               .filter((item) => item.topic === id)
               .slice(0, 9)
               .map((item) => (

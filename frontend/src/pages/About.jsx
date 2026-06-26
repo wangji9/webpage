@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import { aboutImages } from "../data/aboutImageManifest.js";
+import { loadSiteContent } from "../data/siteContent.js";
 
 const TEXT_URL = "/assets/about/pasted-text.txt";
 const SCHOLAR_XLSX_URL = "/assets/学者.xlsx";
@@ -284,6 +285,8 @@ const SOCIAL_IMPACT =
   "研究中心充分发挥新媒体作用，开发并上线官方网站，构建微信公众号、微信视频号、B站、小红书、抖音等社交媒体矩阵，微信公众号自上线以来已推送近300篇推文，其中原创推文123篇，累计订阅粉丝逾2500人，总阅读量近94700人次，单篇推文最高阅读量近3000人次。";
 
 function imageUrl(filename) {
+  if (!filename) return "";
+  if (/^(https?:|data:|\/)/.test(filename)) return filename;
   return `/assets/about/image/${encodeURIComponent(filename)}`;
 }
 
@@ -614,10 +617,10 @@ function CommitteeCarousel({ people = COMMITTEE }) {
   );
 }
 
-function CommitteePreview() {
+function CommitteePreview({ committee = COMMITTEE }) {
   return (
     <div className="about-committee-grid">
-      {COMMITTEE.slice(0, 6).map((person) => (
+      {committee.slice(0, 6).map((person) => (
         <a key={person.name} className="about-committee-card" href="#about/committee">
           <strong>{person.name}</strong>
           <span>{person.org}</span>
@@ -628,13 +631,13 @@ function CommitteePreview() {
   );
 }
 
-function PublicationGrid({ limit }) {
-  const list = limit ? PUBLICATIONS.slice(0, limit) : PUBLICATIONS;
+function PublicationGrid({ publications = PUBLICATIONS, limit }) {
+  const list = limit ? publications.slice(0, limit) : publications;
   return (
     <div className="about-publication-grid">
       {list.map((item) => (
         <article key={item.title}>
-          <img src={imageUrl(item.image)} alt={item.title} loading="lazy" />
+          <img src={item.image_url || imageUrl(item.image)} alt={item.title} loading="lazy" />
           <strong>{item.title}</strong>
           <span>{item.meta}</span>
         </article>
@@ -643,13 +646,13 @@ function PublicationGrid({ limit }) {
   );
 }
 
-function ActivityGrid({ limit }) {
-  const list = limit ? ACTIVITIES.slice(0, limit) : ACTIVITIES;
+function ActivityGrid({ activities = ACTIVITIES, limit }) {
+  const list = limit ? activities.slice(0, limit) : activities;
   return (
     <div className="about-activity-grid">
       {list.map((item) => (
         <article key={item.title}>
-          <img src={imageUrl(item.image)} alt={item.title} loading="lazy" />
+          <img src={item.image_url || imageUrl(item.image)} alt={item.title} loading="lazy" />
           <div>
             <strong>{item.title}</strong>
             <span>{item.type} / {item.date}</span>
@@ -683,7 +686,7 @@ function ContactBlock({ contactText }) {
   );
 }
 
-function Overview({ sections, setActive, team = TEAM }) {
+function Overview({ sections, setActive, team = TEAM, committee = COMMITTEE, publications = PUBLICATIONS, activities = ACTIVITIES }) {
   const profile = section(sections, "研究中心简介");
   const overviewPillars = [
     ["话语体系", "中国故事阐释"],
@@ -726,7 +729,7 @@ function Overview({ sections, setActive, team = TEAM }) {
 
       <section className="about-newslike-section">
         <SectionHeader title="学术委员会" href="#about/committee" />
-        <CommitteeCarousel />
+        <CommitteeCarousel people={committee} />
       </section>
 
       <section className="about-newslike-section">
@@ -736,12 +739,12 @@ function Overview({ sections, setActive, team = TEAM }) {
 
       <section className="about-newslike-section">
         <SectionHeader title="学术出版与成果" href="#about/publications" />
-        <PublicationGrid limit={4} />
+        <PublicationGrid publications={publications} limit={4} />
       </section>
 
       <section className="about-newslike-section">
         <SectionHeader title="学术活动" href="#about/activities" />
-        <ActivityGrid limit={4} />
+        <ActivityGrid activities={activities} limit={4} />
       </section>
 
       <ContactBlock contactText={section(sections, "联系我们")?.text} />
@@ -766,8 +769,8 @@ function ProfilePage({ sections }) {
   );
 }
 
-function CommitteePage({ sections }) {
-  const committee = section(sections, "学术委员会");
+function CommitteePage({ sections, committee = COMMITTEE }) {
+  const committeeSection = section(sections, "学术委员会");
   return (
     <section className="about-detail-page">
       <a className="about-back-link" href="#about">返回关于我们</a>
@@ -777,7 +780,7 @@ function CommitteePage({ sections }) {
         <p>国内外文学、翻译、比较文学与区域国别研究专家共同组成。</p>
       </div>
       <div className="about-committee-grid full">
-        {COMMITTEE.map((person) => (
+        {committee.map((person) => (
           <article key={person.name} className="about-committee-card">
             <strong>{person.name}</strong>
             <span>{person.org}</span>
@@ -786,7 +789,7 @@ function CommitteePage({ sections }) {
         ))}
       </div>
       <article className="about-long-doc">
-        {splitParagraphs(committee?.text).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+        {splitParagraphs(committeeSection?.text).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
       </article>
     </section>
   );
@@ -913,7 +916,7 @@ function PersonPage({ person, rawText }) {
   );
 }
 
-function PublicationsPage() {
+function PublicationsPage({ publications = PUBLICATIONS }) {
   return (
     <section className="about-detail-page">
       <a className="about-back-link" href="#about">返回关于我们</a>
@@ -923,12 +926,12 @@ function PublicationsPage() {
         <p>研究丛书、专著译著、研究专栏与视频成果集中展示。</p>
       </div>
       <div className="about-tabs static"><span>研究丛书</span><span>专著译著</span><span>研究专栏</span><span>视频成果</span></div>
-      <PublicationGrid />
+      <PublicationGrid publications={publications} />
     </section>
   );
 }
 
-function ActivitiesPage() {
+function ActivitiesPage({ activities = ACTIVITIES }) {
   return (
     <section className="about-detail-page">
       <a className="about-back-link" href="#about">返回关于我们</a>
@@ -938,10 +941,10 @@ function ActivitiesPage() {
         <p>会议、讲座、读书会、专家交流和活动照片按时间线展示。</p>
       </div>
       <div className="about-tabs static"><span>全部</span><span>学术会议</span><span>前沿讲坛</span><span>读书会</span><span>国际交流</span></div>
-      <ActivityGrid />
+      <ActivityGrid activities={activities} />
       <div className="about-activity-timeline">
         <strong>2024</strong>
-        {ACTIVITIES.map((item) => <p key={item.title}>{item.type}：{item.title}</p>)}
+        {activities.map((item) => <p key={item.title}>{item.type}：{item.title}</p>)}
       </div>
     </section>
   );
@@ -980,6 +983,11 @@ function ContactPage({ sections }) {
 export default function About({ route = "about" }) {
   const [rawText, setRawText] = useState("");
   const [team, setTeam] = useState(TEAM);
+  const [siteContent, setSiteContent] = useState({
+    committee: COMMITTEE,
+    publications: PUBLICATIONS,
+    activities: ACTIVITIES
+  });
   const [error, setError] = useState("");
   const [active, setActive] = useState(null);
 
@@ -1023,6 +1031,24 @@ export default function About({ route = "about" }) {
     };
   }, []);
 
+  useEffect(() => {
+    let canceled = false;
+    loadSiteContent()
+      .then((content) => {
+        if (canceled) return;
+        if (content.team?.length) setTeam(content.team);
+        setSiteContent({
+          committee: content.committee?.length ? content.committee : COMMITTEE,
+          publications: content.publications?.length ? content.publications : PUBLICATIONS,
+          activities: content.activities?.length ? content.activities : ACTIVITIES
+        });
+      })
+      .catch(() => {});
+    return () => {
+      canceled = true;
+    };
+  }, []);
+
   const sections = useMemo(() => parseSections(rawText), [rawText]);
   const subroute = route.replace(/^about\/?/, "");
   const [, teamSlug] = subroute.match(/^team\/(.+)$/) || [];
@@ -1033,16 +1059,16 @@ export default function About({ route = "about" }) {
   }
 
   let page;
-  if (!subroute) page = <Overview sections={sections} setActive={setActive} team={team} />;
+  if (!subroute) page = <Overview sections={sections} setActive={setActive} team={team} {...siteContent} />;
   else if (subroute === "profile") page = <ProfilePage sections={sections} />;
-  else if (subroute === "committee") page = <CommitteePage sections={sections} />;
+  else if (subroute === "committee") page = <CommitteePage sections={sections} committee={siteContent.committee} />;
   else if (subroute === "team") page = <TeamPage team={team} />;
   else if (person) page = <PersonPage person={person} rawText={rawText} />;
-  else if (subroute === "publications") page = <PublicationsPage />;
-  else if (subroute === "activities") page = <ActivitiesPage />;
+  else if (subroute === "publications") page = <PublicationsPage publications={siteContent.publications} />;
+  else if (subroute === "activities") page = <ActivitiesPage activities={siteContent.activities} />;
   else if (subroute === "digital-humanities") page = <DigitalPage />;
   else if (subroute === "contact") page = <ContactPage sections={sections} />;
-  else page = <Overview sections={sections} setActive={setActive} />;
+  else page = <Overview sections={sections} setActive={setActive} team={team} {...siteContent} />;
 
   return (
     <section className="about-page about-redesign about-module">

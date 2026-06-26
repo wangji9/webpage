@@ -106,29 +106,33 @@ npm.cmd install
 
 ## 启动开发环境
 
-启动 FastAPI 后端。当前本机 `8000` 可能被占用，项目已使用 `8001`：
+项目只使用 `8002` 作为本地访问端口。先构建前端，再由 FastAPI 在同一个端口提供页面和接口：
 
 ```bash
-python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001
+npm.cmd run build --prefix frontend
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8002
 ```
 
-启动 React 前端：
+也可以直接使用根目录脚本：
 
 ```bash
-cd frontend
-npm.cmd run dev -- --host 127.0.0.1 --port 3000
+npm.cmd run dev
 ```
+
+## 账号与权限
+
+平台不开放自助注册，账号由管理员在后台创建、修改和分配权限。用户登录只需要用户名和密码；未登录访问者只能查看首页和登录页，其他页面和接口会按登录状态及权限拦截。
 
 访问：
 
 ```text
-http://127.0.0.1:3000
+http://127.0.0.1:8002
 ```
 
 FastAPI 接口：
 
 ```text
-http://127.0.0.1:8001/api/session
+http://127.0.0.1:8002/api/session
 ```
  
 ## 在 Windows (cmd.exe) 上启用前后端服务（详细步骤）
@@ -153,13 +157,14 @@ python -m venv .venv
 - 检查 `backend/llm_config.json`（如果要调用真实大模型或管理员已配置的模型），确认 API key、端点和供应商配置是否正确。
 - 如果不调用外部模型，检索和可视化仍只使用真实故事集数据；智能问答文本生成需要配置真实大模型接口。
 
-1. 启动后端服务
+1. 构建前端并启动单端口服务
 
 ```cmd
-python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001
+npm.cmd run build --prefix frontend
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8002
 ```
 
-说明：如果端口 8001 被占用，可改用其他端口（例如 8002），并在前端启动时将 API 地址通过环境变量传入（见第 6 步）。
+说明：本项目当前只使用 `8002`，页面和 `/api/*` 接口都由 FastAPI 在同一端口提供。
 
 1. 安装前端依赖
 
@@ -168,38 +173,26 @@ cd frontend
 npm.cmd install
 ```
 
-1. 启动前端开发服务器
-
-（默认启动在 127.0.0.1:3000）
+1. 如需前端源码热构建
 
 ```cmd
-npm.cmd run dev -- --host 127.0.0.1 --port 3000
+npm.cmd run dev --prefix frontend
 ```
 
-1. 如需让前端调用本地后端或自定义后端地址
-
-- 在开发时可以设置环境变量 `VITE_API_BASE_URL`。在 Windows cmd 中，启动前端前设置方式为：
-
-```cmd
-set VITE_API_BASE_URL=http://127.0.0.1:8001
-cd frontend
-npm.cmd run dev -- --host 127.0.0.1 --port 3000
-```
-
-注意：Vite 开发服务器在读取环境变量时会将以 VITE_ 前缀的变量注入到客户端代码中。
+注意：前端开发脚本只负责持续构建 `frontend/dist`，浏览器仍访问 `http://127.0.0.1:8002`。
 
 1. 访问与验证
 
 - 在浏览器打开：
 
 ```text
-http://127.0.0.1:3000
+http://127.0.0.1:8002
 ```
 
 - 验证后端接口（示例）：
 
 ```text
-http://127.0.0.1:8001/api/session
+http://127.0.0.1:8002/api/session
 ```
 
 1. 构建生产版

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../services/api.js";
+import VisualModal, { ExpandButton } from "./VisualModal.jsx";
 
 const palette = ["#0b66b2", "#15a884", "#f59e0b", "#7c3aed", "#ef4444", "#0891b2", "#64748b", "#d97706"];
 const stageDefs = [
@@ -318,11 +319,12 @@ function NetworkCard({ title, note, nodes, edges, onSelect }) {
   );
 }
 
-export default function StatisticsPanel({ items = [], title = "全库统计可视化" }) {
+export default function StatisticsPanel({ items = [], title = "全库统计可视化", allowExpand = true }) {
   const panelRef = useRef(null);
   const [mode, setMode] = useState("overview");
   const [selected, setSelected] = useState(null);
   const [backendStats, setBackendStats] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     let canceled = false;
@@ -423,6 +425,7 @@ export default function StatisticsPanel({ items = [], title = "全库统计可�
   }, [carrierTop, countryTop, items, langTop]);
 
   return (
+    <>
     <div className="work-panel stats-panel compact-stats" ref={panelRef}>
       <div className="panel-title-row stats-title-row">
         <div>
@@ -432,6 +435,7 @@ export default function StatisticsPanel({ items = [], title = "全库统计可�
         <div className="segmented stats-view-tabs">
           <button className={mode === "overview" ? "active" : ""} type="button" onClick={() => setMode("overview")}>总览</button>
           <button className={mode === "relations" ? "active" : ""} type="button" onClick={() => setMode("relations")}>关系图</button>
+          {allowExpand && <ExpandButton onClick={() => setModalOpen(true)} label="放大图表" />}
           <button type="button" onClick={exportSvg}>导出图表</button>
           <button type="button" onClick={exportCsv}>导出数据</button>
         </div>
@@ -462,5 +466,11 @@ export default function StatisticsPanel({ items = [], title = "全库统计可�
         </div>
       )}
     </div>
+    {allowExpand && (
+      <VisualModal open={modalOpen} title={title} subtitle="放大查看统计图表，支持窗口缩放和图表交互" onClose={() => setModalOpen(false)}>
+        <StatisticsPanel items={items} title={title} allowExpand={false} />
+      </VisualModal>
+    )}
+    </>
   );
 }
